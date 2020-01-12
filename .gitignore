@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/ToolManage
+/packages
+/ToolManage/bin
+/ToolManage/obj/Debug

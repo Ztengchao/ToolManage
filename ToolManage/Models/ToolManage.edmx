@@ -1,0 +1,1549 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ToolManageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="workCellId" Type="int" Nullable="false" />
+          <Property Name="userName" Type="char" MaxLength="20" Nullable="false" />
+          <Property Name="passWord" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="phone" Type="char" MaxLength="11" />
+          <Property Name="jobNumber" Type="int" />
+          <Property Name="jurisdiction" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConsumeReturn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="accountId" Type="int" Nullable="false" />
+          <Property Name="toolEntityId" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="borrowReturn" Type="bit" Nullable="false" />
+          <Property Name="remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="borrowLocation" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Inner">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="detail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="type" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InOutStock">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="recordId" Type="int" Nullable="false" />
+          <Property Name="bringId" Type="int" Nullable="false" />
+          <Property Name="inOut" Type="bit" Nullable="false" />
+          <Property Name="lineId" Type="int" />
+          <Property Name="toolEntityId" Type="int" Nullable="false" />
+          <Property Name="location" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Maintenance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="accountId" Type="int" Nullable="false" />
+          <Property Name="toolEntityId" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="project" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="remark" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PurchasingApplication">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="applicationId" Type="int" Nullable="false" />
+          <Property Name="applicationDate" Type="datetime" Nullable="false" />
+          <Property Name="picture" Type="image" />
+          <Property Name="billNo" Type="char" MaxLength="16" Nullable="false" />
+          <Property Name="toolDefId" Type="int" Nullable="false" />
+          <Property Name="remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="state" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="firstTrialId" Type="int" />
+          <Property Name="firstTrialDate" Type="datetime" />
+          <Property Name="finalTrialId" Type="int" />
+          <Property Name="finalTrialDate" Type="datetime" />
+          <Property Name="workCellId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RepairApplication">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="applicationId" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="toolEntityId" Type="int" Nullable="false" />
+          <Property Name="describe" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="picture" Type="image" />
+          <Property Name="handleId" Type="int" />
+          <Property Name="state" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="workCellId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScrapApplication">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="applicationId" Type="int" Nullable="false" />
+          <Property Name="toolEntityId" Type="int" Nullable="false" />
+          <Property Name="lifeCount" Type="int" Nullable="false" />
+          <Property Name="reason" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="state" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="firstTrialId" Type="int" />
+          <Property Name="firstTrialDate" Type="datetime" />
+          <Property Name="finalTrialId" Type="int" />
+          <Property Name="finalTrialDate" Type="datetime" />
+          <Property Name="workCellId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ToolDef">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="familyId" Type="int" Nullable="false" />
+          <Property Name="model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="partNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UPL" Type="int" Nullable="false" />
+          <Property Name="usedForId" Type="int" Nullable="false" />
+          <Property Name="ownerId" Type="int" Nullable="false" />
+          <Property Name="recordDate" Type="datetime" Nullable="false" />
+          <Property Name="recordId" Type="int" Nullable="false" />
+          <Property Name="editDate" Type="datetime" Nullable="false" />
+          <Property Name="editId" Type="int" Nullable="false" />
+          <Property Name="workCellId" Type="int" Nullable="false" />
+          <Property Name="PMPeriod" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ToolEntity">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="toolDefId" Type="int" Nullable="false" />
+          <Property Name="usedCount" Type="int" Nullable="false" />
+          <Property Name="location" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="picture" Type="image" Nullable="false" />
+          <Property Name="billNo" Type="char" MaxLength="16" Nullable="false" />
+          <Property Name="regDate" Type="datetime" Nullable="false" />
+          <Property Name="productionDate" Type="datetime" Nullable="false" />
+          <Property Name="bringId" Type="int" Nullable="false" />
+          <Property Name="state" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkCell">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contactName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="contactPhone" Type="char" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Account_WorkCell">
+          <End Role="WorkCell" Type="Self.WorkCell" Multiplicity="1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkCell">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="workCellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_consumeReturn_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ConsumeReturn" Type="Self.ConsumeReturn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ConsumeReturn">
+              <PropertyRef Name="accountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_consumeReturn_ToolEntity">
+          <End Role="ToolEntity" Type="Self.ToolEntity" Multiplicity="1" />
+          <End Role="ConsumeReturn" Type="Self.ConsumeReturn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolEntity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ConsumeReturn">
+              <PropertyRef Name="toolEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inOutStock_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="InOutStock" Type="Self.InOutStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InOutStock">
+              <PropertyRef Name="bringId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inOutStock_Inner">
+          <End Role="Inner" Type="Self.Inner" Multiplicity="0..1" />
+          <End Role="InOutStock" Type="Self.InOutStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InOutStock">
+              <PropertyRef Name="lineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inOutStock_ToolEntity">
+          <End Role="ToolEntity" Type="Self.ToolEntity" Multiplicity="1" />
+          <End Role="InOutStock" Type="Self.InOutStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolEntity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InOutStock">
+              <PropertyRef Name="toolEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Maintenance_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Maintenance" Type="Self.Maintenance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Maintenance">
+              <PropertyRef Name="accountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Maintenance_ToolEntity">
+          <End Role="ToolEntity" Type="Self.ToolEntity" Multiplicity="1" />
+          <End Role="Maintenance" Type="Self.Maintenance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolEntity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Maintenance">
+              <PropertyRef Name="toolEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingApplication_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="PurchasingApplication" Type="Self.PurchasingApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PurchasingApplication">
+              <PropertyRef Name="applicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingApplication_Account1">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="PurchasingApplication" Type="Self.PurchasingApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PurchasingApplication">
+              <PropertyRef Name="finalTrialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingApplication_Account2">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="PurchasingApplication" Type="Self.PurchasingApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PurchasingApplication">
+              <PropertyRef Name="firstTrialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingApplication_ToolDef">
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="1" />
+          <End Role="PurchasingApplication" Type="Self.PurchasingApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolDef">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PurchasingApplication">
+              <PropertyRef Name="toolDefId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingApplication_WorkCell">
+          <End Role="WorkCell" Type="Self.WorkCell" Multiplicity="1" />
+          <End Role="PurchasingApplication" Type="Self.PurchasingApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkCell">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PurchasingApplication">
+              <PropertyRef Name="workCellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairApplication_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="RepairApplication" Type="Self.RepairApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RepairApplication">
+              <PropertyRef Name="applicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairApplication_Account1">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="RepairApplication" Type="Self.RepairApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RepairApplication">
+              <PropertyRef Name="handleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairApplication_ToolEntity">
+          <End Role="ToolEntity" Type="Self.ToolEntity" Multiplicity="1" />
+          <End Role="RepairApplication" Type="Self.RepairApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolEntity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RepairApplication">
+              <PropertyRef Name="toolEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairApplication_WorkCell">
+          <End Role="WorkCell" Type="Self.WorkCell" Multiplicity="1" />
+          <End Role="RepairApplication" Type="Self.RepairApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkCell">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RepairApplication">
+              <PropertyRef Name="workCellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScrapApplication_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ScrapApplication" Type="Self.ScrapApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ScrapApplication">
+              <PropertyRef Name="applicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScrapApplication_Account1">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="ScrapApplication" Type="Self.ScrapApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ScrapApplication">
+              <PropertyRef Name="finalTrialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScrapApplication_Account2">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="ScrapApplication" Type="Self.ScrapApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ScrapApplication">
+              <PropertyRef Name="firstTrialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScrapApplication_ToolEntity">
+          <End Role="ToolEntity" Type="Self.ToolEntity" Multiplicity="1" />
+          <End Role="ScrapApplication" Type="Self.ScrapApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolEntity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ScrapApplication">
+              <PropertyRef Name="toolEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScrapApplication_WorkCell">
+          <End Role="WorkCell" Type="Self.WorkCell" Multiplicity="1" />
+          <End Role="ScrapApplication" Type="Self.ScrapApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkCell">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ScrapApplication">
+              <PropertyRef Name="workCellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_Account_On_editId">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="editId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_Account_On_ownerId">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="ownerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_Account_On_recordId">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="recordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_Inner_On_familyId">
+          <End Role="Inner" Type="Self.Inner" Multiplicity="1" />
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="familyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_Inner_On_usedForId">
+          <End Role="Inner" Type="Self.Inner" Multiplicity="1" />
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="usedForId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_WorkCell_On_workCellId">
+          <End Role="WorkCell" Type="Self.WorkCell" Multiplicity="1" />
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkCell">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="workCellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolEntity_Account_On_bringId">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ToolEntity" Type="Self.ToolEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolEntity">
+              <PropertyRef Name="bringId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolEntity_ToolDef_On_toolDefId">
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="1" />
+          <End Role="ToolEntity" Type="Self.ToolEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolDef">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolEntity">
+              <PropertyRef Name="toolDefId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ToolManageModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConsumeReturn" EntityType="Self.ConsumeReturn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inner" EntityType="Self.Inner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InOutStock" EntityType="Self.InOutStock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Maintenance" EntityType="Self.Maintenance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchasingApplication" EntityType="Self.PurchasingApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RepairApplication" EntityType="Self.RepairApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScrapApplication" EntityType="Self.ScrapApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ToolDef" EntityType="Self.ToolDef" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ToolEntity" EntityType="Self.ToolEntity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkCell" EntityType="Self.WorkCell" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Account_WorkCell" Association="Self.FK_Account_WorkCell">
+            <End Role="WorkCell" EntitySet="WorkCell" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_consumeReturn_Account" Association="Self.FK_consumeReturn_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ConsumeReturn" EntitySet="ConsumeReturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_consumeReturn_ToolEntity" Association="Self.FK_consumeReturn_ToolEntity">
+            <End Role="ToolEntity" EntitySet="ToolEntity" />
+            <End Role="ConsumeReturn" EntitySet="ConsumeReturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inOutStock_Account" Association="Self.FK_inOutStock_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="InOutStock" EntitySet="InOutStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inOutStock_Inner" Association="Self.FK_inOutStock_Inner">
+            <End Role="Inner" EntitySet="Inner" />
+            <End Role="InOutStock" EntitySet="InOutStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inOutStock_ToolEntity" Association="Self.FK_inOutStock_ToolEntity">
+            <End Role="ToolEntity" EntitySet="ToolEntity" />
+            <End Role="InOutStock" EntitySet="InOutStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Maintenance_Account" Association="Self.FK_Maintenance_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Maintenance" EntitySet="Maintenance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Maintenance_ToolEntity" Association="Self.FK_Maintenance_ToolEntity">
+            <End Role="ToolEntity" EntitySet="ToolEntity" />
+            <End Role="Maintenance" EntitySet="Maintenance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingApplication_Account" Association="Self.FK_PurchasingApplication_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="PurchasingApplication" EntitySet="PurchasingApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingApplication_Account1" Association="Self.FK_PurchasingApplication_Account1">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="PurchasingApplication" EntitySet="PurchasingApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingApplication_Account2" Association="Self.FK_PurchasingApplication_Account2">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="PurchasingApplication" EntitySet="PurchasingApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingApplication_ToolDef" Association="Self.FK_PurchasingApplication_ToolDef">
+            <End Role="ToolDef" EntitySet="ToolDef" />
+            <End Role="PurchasingApplication" EntitySet="PurchasingApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingApplication_WorkCell" Association="Self.FK_PurchasingApplication_WorkCell">
+            <End Role="WorkCell" EntitySet="WorkCell" />
+            <End Role="PurchasingApplication" EntitySet="PurchasingApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairApplication_Account" Association="Self.FK_RepairApplication_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="RepairApplication" EntitySet="RepairApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairApplication_Account1" Association="Self.FK_RepairApplication_Account1">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="RepairApplication" EntitySet="RepairApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairApplication_ToolEntity" Association="Self.FK_RepairApplication_ToolEntity">
+            <End Role="ToolEntity" EntitySet="ToolEntity" />
+            <End Role="RepairApplication" EntitySet="RepairApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairApplication_WorkCell" Association="Self.FK_RepairApplication_WorkCell">
+            <End Role="WorkCell" EntitySet="WorkCell" />
+            <End Role="RepairApplication" EntitySet="RepairApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScrapApplication_Account" Association="Self.FK_ScrapApplication_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ScrapApplication" EntitySet="ScrapApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScrapApplication_Account1" Association="Self.FK_ScrapApplication_Account1">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ScrapApplication" EntitySet="ScrapApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScrapApplication_Account2" Association="Self.FK_ScrapApplication_Account2">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ScrapApplication" EntitySet="ScrapApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScrapApplication_ToolEntity" Association="Self.FK_ScrapApplication_ToolEntity">
+            <End Role="ToolEntity" EntitySet="ToolEntity" />
+            <End Role="ScrapApplication" EntitySet="ScrapApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScrapApplication_WorkCell" Association="Self.FK_ScrapApplication_WorkCell">
+            <End Role="WorkCell" EntitySet="WorkCell" />
+            <End Role="ScrapApplication" EntitySet="ScrapApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_Account_On_editId" Association="Self.FK_ToolDef_Account_On_editId">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_Account_On_ownerId" Association="Self.FK_ToolDef_Account_On_ownerId">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_Account_On_recordId" Association="Self.FK_ToolDef_Account_On_recordId">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_Inner_On_familyId" Association="Self.FK_ToolDef_Inner_On_familyId">
+            <End Role="Inner" EntitySet="Inner" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_Inner_On_usedForId" Association="Self.FK_ToolDef_Inner_On_usedForId">
+            <End Role="Inner" EntitySet="Inner" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_WorkCell_On_workCellId" Association="Self.FK_ToolDef_WorkCell_On_workCellId">
+            <End Role="WorkCell" EntitySet="WorkCell" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolEntity_Account_On_bringId" Association="Self.FK_ToolEntity_Account_On_bringId">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ToolEntity" EntitySet="ToolEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolEntity_ToolDef_On_toolDefId" Association="Self.FK_ToolEntity_ToolDef_On_toolDefId">
+            <End Role="ToolDef" EntitySet="ToolDef" />
+            <End Role="ToolEntity" EntitySet="ToolEntity" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ToolManageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="workCellId" Type="Int32" Nullable="false" />
+          <Property Name="userName" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="passWord" Type="String" MaxLength="32" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="jobNumber" Type="Int32" />
+          <Property Name="jurisdiction" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="WorkCell" Relationship="Self.FK_Account_WorkCell" FromRole="Account" ToRole="WorkCell" />
+          <NavigationProperty Name="ConsumeReturn" Relationship="Self.FK_consumeReturn_Account" FromRole="Account" ToRole="ConsumeReturn" />
+          <NavigationProperty Name="InOutStock" Relationship="Self.FK_inOutStock_Account" FromRole="Account" ToRole="InOutStock" />
+          <NavigationProperty Name="Maintenance" Relationship="Self.FK_Maintenance_Account" FromRole="Account" ToRole="Maintenance" />
+          <NavigationProperty Name="PurchasingApplication" Relationship="Self.FK_PurchasingApplication_Account" FromRole="Account" ToRole="PurchasingApplication" />
+          <NavigationProperty Name="PurchasingApplication1" Relationship="Self.FK_PurchasingApplication_Account1" FromRole="Account" ToRole="PurchasingApplication" />
+          <NavigationProperty Name="PurchasingApplication2" Relationship="Self.FK_PurchasingApplication_Account2" FromRole="Account" ToRole="PurchasingApplication" />
+          <NavigationProperty Name="RepairApplication" Relationship="Self.FK_RepairApplication_Account" FromRole="Account" ToRole="RepairApplication" />
+          <NavigationProperty Name="RepairApplication1" Relationship="Self.FK_RepairApplication_Account1" FromRole="Account" ToRole="RepairApplication" />
+          <NavigationProperty Name="ScrapApplication" Relationship="Self.FK_ScrapApplication_Account" FromRole="Account" ToRole="ScrapApplication" />
+          <NavigationProperty Name="ScrapApplication1" Relationship="Self.FK_ScrapApplication_Account1" FromRole="Account" ToRole="ScrapApplication" />
+          <NavigationProperty Name="ScrapApplication2" Relationship="Self.FK_ScrapApplication_Account2" FromRole="Account" ToRole="ScrapApplication" />
+          <NavigationProperty Name="ToolDef" Relationship="Self.FK_ToolDef_Account_On_editId" FromRole="Account" ToRole="ToolDef" />
+          <NavigationProperty Name="ToolDef1" Relationship="Self.FK_ToolDef_Account_On_ownerId" FromRole="Account" ToRole="ToolDef" />
+          <NavigationProperty Name="ToolDef2" Relationship="Self.FK_ToolDef_Account_On_recordId" FromRole="Account" ToRole="ToolDef" />
+          <NavigationProperty Name="ToolEntity" Relationship="Self.FK_ToolEntity_Account_On_bringId" FromRole="Account" ToRole="ToolEntity" />
+        </EntityType>
+        <EntityType Name="ConsumeReturn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="accountId" Type="Int32" Nullable="false" />
+          <Property Name="toolEntityId" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="borrowReturn" Type="Boolean" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="borrowLocation" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_consumeReturn_Account" FromRole="ConsumeReturn" ToRole="Account" />
+          <NavigationProperty Name="ToolEntity" Relationship="Self.FK_consumeReturn_ToolEntity" FromRole="ConsumeReturn" ToRole="ToolEntity" />
+        </EntityType>
+        <EntityType Name="Inner">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="detail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="InOutStock" Relationship="Self.FK_inOutStock_Inner" FromRole="Inner" ToRole="InOutStock" />
+          <NavigationProperty Name="ToolDef" Relationship="Self.FK_ToolDef_Inner_On_familyId" FromRole="Inner" ToRole="ToolDef" />
+          <NavigationProperty Name="ToolDef1" Relationship="Self.FK_ToolDef_Inner_On_usedForId" FromRole="Inner" ToRole="ToolDef" />
+        </EntityType>
+        <EntityType Name="InOutStock">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="recordId" Type="Int32" Nullable="false" />
+          <Property Name="bringId" Type="Int32" Nullable="false" />
+          <Property Name="inOut" Type="Boolean" Nullable="false" />
+          <Property Name="lineId" Type="Int32" />
+          <Property Name="toolEntityId" Type="Int32" Nullable="false" />
+          <Property Name="location" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_inOutStock_Account" FromRole="InOutStock" ToRole="Account" />
+          <NavigationProperty Name="Inner" Relationship="Self.FK_inOutStock_Inner" FromRole="InOutStock" ToRole="Inner" />
+          <NavigationProperty Name="ToolEntity" Relationship="Self.FK_inOutStock_ToolEntity" FromRole="InOutStock" ToRole="ToolEntity" />
+        </EntityType>
+        <EntityType Name="Maintenance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="accountId" Type="Int32" Nullable="false" />
+          <Property Name="toolEntityId" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="project" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Maintenance_Account" FromRole="Maintenance" ToRole="Account" />
+          <NavigationProperty Name="ToolEntity" Relationship="Self.FK_Maintenance_ToolEntity" FromRole="Maintenance" ToRole="ToolEntity" />
+        </EntityType>
+        <EntityType Name="PurchasingApplication">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="applicationId" Type="Int32" Nullable="false" />
+          <Property Name="applicationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="billNo" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="toolDefId" Type="Int32" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="firstTrialId" Type="Int32" />
+          <Property Name="firstTrialDate" Type="DateTime" Precision="3" />
+          <Property Name="finalTrialId" Type="Int32" />
+          <Property Name="finalTrialDate" Type="DateTime" Precision="3" />
+          <Property Name="workCellId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_PurchasingApplication_Account" FromRole="PurchasingApplication" ToRole="Account" />
+          <NavigationProperty Name="Account1" Relationship="Self.FK_PurchasingApplication_Account1" FromRole="PurchasingApplication" ToRole="Account" />
+          <NavigationProperty Name="Account2" Relationship="Self.FK_PurchasingApplication_Account2" FromRole="PurchasingApplication" ToRole="Account" />
+          <NavigationProperty Name="ToolDef" Relationship="Self.FK_PurchasingApplication_ToolDef" FromRole="PurchasingApplication" ToRole="ToolDef" />
+          <NavigationProperty Name="WorkCell" Relationship="Self.FK_PurchasingApplication_WorkCell" FromRole="PurchasingApplication" ToRole="WorkCell" />
+        </EntityType>
+        <EntityType Name="RepairApplication">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="applicationId" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="toolEntityId" Type="Int32" Nullable="false" />
+          <Property Name="describe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="handleId" Type="Int32" />
+          <Property Name="state" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="workCellId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_RepairApplication_Account" FromRole="RepairApplication" ToRole="Account" />
+          <NavigationProperty Name="Account1" Relationship="Self.FK_RepairApplication_Account1" FromRole="RepairApplication" ToRole="Account" />
+          <NavigationProperty Name="ToolEntity" Relationship="Self.FK_RepairApplication_ToolEntity" FromRole="RepairApplication" ToRole="ToolEntity" />
+          <NavigationProperty Name="WorkCell" Relationship="Self.FK_RepairApplication_WorkCell" FromRole="RepairApplication" ToRole="WorkCell" />
+        </EntityType>
+        <EntityType Name="ScrapApplication">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="applicationId" Type="Int32" Nullable="false" />
+          <Property Name="toolEntityId" Type="Int32" Nullable="false" />
+          <Property Name="lifeCount" Type="Int32" Nullable="false" />
+          <Property Name="reason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="state" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="firstTrialId" Type="Int32" />
+          <Property Name="firstTrialDate" Type="DateTime" Precision="3" />
+          <Property Name="finalTrialId" Type="Int32" />
+          <Property Name="finalTrialDate" Type="DateTime" Precision="3" />
+          <Property Name="workCellId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_ScrapApplication_Account" FromRole="ScrapApplication" ToRole="Account" />
+          <NavigationProperty Name="Account1" Relationship="Self.FK_ScrapApplication_Account1" FromRole="ScrapApplication" ToRole="Account" />
+          <NavigationProperty Name="Account2" Relationship="Self.FK_ScrapApplication_Account2" FromRole="ScrapApplication" ToRole="Account" />
+          <NavigationProperty Name="ToolEntity" Relationship="Self.FK_ScrapApplication_ToolEntity" FromRole="ScrapApplication" ToRole="ToolEntity" />
+          <NavigationProperty Name="WorkCell" Relationship="Self.FK_ScrapApplication_WorkCell" FromRole="ScrapApplication" ToRole="WorkCell" />
+        </EntityType>
+        <EntityType Name="ToolDef">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="familyId" Type="Int32" Nullable="false" />
+          <Property Name="model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="partNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UPL" Type="Int32" Nullable="false" />
+          <Property Name="usedForId" Type="Int32" Nullable="false" />
+          <Property Name="ownerId" Type="Int32" Nullable="false" />
+          <Property Name="recordDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="recordId" Type="Int32" Nullable="false" />
+          <Property Name="editDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="editId" Type="Int32" Nullable="false" />
+          <Property Name="workCellId" Type="Int32" Nullable="false" />
+          <Property Name="PMPeriod" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_ToolDef_Account_On_editId" FromRole="ToolDef" ToRole="Account" />
+          <NavigationProperty Name="Account1" Relationship="Self.FK_ToolDef_Account_On_ownerId" FromRole="ToolDef" ToRole="Account" />
+          <NavigationProperty Name="Account2" Relationship="Self.FK_ToolDef_Account_On_recordId" FromRole="ToolDef" ToRole="Account" />
+          <NavigationProperty Name="Inner" Relationship="Self.FK_ToolDef_Inner_On_familyId" FromRole="ToolDef" ToRole="Inner" />
+          <NavigationProperty Name="Inner1" Relationship="Self.FK_ToolDef_Inner_On_usedForId" FromRole="ToolDef" ToRole="Inner" />
+          <NavigationProperty Name="PurchasingApplication" Relationship="Self.FK_PurchasingApplication_ToolDef" FromRole="ToolDef" ToRole="PurchasingApplication" />
+          <NavigationProperty Name="WorkCell" Relationship="Self.FK_ToolDef_WorkCell_On_workCellId" FromRole="ToolDef" ToRole="WorkCell" />
+          <NavigationProperty Name="ToolEntity" Relationship="Self.FK_ToolEntity_ToolDef_On_toolDefId" FromRole="ToolDef" ToRole="ToolEntity" />
+        </EntityType>
+        <EntityType Name="ToolEntity">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="toolDefId" Type="Int32" Nullable="false" />
+          <Property Name="usedCount" Type="Int32" Nullable="false" />
+          <Property Name="location" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="billNo" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="regDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="productionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="bringId" Type="Int32" Nullable="false" />
+          <Property Name="state" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_ToolEntity_Account_On_bringId" FromRole="ToolEntity" ToRole="Account" />
+          <NavigationProperty Name="ConsumeReturn" Relationship="Self.FK_consumeReturn_ToolEntity" FromRole="ToolEntity" ToRole="ConsumeReturn" />
+          <NavigationProperty Name="InOutStock" Relationship="Self.FK_inOutStock_ToolEntity" FromRole="ToolEntity" ToRole="InOutStock" />
+          <NavigationProperty Name="Maintenance" Relationship="Self.FK_Maintenance_ToolEntity" FromRole="ToolEntity" ToRole="Maintenance" />
+          <NavigationProperty Name="RepairApplication" Relationship="Self.FK_RepairApplication_ToolEntity" FromRole="ToolEntity" ToRole="RepairApplication" />
+          <NavigationProperty Name="ScrapApplication" Relationship="Self.FK_ScrapApplication_ToolEntity" FromRole="ToolEntity" ToRole="ScrapApplication" />
+          <NavigationProperty Name="ToolDef" Relationship="Self.FK_ToolEntity_ToolDef_On_toolDefId" FromRole="ToolEntity" ToRole="ToolDef" />
+        </EntityType>
+        <EntityType Name="WorkCell">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="contactName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="contactPhone" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Account_WorkCell" FromRole="WorkCell" ToRole="Account" />
+          <NavigationProperty Name="PurchasingApplication" Relationship="Self.FK_PurchasingApplication_WorkCell" FromRole="WorkCell" ToRole="PurchasingApplication" />
+          <NavigationProperty Name="RepairApplication" Relationship="Self.FK_RepairApplication_WorkCell" FromRole="WorkCell" ToRole="RepairApplication" />
+          <NavigationProperty Name="ScrapApplication" Relationship="Self.FK_ScrapApplication_WorkCell" FromRole="WorkCell" ToRole="ScrapApplication" />
+          <NavigationProperty Name="ToolDef" Relationship="Self.FK_ToolDef_WorkCell_On_workCellId" FromRole="WorkCell" ToRole="ToolDef" />
+        </EntityType>
+        <Association Name="FK_Account_WorkCell">
+          <End Role="WorkCell" Type="Self.WorkCell" Multiplicity="1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkCell">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="workCellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_consumeReturn_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ConsumeReturn" Type="Self.ConsumeReturn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ConsumeReturn">
+              <PropertyRef Name="accountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inOutStock_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="InOutStock" Type="Self.InOutStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InOutStock">
+              <PropertyRef Name="bringId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Maintenance_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Maintenance" Type="Self.Maintenance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Maintenance">
+              <PropertyRef Name="accountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingApplication_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="PurchasingApplication" Type="Self.PurchasingApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PurchasingApplication">
+              <PropertyRef Name="applicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingApplication_Account1">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="PurchasingApplication" Type="Self.PurchasingApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PurchasingApplication">
+              <PropertyRef Name="finalTrialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingApplication_Account2">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="PurchasingApplication" Type="Self.PurchasingApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PurchasingApplication">
+              <PropertyRef Name="firstTrialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairApplication_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="RepairApplication" Type="Self.RepairApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RepairApplication">
+              <PropertyRef Name="applicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairApplication_Account1">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="RepairApplication" Type="Self.RepairApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RepairApplication">
+              <PropertyRef Name="handleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScrapApplication_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ScrapApplication" Type="Self.ScrapApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ScrapApplication">
+              <PropertyRef Name="applicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScrapApplication_Account1">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="ScrapApplication" Type="Self.ScrapApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ScrapApplication">
+              <PropertyRef Name="finalTrialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScrapApplication_Account2">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="ScrapApplication" Type="Self.ScrapApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ScrapApplication">
+              <PropertyRef Name="firstTrialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_Account_On_editId">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="editId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_Account_On_ownerId">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="ownerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_Account_On_recordId">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="recordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolEntity_Account_On_bringId">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ToolEntity" Type="Self.ToolEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolEntity">
+              <PropertyRef Name="bringId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_consumeReturn_ToolEntity">
+          <End Role="ToolEntity" Type="Self.ToolEntity" Multiplicity="1" />
+          <End Role="ConsumeReturn" Type="Self.ConsumeReturn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolEntity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ConsumeReturn">
+              <PropertyRef Name="toolEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inOutStock_Inner">
+          <End Role="Inner" Type="Self.Inner" Multiplicity="0..1" />
+          <End Role="InOutStock" Type="Self.InOutStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InOutStock">
+              <PropertyRef Name="lineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_Inner_On_familyId">
+          <End Role="Inner" Type="Self.Inner" Multiplicity="1" />
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="familyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_Inner_On_usedForId">
+          <End Role="Inner" Type="Self.Inner" Multiplicity="1" />
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="usedForId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inOutStock_ToolEntity">
+          <End Role="ToolEntity" Type="Self.ToolEntity" Multiplicity="1" />
+          <End Role="InOutStock" Type="Self.InOutStock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolEntity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="InOutStock">
+              <PropertyRef Name="toolEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Maintenance_ToolEntity">
+          <End Role="ToolEntity" Type="Self.ToolEntity" Multiplicity="1" />
+          <End Role="Maintenance" Type="Self.Maintenance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolEntity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Maintenance">
+              <PropertyRef Name="toolEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingApplication_ToolDef">
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="1" />
+          <End Role="PurchasingApplication" Type="Self.PurchasingApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolDef">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PurchasingApplication">
+              <PropertyRef Name="toolDefId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingApplication_WorkCell">
+          <End Role="WorkCell" Type="Self.WorkCell" Multiplicity="1" />
+          <End Role="PurchasingApplication" Type="Self.PurchasingApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkCell">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PurchasingApplication">
+              <PropertyRef Name="workCellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairApplication_ToolEntity">
+          <End Role="ToolEntity" Type="Self.ToolEntity" Multiplicity="1" />
+          <End Role="RepairApplication" Type="Self.RepairApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolEntity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RepairApplication">
+              <PropertyRef Name="toolEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairApplication_WorkCell">
+          <End Role="WorkCell" Type="Self.WorkCell" Multiplicity="1" />
+          <End Role="RepairApplication" Type="Self.RepairApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkCell">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RepairApplication">
+              <PropertyRef Name="workCellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScrapApplication_ToolEntity">
+          <End Role="ToolEntity" Type="Self.ToolEntity" Multiplicity="1" />
+          <End Role="ScrapApplication" Type="Self.ScrapApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolEntity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ScrapApplication">
+              <PropertyRef Name="toolEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScrapApplication_WorkCell">
+          <End Role="WorkCell" Type="Self.WorkCell" Multiplicity="1" />
+          <End Role="ScrapApplication" Type="Self.ScrapApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkCell">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ScrapApplication">
+              <PropertyRef Name="workCellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_WorkCell_On_workCellId">
+          <End Role="WorkCell" Type="Self.WorkCell" Multiplicity="1" />
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkCell">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="workCellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolEntity_ToolDef_On_toolDefId">
+          <End Role="ToolDef" Type="Self.ToolDef" Multiplicity="1" />
+          <End Role="ToolEntity" Type="Self.ToolEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolDef">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ToolEntity">
+              <PropertyRef Name="toolDefId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Account" EntityType="Self.Account" />
+          <EntitySet Name="ConsumeReturn" EntityType="Self.ConsumeReturn" />
+          <EntitySet Name="Inner" EntityType="Self.Inner" />
+          <EntitySet Name="InOutStock" EntityType="Self.InOutStock" />
+          <EntitySet Name="Maintenance" EntityType="Self.Maintenance" />
+          <EntitySet Name="PurchasingApplication" EntityType="Self.PurchasingApplication" />
+          <EntitySet Name="RepairApplication" EntityType="Self.RepairApplication" />
+          <EntitySet Name="ScrapApplication" EntityType="Self.ScrapApplication" />
+          <EntitySet Name="ToolDef" EntityType="Self.ToolDef" />
+          <EntitySet Name="ToolEntity" EntityType="Self.ToolEntity" />
+          <EntitySet Name="WorkCell" EntityType="Self.WorkCell" />
+          <AssociationSet Name="FK_Account_WorkCell" Association="Self.FK_Account_WorkCell">
+            <End Role="WorkCell" EntitySet="WorkCell" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_consumeReturn_Account" Association="Self.FK_consumeReturn_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ConsumeReturn" EntitySet="ConsumeReturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inOutStock_Account" Association="Self.FK_inOutStock_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="InOutStock" EntitySet="InOutStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Maintenance_Account" Association="Self.FK_Maintenance_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Maintenance" EntitySet="Maintenance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingApplication_Account" Association="Self.FK_PurchasingApplication_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="PurchasingApplication" EntitySet="PurchasingApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingApplication_Account1" Association="Self.FK_PurchasingApplication_Account1">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="PurchasingApplication" EntitySet="PurchasingApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingApplication_Account2" Association="Self.FK_PurchasingApplication_Account2">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="PurchasingApplication" EntitySet="PurchasingApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairApplication_Account" Association="Self.FK_RepairApplication_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="RepairApplication" EntitySet="RepairApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairApplication_Account1" Association="Self.FK_RepairApplication_Account1">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="RepairApplication" EntitySet="RepairApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScrapApplication_Account" Association="Self.FK_ScrapApplication_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ScrapApplication" EntitySet="ScrapApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScrapApplication_Account1" Association="Self.FK_ScrapApplication_Account1">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ScrapApplication" EntitySet="ScrapApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScrapApplication_Account2" Association="Self.FK_ScrapApplication_Account2">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ScrapApplication" EntitySet="ScrapApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_Account_On_editId" Association="Self.FK_ToolDef_Account_On_editId">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_Account_On_ownerId" Association="Self.FK_ToolDef_Account_On_ownerId">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_Account_On_recordId" Association="Self.FK_ToolDef_Account_On_recordId">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolEntity_Account_On_bringId" Association="Self.FK_ToolEntity_Account_On_bringId">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ToolEntity" EntitySet="ToolEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_consumeReturn_ToolEntity" Association="Self.FK_consumeReturn_ToolEntity">
+            <End Role="ToolEntity" EntitySet="ToolEntity" />
+            <End Role="ConsumeReturn" EntitySet="ConsumeReturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inOutStock_Inner" Association="Self.FK_inOutStock_Inner">
+            <End Role="Inner" EntitySet="Inner" />
+            <End Role="InOutStock" EntitySet="InOutStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_Inner_On_familyId" Association="Self.FK_ToolDef_Inner_On_familyId">
+            <End Role="Inner" EntitySet="Inner" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_Inner_On_usedForId" Association="Self.FK_ToolDef_Inner_On_usedForId">
+            <End Role="Inner" EntitySet="Inner" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inOutStock_ToolEntity" Association="Self.FK_inOutStock_ToolEntity">
+            <End Role="ToolEntity" EntitySet="ToolEntity" />
+            <End Role="InOutStock" EntitySet="InOutStock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Maintenance_ToolEntity" Association="Self.FK_Maintenance_ToolEntity">
+            <End Role="ToolEntity" EntitySet="ToolEntity" />
+            <End Role="Maintenance" EntitySet="Maintenance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingApplication_ToolDef" Association="Self.FK_PurchasingApplication_ToolDef">
+            <End Role="ToolDef" EntitySet="ToolDef" />
+            <End Role="PurchasingApplication" EntitySet="PurchasingApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingApplication_WorkCell" Association="Self.FK_PurchasingApplication_WorkCell">
+            <End Role="WorkCell" EntitySet="WorkCell" />
+            <End Role="PurchasingApplication" EntitySet="PurchasingApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairApplication_ToolEntity" Association="Self.FK_RepairApplication_ToolEntity">
+            <End Role="ToolEntity" EntitySet="ToolEntity" />
+            <End Role="RepairApplication" EntitySet="RepairApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairApplication_WorkCell" Association="Self.FK_RepairApplication_WorkCell">
+            <End Role="WorkCell" EntitySet="WorkCell" />
+            <End Role="RepairApplication" EntitySet="RepairApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScrapApplication_ToolEntity" Association="Self.FK_ScrapApplication_ToolEntity">
+            <End Role="ToolEntity" EntitySet="ToolEntity" />
+            <End Role="ScrapApplication" EntitySet="ScrapApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScrapApplication_WorkCell" Association="Self.FK_ScrapApplication_WorkCell">
+            <End Role="WorkCell" EntitySet="WorkCell" />
+            <End Role="ScrapApplication" EntitySet="ScrapApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_WorkCell_On_workCellId" Association="Self.FK_ToolDef_WorkCell_On_workCellId">
+            <End Role="WorkCell" EntitySet="WorkCell" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolEntity_ToolDef_On_toolDefId" Association="Self.FK_ToolEntity_ToolDef_On_toolDefId">
+            <End Role="ToolDef" EntitySet="ToolDef" />
+            <End Role="ToolEntity" EntitySet="ToolEntity" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ToolManageModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Account">
+            <EntityTypeMapping TypeName="ToolManageModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="workCellId" ColumnName="workCellId" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="jobNumber" ColumnName="jobNumber" />
+                <ScalarProperty Name="jurisdiction" ColumnName="jurisdiction" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConsumeReturn">
+            <EntityTypeMapping TypeName="ToolManageModel.ConsumeReturn">
+              <MappingFragment StoreEntitySet="ConsumeReturn">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="accountId" ColumnName="accountId" />
+                <ScalarProperty Name="toolEntityId" ColumnName="toolEntityId" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="borrowReturn" ColumnName="borrowReturn" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="borrowLocation" ColumnName="borrowLocation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inner">
+            <EntityTypeMapping TypeName="ToolManageModel.Inner">
+              <MappingFragment StoreEntitySet="Inner">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="detail" ColumnName="detail" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InOutStock">
+            <EntityTypeMapping TypeName="ToolManageModel.InOutStock">
+              <MappingFragment StoreEntitySet="InOutStock">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="recordId" ColumnName="recordId" />
+                <ScalarProperty Name="bringId" ColumnName="bringId" />
+                <ScalarProperty Name="inOut" ColumnName="inOut" />
+                <ScalarProperty Name="lineId" ColumnName="lineId" />
+                <ScalarProperty Name="toolEntityId" ColumnName="toolEntityId" />
+                <ScalarProperty Name="location" ColumnName="location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Maintenance">
+            <EntityTypeMapping TypeName="ToolManageModel.Maintenance">
+              <MappingFragment StoreEntitySet="Maintenance">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="accountId" ColumnName="accountId" />
+                <ScalarProperty Name="toolEntityId" ColumnName="toolEntityId" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="project" ColumnName="project" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchasingApplication">
+            <EntityTypeMapping TypeName="ToolManageModel.PurchasingApplication">
+              <MappingFragment StoreEntitySet="PurchasingApplication">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="applicationId" ColumnName="applicationId" />
+                <ScalarProperty Name="applicationDate" ColumnName="applicationDate" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="billNo" ColumnName="billNo" />
+                <ScalarProperty Name="toolDefId" ColumnName="toolDefId" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="firstTrialId" ColumnName="firstTrialId" />
+                <ScalarProperty Name="firstTrialDate" ColumnName="firstTrialDate" />
+                <ScalarProperty Name="finalTrialId" ColumnName="finalTrialId" />
+                <ScalarProperty Name="finalTrialDate" ColumnName="finalTrialDate" />
+                <ScalarProperty Name="workCellId" ColumnName="workCellId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RepairApplication">
+            <EntityTypeMapping TypeName="ToolManageModel.RepairApplication">
+              <MappingFragment StoreEntitySet="RepairApplication">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="applicationId" ColumnName="applicationId" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="toolEntityId" ColumnName="toolEntityId" />
+                <ScalarProperty Name="describe" ColumnName="describe" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="handleId" ColumnName="handleId" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="workCellId" ColumnName="workCellId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScrapApplication">
+            <EntityTypeMapping TypeName="ToolManageModel.ScrapApplication">
+              <MappingFragment StoreEntitySet="ScrapApplication">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="applicationId" ColumnName="applicationId" />
+                <ScalarProperty Name="toolEntityId" ColumnName="toolEntityId" />
+                <ScalarProperty Name="lifeCount" ColumnName="lifeCount" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="firstTrialId" ColumnName="firstTrialId" />
+                <ScalarProperty Name="firstTrialDate" ColumnName="firstTrialDate" />
+                <ScalarProperty Name="finalTrialId" ColumnName="finalTrialId" />
+                <ScalarProperty Name="finalTrialDate" ColumnName="finalTrialDate" />
+                <ScalarProperty Name="workCellId" ColumnName="workCellId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ToolDef">
+            <EntityTypeMapping TypeName="ToolManageModel.ToolDef">
+              <MappingFragment StoreEntitySet="ToolDef">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="familyId" ColumnName="familyId" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="partNo" ColumnName="partNo" />
+                <ScalarProperty Name="UPL" ColumnName="UPL" />
+                <ScalarProperty Name="usedForId" ColumnName="usedForId" />
+                <ScalarProperty Name="ownerId" ColumnName="ownerId" />
+                <ScalarProperty Name="recordDate" ColumnName="recordDate" />
+                <ScalarProperty Name="recordId" ColumnName="recordId" />
+                <ScalarProperty Name="editDate" ColumnName="editDate" />
+                <ScalarProperty Name="editId" ColumnName="editId" />
+                <ScalarProperty Name="workCellId" ColumnName="workCellId" />
+                <ScalarProperty Name="PMPeriod" ColumnName="PMPeriod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ToolEntity">
+            <EntityTypeMapping TypeName="ToolManageModel.ToolEntity">
+              <MappingFragment StoreEntitySet="ToolEntity">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="toolDefId" ColumnName="toolDefId" />
+                <ScalarProperty Name="usedCount" ColumnName="usedCount" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="billNo" ColumnName="billNo" />
+                <ScalarProperty Name="regDate" ColumnName="regDate" />
+                <ScalarProperty Name="productionDate" ColumnName="productionDate" />
+                <ScalarProperty Name="bringId" ColumnName="bringId" />
+                <ScalarProperty Name="state" ColumnName="state" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkCell">
+            <EntityTypeMapping TypeName="ToolManageModel.WorkCell">
+              <MappingFragment StoreEntitySet="WorkCell">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="contactName" ColumnName="contactName" />
+                <ScalarProperty Name="contactPhone" ColumnName="contactPhone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

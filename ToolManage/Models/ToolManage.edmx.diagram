@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="672d22726e1440718867ad1d98e6c9dc" Name="Diagram1">
+        <EntityTypeShape EntityType="ToolManageModel.Account" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToolManageModel.ConsumeReturn" Width="1.5" PointX="5.25" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToolManageModel.Inner" Width="1.5" PointX="9" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToolManageModel.InOutStock" Width="1.5" PointX="8.25" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToolManageModel.Maintenance" Width="1.5" PointX="5.25" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToolManageModel.PurchasingApplication" Width="1.5" PointX="5.25" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToolManageModel.RepairApplication" Width="1.5" PointX="8.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToolManageModel.ScrapApplication" Width="1.5" PointX="8.25" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToolManageModel.ToolDef" Width="1.5" PointX="11.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToolManageModel.ToolEntity" Width="1.5" PointX="13.5" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToolManageModel.WorkCell" Width="1.5" PointX="0.75" PointY="15.875" IsExpanded="true" />
+        <AssociationConnector Association="ToolManageModel.FK_Account_WorkCell" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_consumeReturn_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_inOutStock_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_Maintenance_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_PurchasingApplication_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_PurchasingApplication_Account1" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_PurchasingApplication_Account2" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_RepairApplication_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_RepairApplication_Account1" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_Account1" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_Account2" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Account_On_editId" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Account_On_ownerId" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Account_On_recordId" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolEntity_Account_On_bringId" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_consumeReturn_ToolEntity" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_inOutStock_Inner" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Inner_On_familyId" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Inner_On_usedForId" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_inOutStock_ToolEntity" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_Maintenance_ToolEntity" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_PurchasingApplication_ToolDef" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_PurchasingApplication_WorkCell" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_RepairApplication_ToolEntity" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_RepairApplication_WorkCell" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_ToolEntity" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_WorkCell" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_WorkCell_On_workCellId" ManuallyRouted="false" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolEntity_ToolDef_On_toolDefId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
