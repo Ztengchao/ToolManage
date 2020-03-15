@@ -14,15 +14,15 @@ namespace ToolManage.Models
     
     public partial class RepairApplication
     {
-        public int id { get; set; }
-        public int applicationId { get; set; }
-        public System.DateTime date { get; set; }
-        public int toolEntityId { get; set; }
-        public string describe { get; set; }
-        public byte[] picture { get; set; }
-        public Nullable<int> handleId { get; set; }
-        public string state { get; set; }
-        public int workCellId { get; set; }
+        public int Id { get; set; }
+        public int ApplicationId { get; set; }
+        public System.DateTime Date { get; set; }
+        public int ToolEntityId { get; set; }
+        public string Describe { get; set; }
+        public byte[] Picture { get; set; }
+        public Nullable<int> HandleId { get; set; }
+        public string State { get; set; }
+        public int WorkCellId { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual Account Account1 { get; set; }

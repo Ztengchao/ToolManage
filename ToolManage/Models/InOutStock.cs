@@ -14,14 +14,14 @@ namespace ToolManage.Models
     
     public partial class InOutStock
     {
-        public int id { get; set; }
-        public System.DateTime date { get; set; }
-        public int recordId { get; set; }
-        public int bringId { get; set; }
-        public bool inOut { get; set; }
-        public Nullable<int> lineId { get; set; }
-        public int toolEntityId { get; set; }
-        public string location { get; set; }
+        public int Id { get; set; }
+        public System.DateTime Date { get; set; }
+        public int RecordId { get; set; }
+        public int BringId { get; set; }
+        public bool InOut { get; set; }
+        public Nullable<int> LineId { get; set; }
+        public int ToolEntityId { get; set; }
+        public string Location { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual Inner Inner { get; set; }

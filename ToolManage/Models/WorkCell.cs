@@ -18,19 +18,22 @@ namespace ToolManage.Models
         public WorkCell()
         {
             this.Account = new HashSet<Account>();
+            this.Authority = new HashSet<Authority>();
             this.PurchasingApplication = new HashSet<PurchasingApplication>();
             this.RepairApplication = new HashSet<RepairApplication>();
             this.ScrapApplication = new HashSet<ScrapApplication>();
             this.ToolDef = new HashSet<ToolDef>();
         }
     
-        public int id { get; set; }
-        public string name { get; set; }
-        public string contactName { get; set; }
-        public string contactPhone { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string ContactName { get; set; }
+        public string ContactPhone { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Account> Account { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Authority> Authority { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchasingApplication> PurchasingApplication { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -14,13 +14,13 @@ namespace ToolManage.Models
     
     public partial class ConsumeReturn
     {
-        public int id { get; set; }
-        public int accountId { get; set; }
-        public int toolEntityId { get; set; }
-        public System.DateTime date { get; set; }
-        public bool borrowReturn { get; set; }
-        public string remark { get; set; }
-        public string borrowLocation { get; set; }
+        public int Id { get; set; }
+        public int AccountId { get; set; }
+        public int ToolEntityId { get; set; }
+        public System.DateTime Date { get; set; }
+        public bool BorrowReturn { get; set; }
+        public string Remark { get; set; }
+        public string BorrowLocation { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual ToolEntity ToolEntity { get; set; }

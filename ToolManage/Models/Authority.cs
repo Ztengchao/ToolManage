@@ -12,25 +12,21 @@ namespace ToolManage.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Inner
+    public partial class Authority
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Inner()
+        public Authority()
         {
-            this.InOutStock = new HashSet<InOutStock>();
-            this.ToolDef = new HashSet<ToolDef>();
-            this.ToolDef1 = new HashSet<ToolDef>();
+            this.Account = new HashSet<Account>();
         }
     
         public int Id { get; set; }
-        public string Detail { get; set; }
-        public string Type { get; set; }
+        public long Data { get; set; }
+        public string Name { get; set; }
+        public int WorkCellId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<InOutStock> InOutStock { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ToolDef> ToolDef { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ToolDef> ToolDef1 { get; set; }
+        public virtual ICollection<Account> Account { get; set; }
+        public virtual WorkCell WorkCell { get; set; }
     }
 }

@@ -34,15 +34,16 @@ namespace ToolManage.Models
             this.ToolEntity = new HashSet<ToolEntity>();
         }
     
-        public int id { get; set; }
-        public int workCellId { get; set; }
-        public string userName { get; set; }
-        public string passWord { get; set; }
-        public string name { get; set; }
-        public string phone { get; set; }
-        public Nullable<int> jobNumber { get; set; }
-        public string jurisdiction { get; set; }
+        public int Id { get; set; }
+        public int WorkCellId { get; set; }
+        public string UserName { get; set; }
+        public string PassWord { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public Nullable<int> JobNumber { get; set; }
+        public int Authority { get; set; }
     
+        public virtual Authority Authority1 { get; set; }
         public virtual WorkCell WorkCell { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ConsumeReturn> ConsumeReturn { get; set; }

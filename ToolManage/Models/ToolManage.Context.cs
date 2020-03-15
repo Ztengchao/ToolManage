@@ -13,10 +13,10 @@ namespace ToolManage.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class ToolManageContext : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public ToolManageContext()
+            : base("name=ToolManageContext")
         {
         }
     
@@ -26,6 +26,7 @@ namespace ToolManage.Models
         }
     
         public virtual DbSet<Account> Account { get; set; }
+        public virtual DbSet<Authority> Authority { get; set; }
         public virtual DbSet<ConsumeReturn> ConsumeReturn { get; set; }
         public virtual DbSet<Inner> Inner { get; set; }
         public virtual DbSet<InOutStock> InOutStock { get; set; }

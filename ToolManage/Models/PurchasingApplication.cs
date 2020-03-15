@@ -14,19 +14,19 @@ namespace ToolManage.Models
     
     public partial class PurchasingApplication
     {
-        public int id { get; set; }
-        public int applicationId { get; set; }
-        public System.DateTime applicationDate { get; set; }
-        public byte[] picture { get; set; }
-        public string billNo { get; set; }
-        public int toolDefId { get; set; }
-        public string remark { get; set; }
-        public string state { get; set; }
-        public Nullable<int> firstTrialId { get; set; }
-        public Nullable<System.DateTime> firstTrialDate { get; set; }
-        public Nullable<int> finalTrialId { get; set; }
-        public Nullable<System.DateTime> finalTrialDate { get; set; }
-        public int workCellId { get; set; }
+        public int Id { get; set; }
+        public int ApplicationId { get; set; }
+        public System.DateTime ApplicationDate { get; set; }
+        public byte[] Picture { get; set; }
+        public string BillNo { get; set; }
+        public int ToolDefId { get; set; }
+        public string Remark { get; set; }
+        public string State { get; set; }
+        public Nullable<int> FirstTrialId { get; set; }
+        public Nullable<System.DateTime> FirstTrialDate { get; set; }
+        public Nullable<int> FinalTrialId { get; set; }
+        public Nullable<System.DateTime> FinalTrialDate { get; set; }
+        public int WorkCellId { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual Account Account1 { get; set; }

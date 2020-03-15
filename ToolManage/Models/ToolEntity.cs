@@ -24,16 +24,16 @@ namespace ToolManage.Models
             this.ScrapApplication = new HashSet<ScrapApplication>();
         }
     
-        public int id { get; set; }
-        public int toolDefId { get; set; }
-        public int usedCount { get; set; }
-        public string location { get; set; }
-        public byte[] picture { get; set; }
-        public string billNo { get; set; }
-        public System.DateTime regDate { get; set; }
-        public System.DateTime productionDate { get; set; }
-        public int bringId { get; set; }
-        public string state { get; set; }
+        public int Id { get; set; }
+        public int ToolDefId { get; set; }
+        public int UsedCount { get; set; }
+        public string Location { get; set; }
+        public byte[] Picture { get; set; }
+        public string BillNo { get; set; }
+        public System.DateTime RegDate { get; set; }
+        public System.DateTime ProductionDate { get; set; }
+        public int BringId { get; set; }
+        public string State { get; set; }
     
         public virtual Account Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

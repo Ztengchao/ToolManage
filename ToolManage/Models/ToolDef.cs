@@ -21,20 +21,20 @@ namespace ToolManage.Models
             this.ToolEntity = new HashSet<ToolEntity>();
         }
     
-        public int id { get; set; }
-        public string code { get; set; }
-        public string name { get; set; }
-        public int familyId { get; set; }
-        public string model { get; set; }
-        public string partNo { get; set; }
+        public int Id { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
+        public int FamilyId { get; set; }
+        public string Model { get; set; }
+        public string PartNo { get; set; }
         public int UPL { get; set; }
-        public int usedForId { get; set; }
-        public int ownerId { get; set; }
-        public System.DateTime recordDate { get; set; }
-        public int recordId { get; set; }
-        public System.DateTime editDate { get; set; }
-        public int editId { get; set; }
-        public int workCellId { get; set; }
+        public int UsedForId { get; set; }
+        public int OwnerId { get; set; }
+        public System.DateTime RecordDate { get; set; }
+        public int RecordId { get; set; }
+        public System.DateTime EditDate { get; set; }
+        public int EditId { get; set; }
+        public int WorkCellId { get; set; }
         public int PMPeriod { get; set; }
     
         public virtual Account Account { get; set; }
