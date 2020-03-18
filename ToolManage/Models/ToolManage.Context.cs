@@ -13,10 +13,10 @@ namespace ToolManage.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ToolManageContext : DbContext
+    public partial class ToolManageDataContext : DbContext
     {
-        public ToolManageContext()
-            : base("name=ToolManageContext")
+        public ToolManageDataContext()
+            : base("name=ToolManageDataContext")
         {
         }
     

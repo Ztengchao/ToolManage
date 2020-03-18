@@ -1,0 +1,35 @@
+.root {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+}
+
+.side-bar {
+  flex: 0 0 260px;
+  padding-right: 10px;
+  border-right: 1px solid grey;
+}
+
+.side-bar .logo {
+  margin: 5px 0;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 22px;
+}
+
+.content {
+  flex: 1;
+  min-height: 100vh;
+  padding: 0 10px;
+  background-color: #f0f2f5;
+}
+
+.header {
+  margin: 0 -10px 10px;
+}
+.header .navbar-header {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+}
