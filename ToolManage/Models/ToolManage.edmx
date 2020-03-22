@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ToolManageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ToolManageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="Id" />
@@ -26,6 +26,7 @@
           <Property Name="Data" Type="bigint" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="20" Nullable="false" />
           <Property Name="WorkCellId" Type="int" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="ConsumeReturn">
           <Key>
@@ -690,8 +691,7 @@
             <End Role="ToolEntity" EntitySet="ToolEntity" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ToolManageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -735,6 +735,7 @@
           <Property Name="WorkCellId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="Self.FK_Account_Authority" FromRole="Authority" ToRole="Account" />
           <NavigationProperty Name="WorkCell" Relationship="Self.FK_Authority_WorkCell" FromRole="Authority" ToRole="WorkCell" />
+          <Property Name="Remark" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ConsumeReturn">
           <Key>
@@ -1467,6 +1468,7 @@
           <EntitySetMapping Name="Authority">
             <EntityTypeMapping TypeName="ToolManageModel.Authority">
               <MappingFragment StoreEntitySet="Authority">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

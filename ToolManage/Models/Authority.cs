@@ -24,6 +24,7 @@ namespace ToolManage.Models
         public long Data { get; set; }
         public string Name { get; set; }
         public int WorkCellId { get; set; }
+        public string Remark { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Account> Account { get; set; }

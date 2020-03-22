@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.AccessControl;
 using System.Web.Mvc;
 using ToolManage.Models;
 
@@ -27,7 +28,17 @@ namespace ToolManage.Controllers
             }
 
             Session.Add("account", acc);
-            return View(account); // TODO 跳转到登陆后的页面
+            return RedirectToAction("Index", "Authority");// TODO根据账户类型跳转
+        }
+
+        public ActionResult LogOut()
+        {
+            if (Session["account"] != null)
+            {
+                Session.Remove("account");
+            }
+
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

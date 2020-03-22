@@ -1,0 +1,29 @@
+.add {
+	margin-bottom: 10px;
+}
+
+.authorites li span {
+	display: inline-block;
+	margin-right: 30px;
+}
+
+.wrap {
+	border: 1px solid lightgray;
+	padding: 20px 20px 0;
+	background-color: #fbfbfb;
+	box-shadow: 0 1px 5px rgba(0,0,0,.1);
+}
+
+.panel-title a {
+	display: inline-block;
+	width: 100px;
+}
+
+.panel-title button {
+	margin-right: 10px;
+}
+
+ul li {
+	margin-bottom: 10px;
+}
+
