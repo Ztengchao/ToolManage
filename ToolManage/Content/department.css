@@ -1,0 +1,24 @@
+.wrap {
+	padding: 20px;
+	background-color: #fbfbfb;
+	margin: 20px;
+	border: 1px solid lightgray;
+	box-shadow: 0 1px 5px rgba(0,0,0,.1);
+}
+
+.tableArea {
+	background: #fff;
+	border: 1px solid lightgray;
+	box-shadow: 0 1px 5px rgba(0,0,0,.1);
+	padding: 20px;
+	padding-bottom: 0
+}
+
+.tableArea .table {
+	margin-bottom: 0;
+}
+
+.tableArea nav {
+	float: right;
+	margin-bottom: 0;
+}

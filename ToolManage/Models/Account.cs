@@ -40,7 +40,7 @@ namespace ToolManage.Models
         public string PassWord { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
-        public Nullable<int> JobNumber { get; set; }
+        public string JobNumber { get; set; }
         public int Authority { get; set; }
     
         public virtual Authority Authority1 { get; set; }

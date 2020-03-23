@@ -1,0 +1,52 @@
+.alert {
+	width: 400px;
+	margin: 0 auto;
+}
+
+.wrap {
+	padding: 20px;
+	background-color: #fbfbfb;
+	margin: 20px;
+	border: 1px solid lightgray;
+	box-shadow: 0 1px 5px rgba(0,0,0,.1);
+}
+
+.add {
+	margin-bottom: 20px;
+}
+
+.formArea {
+	display: flex;
+	justify-content: space-between;
+}
+
+.button {
+	float: right;
+	margin-top: 20px;
+}
+
+.button button:nth-child(2) {
+	margin-left: 20px;
+}
+
+.tableArea {
+	margin: 0 20px 20px;
+	background: #fff;
+	border: 1px solid lightgray;
+	box-shadow: 0 1px 5px rgba(0,0,0,.1);
+	padding: 20px;
+	padding-bottom: 0;
+}
+
+.tableArea .table {
+	margin-bottom: 0;
+}
+
+.tableArea nav {
+	float: right;
+	margin-bottom: 0;
+}
+
+
+
+

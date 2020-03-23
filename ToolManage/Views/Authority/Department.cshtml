@@ -1,0 +1,100 @@
+﻿@model ToolManage.Models.WorkCell
+
+<link href="~/Content/department.css" rel="stylesheet"/>
+<!--弹窗-->
+<!--model-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Workcell信息</h4>
+            </div>
+            <div class="modal-body">
+                <label for="depInfo">部门名称</label>
+                <input type="text" class="form-control" placeholder="请输入部门名称" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap">
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        新增部门
+    </button>
+</div>
+<div class="wrap tableArea clearfix">
+    <table class="table table-hover table-striped">
+        <tr class="info">
+            <th>部门名称</th>
+            <th>经理名称</th>
+            <th>联系方式</th>
+            <th>变更日志</th>
+            <th>操作</th>
+        </tr>
+        <tr>
+            <td>下沙分公司</td>
+            <td>赵大锤</td>
+            <td>137777777</td>
+            <td><a href="#">点击查看</a></td>
+            <td>
+                <a href="#" data-toggle="modal" data-target="#myModal">修改</a>
+                <a href="#">删除</a>
+            </td>
+        </tr>
+        <tr>
+            <td>下沙分公司</td>
+            <td>赵大锤</td>
+            <td>137777777</td>
+            <td><a href="#">点击查看</a></td>
+            <td>
+                <a href="#" data-toggle="modal" data-target="#myModal">修改</a>
+                <a href="#">删除</a>
+            </td>
+        </tr>
+        <tr>
+            <td>下沙分公司</td>
+            <td>赵大锤</td>
+            <td>137777777</td>
+            <td><a href="#">点击查看</a></td>
+            <td>
+                <a href="#" data-toggle="modal" data-target="#myModal">修改</a>
+                <a href="#">删除</a>
+            </td>
+        </tr>
+        <tr>
+            <td>下沙分公司</td>
+            <td>赵大锤</td>
+            <td>137777777</td>
+            <td><a href="#">点击查看</a></td>
+            <td>
+                <a href="#" data-toggle="modal" data-target="#myModal">修改</a>
+                <a href="#">删除</a>
+            </td>
+        </tr>
+    </table>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="disabled">
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">2 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">3 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">4 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">5 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">6 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">7 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">8 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
+        </ul>
+    </nav>
+</div>

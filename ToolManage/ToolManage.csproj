@@ -132,6 +132,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthorityController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -194,6 +195,8 @@
   <ItemGroup>
     <Content Include="Content\authority.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\department.css" />
+    <Content Include="Content\user.css" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\login.css" />
     <Content Include="favicon.ico" />
@@ -243,6 +246,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Authority\Index.cshtml" />
+    <Content Include="Views\Authority\Department.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
