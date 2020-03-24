@@ -70,18 +70,20 @@
         </div>
     </div>
 </div>
-
-<div class="alert alert-danger alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <strong>Tips:</strong> 输入错误.
-</div>
+@if (string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Tips:</strong> @((string)ViewBag.ErrorMessage)
+    </div>
+}
 <div class="wrap">
     @Html.ActionLink("新增员工", "Index", new { accountId = -1 }, new { @class = "btn btn-primary add", role = "button" })
     <form class="form-inline clearfix" id="search">
         <div style="display:none;">
-            <input name="NowPage" value="@ViewBag.NowPage" />
+            <input id="NowPage" name="NowPage" value="@ViewBag.NowPage" />
         </div>
         <div class="formArea">
             <div class="form-group">
@@ -139,7 +141,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("修改", "Index", new { accountId = item.Id })
-                    <a href="#">删除</a>
+                    @Html.ActionLink("删除", "Delete", new { id = item.Id })
                 </td>
             </tr>
         }
@@ -168,7 +170,7 @@
                 {
                     continue;
                 }
-                <li><a onclick="page(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+                <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
             }
 
             <li class="active"><a href="#">@(ViewBag.NowPage+1) <span class="sr-only">(current)</span></a></li>
@@ -178,7 +180,7 @@
                 {
                     break;
                 }
-                <li><a onclick="page(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+                <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
             }
 
             @if (ViewBag.NowPage == ViewBag.MaxPage)

@@ -29,6 +29,7 @@ namespace ToolManage.Models
         public string Name { get; set; }
         public string ContactName { get; set; }
         public string ContactPhone { get; set; }
+        public string State { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Account> Account { get; set; }

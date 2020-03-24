@@ -65,6 +65,7 @@ namespace ToolManage.Controllers
             }
             else
             {
+                authority.State = "0";
                 db.Entry(authority).State = EntityState.Added;
             }
 
@@ -81,7 +82,8 @@ namespace ToolManage.Controllers
                 return RedirectToAction("Index");
             }
 
-            db.Authority.Remove(authority); //TODO 级联删除错误处理
+            authority.State = "1";
+            db.Entry(authority).State = EntityState.Modified;
             db.SaveChanges();
 
             return RedirectToAction("Index", new { workcellId = authority.WorkCellId });

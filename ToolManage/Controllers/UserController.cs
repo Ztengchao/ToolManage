@@ -16,9 +16,9 @@ namespace ToolManage.Controllers
         private readonly ToolManageDataContext db = new ToolManageDataContext();
         private static int CountPerPage => 10;
         // GET: User
-        public ActionResult Index(Account account, int? accountId, string searchName, string searchNum, int? searchAuthority, int? searchWorkcell, int nowPage = 0)
+        public ActionResult Index(Account account, string errorMessage, int? accountId, string searchName, string searchNum, int? searchAuthority, int? searchWorkcell, int nowPage = 0)
         {
-            var data = db.Account.AsQueryable();
+            var data = db.Account.Where(i => i.State == "0").AsQueryable();
             var showModal = false;
             if (account.WorkCell == null)
             {
@@ -71,6 +71,7 @@ namespace ToolManage.Controllers
                 showModal = true;
             }
 
+            ViewBag.ErrorMessage = errorMessage;
             ViewBag.ShowModal = showModal;
             ViewBag.NowPage = nowPage;
             ViewBag.Data = data.ToArray();
@@ -87,10 +88,30 @@ namespace ToolManage.Controllers
             {
                 db.Entry(account).State = EntityState.Modified;
             }
-            else
+            else if (db.Account.FirstOrDefault(i => i.State == "0" && i.UserName.Trim() == account.UserName) == null)
             {
+                account.State = "0";
                 db.Entry(account).State = EntityState.Added;
             }
+            else
+            {
+                return RedirectToAction("Index", new { errorMessage = "该账号已存在" });
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            var account = db.Account.Find(id);
+            if (account == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            account.State = "1";
+            db.Entry(account).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

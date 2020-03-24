@@ -42,6 +42,7 @@ namespace ToolManage.Models
         public string Phone { get; set; }
         public string JobNumber { get; set; }
         public int Authority { get; set; }
+        public string State { get; set; }
     
         public virtual Authority Authority1 { get; set; }
         public virtual WorkCell WorkCell { get; set; }

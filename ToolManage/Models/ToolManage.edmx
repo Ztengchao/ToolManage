@@ -17,6 +17,7 @@
           <Property Name="Phone" Type="char" MaxLength="11" />
           <Property Name="JobNumber" Type="char" MaxLength="10" />
           <Property Name="Authority" Type="int" Nullable="false" />
+          <Property Name="State" Type="char" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="Authority">
           <Key>
@@ -27,6 +28,7 @@
           <Property Name="Name" Type="nchar" MaxLength="20" Nullable="false" />
           <Property Name="WorkCellId" Type="int" Nullable="false" />
           <Property Name="Remark" Type="nvarchar" MaxLength="30" />
+          <Property Name="State" Type="char" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="ConsumeReturn">
           <Key>
@@ -164,6 +166,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ContactName" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="ContactPhone" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="State" Type="char" MaxLength="1" Nullable="false" />
         </EntityType>
         <Association Name="FK_Account_Authority">
           <End Role="Authority" Type="Self.Authority" Multiplicity="1" />
@@ -866,6 +869,7 @@
           <NavigationProperty Name="ToolDef1" Relationship="ToolManageModel.FK_ToolDef_Account_On_ownerId" FromRole="Account" ToRole="ToolDef" />
           <NavigationProperty Name="ToolDef2" Relationship="ToolManageModel.FK_ToolDef_Account_On_recordId" FromRole="Account" ToRole="ToolDef" />
           <NavigationProperty Name="ToolEntity" Relationship="ToolManageModel.FK_ToolEntity_Account_On_bringId" FromRole="Account" ToRole="ToolEntity" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="Authority">
           <Key>
@@ -878,6 +882,7 @@
           <Property Name="Remark" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Account" Relationship="ToolManageModel.FK_Account_Authority" FromRole="Authority" ToRole="Account" />
           <NavigationProperty Name="WorkCell" Relationship="ToolManageModel.FK_Authority_WorkCell" FromRole="Authority" ToRole="WorkCell" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="ConsumeReturn">
           <Key>
@@ -1060,6 +1065,7 @@
           <NavigationProperty Name="RepairApplication" Relationship="ToolManageModel.FK_RepairApplication_WorkCell" FromRole="WorkCell" ToRole="RepairApplication" />
           <NavigationProperty Name="ScrapApplication" Relationship="ToolManageModel.FK_ScrapApplication_WorkCell" FromRole="WorkCell" ToRole="ScrapApplication" />
           <NavigationProperty Name="ToolDef" Relationship="ToolManageModel.FK_ToolDef_WorkCell_On_workCellId" FromRole="WorkCell" ToRole="ToolDef" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <Association Name="FK_Account_Authority">
           <End Type="ToolManageModel.Authority" Role="Authority" Multiplicity="1" />
@@ -1454,6 +1460,7 @@
           <EntitySetMapping Name="Account">
             <EntityTypeMapping TypeName="ToolManageModel.Account">
               <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Authority" ColumnName="Authority" />
                 <ScalarProperty Name="JobNumber" ColumnName="JobNumber" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
@@ -1468,6 +1475,7 @@
           <EntitySetMapping Name="Authority">
             <EntityTypeMapping TypeName="ToolManageModel.Authority">
               <MappingFragment StoreEntitySet="Authority">
+                <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="WorkCellId" ColumnName="WorkCellId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1616,6 +1624,7 @@
           <EntitySetMapping Name="WorkCell">
             <EntityTypeMapping TypeName="ToolManageModel.WorkCell">
               <MappingFragment StoreEntitySet="WorkCell">
+                <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
                 <ScalarProperty Name="ContactName" ColumnName="ContactName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

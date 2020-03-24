@@ -20,7 +20,7 @@ namespace ToolManage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index([Bind(Include = "UserName,PassWord")] Account account)
         {
-            var acc = db.Account.FirstOrDefault(i => i.UserName == account.UserName);
+            var acc = db.Account.FirstOrDefault(i => i.State == "0" && i.UserName == account.UserName);
             if (acc == null || acc.PassWord.TrimEnd() != account.PassWord)
             {
                 ModelState.AddModelError("", "账号或密码不正确");
