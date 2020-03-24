@@ -1,11 +1,8 @@
-﻿using Antlr.Runtime.Tree;
-using Microsoft.Ajax.Utilities;
-using System;
+﻿using Microsoft.Ajax.Utilities;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using ToolManage.Models;
 
@@ -48,7 +45,15 @@ namespace ToolManage.Controllers
             data = data.OrderBy(i => i.Id).Skip(nowPage * CountPerPage).Take(CountPerPage);
             if (accountId != null)
             {
-                if (accountId == -1)
+                if (accountId != -1)
+                {
+                    account = db.Account.Find(accountId.Value);
+                    account.Name = account.Name.Trim();
+                    account.PassWord = account.PassWord.Trim();
+                    account.UserName = account.UserName.Trim();
+                    account.JobNumber = account.JobNumber.Trim();
+                }
+                if (accountId == -1 || account.State != "0")
                 {
                     account = new Account
                     {
@@ -57,17 +62,11 @@ namespace ToolManage.Controllers
                         PassWord = "",
                         JobNumber = "",
                         WorkCellId = -1,
-                        Id = -1
+                        Id = -1,
+                        State="0"
                     };
                 }
-                else
-                {
-                    account = db.Account.Find(accountId.Value);
-                }
-                account.Name = account.Name.Trim();
-                account.PassWord = account.PassWord.Trim();
-                account.UserName = account.UserName.Trim();
-                account.JobNumber = account.JobNumber.Trim();
+
                 showModal = true;
             }
 
@@ -101,7 +100,6 @@ namespace ToolManage.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
         public ActionResult Delete(int id)
         {
             var account = db.Account.Find(id);

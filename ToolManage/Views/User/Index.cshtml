@@ -70,7 +70,7 @@
         </div>
     </div>
 </div>
-@if (string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
+@if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
 {
     <div class="alert alert-danger alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -225,11 +225,11 @@
         }
 
         prePage = () => {
-            page($("#NowPage").val() - 1);
+            jump($("#NowPage").val() - 1);
         }
 
         nextPage = () => {
-            page($("#NowPage").val() + 1);
+            jump($("#NowPage").val() + 1);
         }
 
         data = [@for (int i = 0; i < ViewBag.SearchOption.Count; i++)

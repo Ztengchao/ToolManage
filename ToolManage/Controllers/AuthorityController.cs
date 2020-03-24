@@ -26,7 +26,7 @@ namespace ToolManage.Controllers
             else
             {
                 authority = db.Authority.Find(authorityId.Value);
-                if (authority == null)
+                if (authority == null||authority.State!="0")
                 {
                     authority = new Authority();
                 }
@@ -47,7 +47,7 @@ namespace ToolManage.Controllers
         public ActionResult Change(int authorityId)
         {
             var authority = db.Authority.Find(authorityId);
-            if (authority == null)
+            if (authority == null || authority.State != "0")
             {
                 return RedirectToAction("Index");
             }
