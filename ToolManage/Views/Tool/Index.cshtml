@@ -3,6 +3,7 @@
 @{
 
 }
+<link href="~/Content/toolList.css" rel="stylesheet" />
 
 <!--model-->
 <!--model 修改夹具-->
@@ -18,7 +19,7 @@
                     <h4 class="modal-title" id="myModalLabel">夹具信息</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal">
+                    <div class="form-horizontal">
                         <div class="form-group">
                             <label for="code" class="col-sm-2 control-label">夹具Code</label>
                             <div class="col-sm-10">
@@ -49,7 +50,7 @@
                                 @Html.TextBoxFor(model => model.PartNo, new { type = "text", @class = "form-control", placeholder = "PartNo" })
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -59,13 +60,15 @@
         </div>
     </div>
 </div>
-<!--警告框-->
-<div class="alert alert-danger alert-dismissible">
-    <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <strong>Tips:</strong> 输入错误.
-</div>
+@if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Tips:</strong> @((string)ViewBag.ErrorMessage)
+    </div>
+}
 <div class="title">
     <h4>夹具查询</h4>
 </div>
@@ -100,15 +103,15 @@
                 <td>
                     <button type="button" class="btn btn-link  table-btn-popover" data-container="body"
                             data-toggle="popover" data-placement="right" data-trigger="hover" data-html="true"
-                            data-content="F:JABIL FU<br/>M:MOD 3MX2<br/>P:PAN90320/1PAN90320">
-                        JABIL FU
+                            data-content="F:@ToolController.GetInner(item.FamilyId)<br/>M:@item.Model<br/>P:@item.PartNo">
+                        @ToolController.GetInner(item.FamilyId)
                     </button>
                 </td>
                 <td>@item.Name</td>
                 <td>@item.EditDate</td>
                 <td>
                     <a href="../../toolInfo/index.html">查看</a>
-                    @Html.ActionLink("修改", "Index", new { id = item.Id })
+                    @Html.ActionLink("修改", "Index", new { toolId = item.Id })
                 </td>
             </tr>
         }
@@ -169,6 +172,16 @@
         </ul>
     </nav>
 </div>
+
+@if (ViewBag.ShowModal)
+{
+    <script>
+        $(() => {
+            $('#myModal').modal("show")
+        })
+    </script>
+}
+
 <script>
     window.addEventListener('load', function () {
         // 给table中的popover 都添加了自定义的类名 .table-btn-popover

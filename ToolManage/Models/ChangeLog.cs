@@ -15,12 +15,11 @@ namespace ToolManage.Models
     public partial class ChangeLog
     {
         public int Id { get; set; }
-        public int BeforeChange { get; set; }
-        public int AfterChange { get; set; }
         public string Type { get; set; }
         public int ChangeAccountId { get; set; }
         public System.DateTime ChangeDate { get; set; }
         public string Detail { get; set; }
+        public int ChangeId { get; set; }
     
         public virtual Account Account { get; set; }
     }

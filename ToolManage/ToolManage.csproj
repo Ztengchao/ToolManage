@@ -201,6 +201,7 @@
     <Content Include="Content\authority.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\department.css" />
+    <Content Include="Content\toolList.css" />
     <Content Include="Content\toolCreate.css" />
     <Content Include="Content\user.css" />
     <Content Include="Content\layout.css" />

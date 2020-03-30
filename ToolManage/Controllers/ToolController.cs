@@ -12,11 +12,57 @@ namespace ToolManage.Controllers
     public class ToolController : Controller
     {
         private readonly ToolManageDataContext db = new ToolManageDataContext();
+        private static int CountPerPage => 10;
 
         // GET: Tool
-        public ActionResult Index(ToolDef toolDef, int? id,string familyNoSearch,string modelNoSearch,string partNoSearch,string codeSearch,string UseForSearch, int nowPage=0)
+        public ActionResult Index(ToolDef toolDef, int? toolId,string errorMessage, string familyNoSearch, string modelNoSearch, string partNoSearch, string codeSearch, string UseForSearch, int nowPage = 0)
         {
-            return View();
+            var data = db.ToolDef.Where(i => i.State == "0").AsQueryable();
+            var showModal = false;
+            if (toolId.HasValue)
+            {
+                toolDef = db.ToolDef.Find(toolId.Value);
+                if (toolDef != null)
+                {
+                    showModal = true;
+                }
+                else
+                {
+                    toolDef = new ToolDef();
+                }
+            }
+
+            #region 搜索
+            if (!string.IsNullOrWhiteSpace(familyNoSearch))
+            {
+                data = data.Where(i => db.Inner.FirstOrDefault(t => t.Detail.Contains(familyNoSearch) && t.Type == "2" && t.Id == i.FamilyId) != null);
+            }
+            if (!string.IsNullOrWhiteSpace(UseForSearch))
+            {
+                data = data.Where(i => db.Inner.FirstOrDefault(t => t.Detail.Contains(UseForSearch) && t.Type == "1" && i.UsedForId == t.Id) != null);
+            }
+            if (!string.IsNullOrWhiteSpace(partNoSearch))
+            {
+                data = data.Where(i => i.PartNo.Contains(partNoSearch));
+            }
+            if (!string.IsNullOrWhiteSpace(modelNoSearch))
+            {
+                data = data.Where(i => i.Model.Contains(modelNoSearch));
+            }
+            if (!string.IsNullOrWhiteSpace(codeSearch))
+            {
+                data = data.Where(i => i.Code.Contains(codeSearch));
+            }
+            #endregion
+
+
+            ViewBag.ErrorMessage = errorMessage;
+            ViewBag.MaxPage = data.Count() / CountPerPage;
+            data = data.OrderBy(i => i.Id).Skip(nowPage * CountPerPage).Take(CountPerPage);
+            ViewBag.Data = data.ToArray();
+            ViewBag.NowPage = nowPage;
+            ViewBag.ShowModal = showModal;
+            return View(toolDef);
         }
 
         public ActionResult Create()
@@ -46,7 +92,7 @@ namespace ToolManage.Controllers
             toolDef.EditId = account.Id;
             toolDef.OwnerId = account.Id;
             toolDef.State = "0";
-            
+
             var usedFor = Request["usefor"];
             var familyNo = Request["familyNo"];
             var usedForId = db.Inner.FirstOrDefault(i => i.Type == "1" && i.Detail == usedFor);
@@ -76,15 +122,60 @@ namespace ToolManage.Controllers
             var changLog = new ChangeLog
             {
                 ChangeAccountId = account.Id,
-                BeforeChange = -1,
-                AfterChange = toolDef.Id,
+                ChangeId = toolDef.Id,
                 Detail = "新建工夹具定义：" + toolDef.Name,
                 ChangeDate = DateTime.Now,
                 Type = "0",
             };
             db.Entry(changLog).State = EntityState.Added;
             db.SaveChanges();
-            
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Change(ToolDef toolDef)
+        {
+            var toolDefineOld = db.ToolDef.Find(toolDef.Id);
+            if (toolDefineOld == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = "修改失败，未找到该工夹具定义" });
+            }
+
+            var familyNo = Request["familyNo"];
+            var familyId = db.Inner.FirstOrDefault(i => i.Type == "2" && i.Detail == familyNo);
+            if (familyId == null)
+            {
+                familyId = new Inner { Type = "2", Detail = familyNo };
+                db.Entry(familyId).State = EntityState.Added;
+                db.SaveChanges();
+            }
+            else
+            {
+                toolDef.FamilyId = familyId.Id;
+            }
+
+            toolDefineOld.EditDate = DateTime.Now;
+            toolDefineOld.EditId = ((Account)Session["account"]).Id;
+            toolDefineOld.FamilyId = familyId.Id;
+            toolDefineOld.Code = toolDef.Code;
+            toolDefineOld.Model = toolDef.Model;
+            toolDefineOld.Name = toolDef.Name;
+            toolDefineOld.PartNo = toolDef.PartNo;
+            db.Entry(toolDefineOld).State = EntityState.Modified;
+            db.SaveChanges();
+
+            var changLog = new ChangeLog
+            {
+                ChangeAccountId = ((Account)Session["account"]).Id,
+                ChangeId = toolDefineOld.Id,
+                Detail = "修改工夹具定义：" + toolDef.Name,
+                ChangeDate = DateTime.Now,
+                Type = "0",
+            };
+            db.Entry(changLog).State = EntityState.Added;
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

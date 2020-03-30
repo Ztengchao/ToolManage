@@ -35,8 +35,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BeforeChange" Type="int" Nullable="false" />
-          <Property Name="AfterChange" Type="int" Nullable="false" />
+          <Property Name="ChangeId" Type="int" Nullable="false" />
           <Property Name="Type" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="ChangeAccountId" Type="int" Nullable="false" />
           <Property Name="ChangeDate" Type="datetime" Nullable="false" />
@@ -1369,13 +1368,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BeforeChange" Type="Int32" Nullable="false" />
-          <Property Name="AfterChange" Type="Int32" Nullable="false" />
           <Property Name="Type" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="ChangeAccountId" Type="Int32" Nullable="false" />
           <Property Name="ChangeDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Detail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Account" Relationship="ToolManageModel.FK_ChangeLog_Account" FromRole="ChangeLog" ToRole="Account" />
+          <Property Name="ChangeId" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_ChangeLog_Account">
           <End Type="ToolManageModel.Account" Role="Account" Multiplicity="1" />
@@ -1678,12 +1676,11 @@
           <EntitySetMapping Name="ChangeLog">
             <EntityTypeMapping TypeName="ToolManageModel.ChangeLog">
               <MappingFragment StoreEntitySet="ChangeLog">
+                <ScalarProperty Name="ChangeId" ColumnName="ChangeId" />
                 <ScalarProperty Name="Detail" ColumnName="Detail" />
                 <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
                 <ScalarProperty Name="ChangeAccountId" ColumnName="ChangeAccountId" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="AfterChange" ColumnName="AfterChange" />
-                <ScalarProperty Name="BeforeChange" ColumnName="BeforeChange" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

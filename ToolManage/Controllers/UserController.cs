@@ -17,6 +17,8 @@ namespace ToolManage.Controllers
         {
             var data = db.Account.Where(i => i.State == "0").AsQueryable();
             var showModal = false;
+
+            #region 搜索
             if (account.WorkCell == null)
             {
                 account.WorkCellId = -1;
@@ -41,6 +43,8 @@ namespace ToolManage.Controllers
             {
                 data = data.Where(i => i.Authority == searchAuthority.Value);
             }
+            #endregion
+
             ViewBag.MaxPage = data.Count() / CountPerPage;
             data = data.OrderBy(i => i.Id).Skip(nowPage * CountPerPage).Take(CountPerPage);
             if (accountId != null)
