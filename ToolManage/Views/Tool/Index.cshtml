@@ -110,7 +110,7 @@
                 <td>@item.Name</td>
                 <td>@item.EditDate</td>
                 <td>
-                    <a href="../../toolInfo/index.html">查看</a>
+                    @Html.ActionLink("查看", "Detail", new { id = item.Id })
                     @Html.ActionLink("修改", "Index", new { toolId = item.Id })
                 </td>
             </tr>

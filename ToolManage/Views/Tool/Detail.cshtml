@@ -1,0 +1,38 @@
+﻿@model ToolManage.Models.ToolDef
+@using ToolManage.Controllers
+@{
+}
+<link href="~/Content/toolDetail.css" rel="stylesheet" />
+<div class="title">
+    <h4>夹具详情</h4>
+</div>
+<div class="toolInfo border row">
+    <div class="col-md-7">
+        <div class="mustInfo">
+            <div class="row">
+                <h4 class="col-md-6">@Model.Code</h4>
+                <h4 class="col-md-6">@Model.Name</h4>
+            </div>
+            <p>
+                <span>F:&nbsp;@ToolController.GetInner(Model.FamilyId)</span>
+                <span>M:&nbsp;@Model.Model</span>
+            </p>
+            <p>
+                P:&nbsp;@Model.PartNo
+            </p>
+            <p class="text-muted">(必要信息)</p>
+        </div>
+        <div class="otherInfo">
+            <p>用途:&nbsp;@ToolController.GetInner(Model.UsedForId)</p>
+            <p>UPL:&nbsp;@(Model.UPL)(个)</p>
+            <p>PMPeriod:&nbsp;@(Model.PMPeriod)(天)</p>
+            <p class="text-muted">(补充信息)</p>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="imgArea">
+            <img src="@(Html.Raw(Model.Picture))" />
+        </div>
+    </div>
+    <p class="text-muted">(类别信息)</p>
+</div>

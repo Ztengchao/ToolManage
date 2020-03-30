@@ -70,6 +70,16 @@ namespace ToolManage.Controllers
             return View(new ToolDef());
         }
 
+        public ActionResult Detail(int id)
+        {
+            var toolDef = db.ToolDef.Find(id);
+            if (toolDef == null)
+            {
+                return RedirectToAction("Index", new { errorMessage = "未找到该工夹具定义" });
+            }
+            return View(toolDef);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ToolDef toolDef)
