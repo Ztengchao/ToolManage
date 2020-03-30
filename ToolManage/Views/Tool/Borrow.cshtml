@@ -1,0 +1,150 @@
+﻿@using ToolManage.Controllers
+@{
+}
+<link href="~/Content/toolBorrow.css" rel="stylesheet" />
+
+@if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Tips:</strong> @((string)ViewBag.ErrorMessage)
+    </div>
+}
+<div class="return clearfix">
+    <a href="../toolReturn/index.html" role="button" class="btn btn-primary">
+        归还夹具
+    </a>
+</div>
+<div class="title">
+    <h4>夹具借用</h4>
+</div>
+<div class="toolFind border">
+    <form class="form-inline" id="search">
+        <div class="input">
+            <div style="display:none;">
+                <input id="NowPage" name="NowPage" value="@ViewBag.NowPage" />
+            </div>
+            <input value="@(Request["familyNoSearch"]?.ToString())" name="familyNoSearch" type="text" class="form-control" placeholder="FamilyNo" />
+            <input value="@(Request["modelNoSearch"]?.ToString())" name="modelNoSearch" type="text" class="form-control" placeholder="ModelNo" />
+            <input value="@(Request["partNoSearch"]?.ToString())" name="partNoSearch" type="text" class="form-control" placeholder="PartNo" />
+            <input value="@(Request["codeSearch"]?.ToString())" name="codeSearch" type="text" class="form-control" placeholder="Code" />
+        </div>
+        <textarea value="@(Request["UseForSearch"]?.ToString())" name="UseForSearch" class="form-control" placeholder="UseFor"></textarea>
+        <button type="submit" class="btn btn-primary btn-lg">查询</button>
+    </form>
+</div>
+<div class="toolList border clearfix">
+    <table class="table table-striped">
+        <tr>
+            <th>Code</th>
+            <th>F&M&P</th>
+            <th>Name</th>
+            <th>上次修改时间</th>
+            <th>操作</th>
+        </tr>
+        @foreach (ToolManage.Models.ToolDef item in ViewBag.Data)
+        {
+            <tr>
+                <td>@item.Code</td>
+                <td>
+                    <button type="button" class="btn btn-link  table-btn-popover" data-container="body"
+                            data-toggle="popover" data-placement="right" data-trigger="hover" data-html="true"
+                            data-content="F:@ToolController.GetInner(item.FamilyId)<br/>M:@item.Model<br/>P:@item.PartNo">
+                        @ToolController.GetInner(item.FamilyId)
+                    </button>
+                </td>
+                <td>@item.Name</td>
+                <td>@item.EditDate</td>
+                <td>
+                    @Html.ActionLink("借用", "Detail", new { id = item.Id })
+                    @Html.ActionLink("保修", "Index", new { toolId = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+    <nav>
+        <ul class="pagination">
+            @if (ViewBag.NowPage == 0)
+            {
+                <li class="disabled">
+                    <a aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="#" onclick="prePage()" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = ViewBag.NowPage - 3; i < ViewBag.NowPage; i++)
+            {
+                if (i < 0)
+                {
+                    continue;
+                }
+                <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+            }
+
+            <li class="active"><a href="#">@(ViewBag.NowPage+1) <span class="sr-only">(current)</span></a></li>
+            @for (int i = ViewBag.NowPage + 1; i < ViewBag.NowPage + 4; i++)
+            {
+                if (i > ViewBag.MaxPage)
+                {
+                    break;
+                }
+                <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+            }
+
+            @if (ViewBag.NowPage == ViewBag.MaxPage)
+            {
+                <li class="disabled">
+                    <a aria-label="Previous">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="#" onclick="prePage()" aria-label="Previous">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
+
+<script>
+    window.addEventListener('load', function () {
+        // 给table中的popover 都添加了自定义的类名 .table-btn-popover
+
+        // 开启
+        $('.table-btn-popover').popover()
+    })
+</script>
+<script>
+    $(() => {
+        document.getElementById("toolBorrow").className = "active";
+
+        jump = page => {
+            $("#NowPage").val(page);
+            $("#search").submit();
+        }
+
+        prePage = () => {
+            jump($("#NowPage").val() - 1);
+        }
+
+        nextPage = () => {
+            jump($("#NowPage").val() + 1);
+        }
+    })
+</script>

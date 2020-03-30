@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using ToolManage.Models;
-using System.IO;
 
 namespace ToolManage.Controllers
 {
@@ -15,9 +12,10 @@ namespace ToolManage.Controllers
         private static int CountPerPage => 10;
 
         // GET: Tool
-        public ActionResult Index(ToolDef toolDef, int? toolId,string errorMessage, string familyNoSearch, string modelNoSearch, string partNoSearch, string codeSearch, string UseForSearch, int nowPage = 0)
+        public ActionResult Index(ToolDef toolDef, int? toolId, string errorMessage, string familyNoSearch, string modelNoSearch, string partNoSearch, string codeSearch, string UseForSearch, int nowPage = 0)
         {
-            var data = db.ToolDef.Where(i => i.State == "0").AsQueryable();
+            var account = (Account)Session["account"];
+            var data = db.ToolDef.Where(i => i.State == "0" && i.WorkCellId == account.WorkCellId);
             var showModal = false;
             if (toolId.HasValue)
             {
@@ -55,7 +53,6 @@ namespace ToolManage.Controllers
             }
             #endregion
 
-
             ViewBag.ErrorMessage = errorMessage;
             ViewBag.MaxPage = data.Count() / CountPerPage;
             data = data.OrderBy(i => i.Id).Skip(nowPage * CountPerPage).Take(CountPerPage);
@@ -73,11 +70,48 @@ namespace ToolManage.Controllers
         public ActionResult Detail(int id)
         {
             var toolDef = db.ToolDef.Find(id);
-            if (toolDef == null)
+            if (toolDef == null || toolDef.WorkCellId != ((Account)Session["account"]).WorkCellId)
             {
                 return RedirectToAction("Index", new { errorMessage = "未找到该工夹具定义" });
             }
             return View(toolDef);
+        }
+
+        public ActionResult Borrow(string errorMessage, string familyNoSearch, string modelNoSearch, string partNoSearch, string codeSearch, string UseForSearch, int nowPage = 0)
+        {
+            var workcellId = ((Account)Session["account"]).WorkCellId;
+            var account = (Account)Session["account"];
+            var data = db.ToolDef.Where(i => i.State == "0" && i.WorkCellId == account.WorkCellId);
+            
+            #region 搜索
+            if (!string.IsNullOrWhiteSpace(familyNoSearch))
+            {
+                data = data.Where(i => db.Inner.FirstOrDefault(t => t.Detail.Contains(familyNoSearch) && t.Type == "2" && t.Id == i.FamilyId) != null);
+            }
+            if (!string.IsNullOrWhiteSpace(UseForSearch))
+            {
+                data = data.Where(i => db.Inner.FirstOrDefault(t => t.Detail.Contains(UseForSearch) && t.Type == "1" && i.UsedForId == t.Id) != null);
+            }
+            if (!string.IsNullOrWhiteSpace(partNoSearch))
+            {
+                data = data.Where(i => i.PartNo.Contains(partNoSearch));
+            }
+            if (!string.IsNullOrWhiteSpace(modelNoSearch))
+            {
+                data = data.Where(i => i.Model.Contains(modelNoSearch));
+            }
+            if (!string.IsNullOrWhiteSpace(codeSearch))
+            {
+                data = data.Where(i => i.Code.Contains(codeSearch));
+            }
+            #endregion
+
+            ViewBag.ErrorMessage = errorMessage;
+            ViewBag.MaxPage = data.Count() / CountPerPage;
+            data = data.OrderBy(i => i.Id).Skip(nowPage * CountPerPage).Take(CountPerPage);
+            ViewBag.Data = data.ToArray();
+            ViewBag.NowPage = nowPage;
+            return View();
         }
 
         [HttpPost]
@@ -148,7 +182,7 @@ namespace ToolManage.Controllers
         public ActionResult Change(ToolDef toolDef)
         {
             var toolDefineOld = db.ToolDef.Find(toolDef.Id);
-            if (toolDefineOld == null)
+            if (toolDefineOld == null || toolDefineOld.WorkCellId != ((Account)Session["account"]).WorkCellId)
             {
                 return RedirectToAction("Index", new { errorMessage = "修改失败，未找到该工夹具定义" });
             }
