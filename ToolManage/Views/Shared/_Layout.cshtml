@@ -24,6 +24,8 @@
                 <li id="authority">@Html.ActionLink("权限管理", "Index", "Authority")</li>
                 <li id="department">@Html.ActionLink("部门管理","Index","Department")</li>
                 <li id="user">@Html.ActionLink("用户管理","Index","User")</li>
+                <li id="toolList">@Html.ActionLink("夹具列表","Index","Tool")</li>
+                <li id="toolCreate">@Html.ActionLink("夹具录入","Create","Tool")</li>
             </ul>
         </div>
         <div class="content">
@@ -36,7 +38,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                   aria-expanded="false">@*@(((ToolManage.Models.Account)Session["account"]).Name)*@ <span class="caret"></span></a>
+                                   aria-expanded="false">@(((ToolManage.Models.Account)Session["account"]).Name) <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li>@Html.ActionLink("退出登录","LogOut","Login")</li>
                                 </ul>

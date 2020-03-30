@@ -30,6 +30,18 @@
           <Property Name="Remark" Type="nvarchar" MaxLength="30" />
           <Property Name="State" Type="char" MaxLength="1" Nullable="false" />
         </EntityType>
+        <EntityType Name="ChangeLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BeforeChange" Type="int" Nullable="false" />
+          <Property Name="AfterChange" Type="int" Nullable="false" />
+          <Property Name="Type" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="ChangeAccountId" Type="int" Nullable="false" />
+          <Property Name="ChangeDate" Type="datetime" Nullable="false" />
+          <Property Name="Detail" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="ConsumeReturn">
           <Key>
             <PropertyRef Name="Id" />
@@ -142,6 +154,8 @@
           <Property Name="EditId" Type="int" Nullable="false" />
           <Property Name="WorkCellId" Type="int" Nullable="false" />
           <Property Name="PMPeriod" Type="int" Nullable="false" />
+          <Property Name="State" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Picture" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="ToolEntity">
           <Key>
@@ -201,6 +215,18 @@
             </Principal>
             <Dependent Role="Authority">
               <PropertyRef Name="WorkCellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChangeLog_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ChangeLog" Type="Self.ChangeLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChangeLog">
+              <PropertyRef Name="ChangeAccountId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -555,6 +581,7 @@
         <EntityContainer Name="ToolManageModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Authority" EntityType="Self.Authority" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChangeLog" EntityType="Self.ChangeLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ConsumeReturn" EntityType="Self.ConsumeReturn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Inner" EntityType="Self.Inner" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InOutStock" EntityType="Self.InOutStock" Schema="dbo" store:Type="Tables" />
@@ -576,6 +603,10 @@
           <AssociationSet Name="FK_Authority_WorkCell" Association="Self.FK_Authority_WorkCell">
             <End Role="WorkCell" EntitySet="WorkCell" />
             <End Role="Authority" EntitySet="Authority" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChangeLog_Account" Association="Self.FK_ChangeLog_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ChangeLog" EntitySet="ChangeLog" />
           </AssociationSet>
           <AssociationSet Name="FK_consumeReturn_Account" Association="Self.FK_consumeReturn_Account">
             <End Role="Account" EntitySet="Account" />
@@ -708,7 +739,6 @@
           <EntitySet Name="PurchasingApplication" EntityType="ToolManageModel.PurchasingApplication" />
           <EntitySet Name="RepairApplication" EntityType="ToolManageModel.RepairApplication" />
           <EntitySet Name="ScrapApplication" EntityType="ToolManageModel.ScrapApplication" />
-          <EntitySet Name="ToolDef" EntityType="ToolManageModel.ToolDef" />
           <EntitySet Name="ToolEntity" EntityType="ToolManageModel.ToolEntity" />
           <EntitySet Name="WorkCell" EntityType="ToolManageModel.WorkCell" />
           <AssociationSet Name="FK_Account_Authority" Association="ToolManageModel.FK_Account_Authority">
@@ -763,18 +793,6 @@
             <End Role="Account" EntitySet="Account" />
             <End Role="ScrapApplication" EntitySet="ScrapApplication" />
           </AssociationSet>
-          <AssociationSet Name="FK_ToolDef_Account_On_editId" Association="ToolManageModel.FK_ToolDef_Account_On_editId">
-            <End Role="Account" EntitySet="Account" />
-            <End Role="ToolDef" EntitySet="ToolDef" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ToolDef_Account_On_ownerId" Association="ToolManageModel.FK_ToolDef_Account_On_ownerId">
-            <End Role="Account" EntitySet="Account" />
-            <End Role="ToolDef" EntitySet="ToolDef" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ToolDef_Account_On_recordId" Association="ToolManageModel.FK_ToolDef_Account_On_recordId">
-            <End Role="Account" EntitySet="Account" />
-            <End Role="ToolDef" EntitySet="ToolDef" />
-          </AssociationSet>
           <AssociationSet Name="FK_ToolEntity_Account_On_bringId" Association="ToolManageModel.FK_ToolEntity_Account_On_bringId">
             <End Role="Account" EntitySet="Account" />
             <End Role="ToolEntity" EntitySet="ToolEntity" />
@@ -791,14 +809,6 @@
             <End Role="Inner" EntitySet="Inner" />
             <End Role="InOutStock" EntitySet="InOutStock" />
           </AssociationSet>
-          <AssociationSet Name="FK_ToolDef_Inner_On_familyId" Association="ToolManageModel.FK_ToolDef_Inner_On_familyId">
-            <End Role="Inner" EntitySet="Inner" />
-            <End Role="ToolDef" EntitySet="ToolDef" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ToolDef_Inner_On_usedForId" Association="ToolManageModel.FK_ToolDef_Inner_On_usedForId">
-            <End Role="Inner" EntitySet="Inner" />
-            <End Role="ToolDef" EntitySet="ToolDef" />
-          </AssociationSet>
           <AssociationSet Name="FK_inOutStock_ToolEntity" Association="ToolManageModel.FK_inOutStock_ToolEntity">
             <End Role="ToolEntity" EntitySet="ToolEntity" />
             <End Role="InOutStock" EntitySet="InOutStock" />
@@ -806,10 +816,6 @@
           <AssociationSet Name="FK_Maintenance_ToolEntity" Association="ToolManageModel.FK_Maintenance_ToolEntity">
             <End Role="ToolEntity" EntitySet="ToolEntity" />
             <End Role="Maintenance" EntitySet="Maintenance" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PurchasingApplication_ToolDef" Association="ToolManageModel.FK_PurchasingApplication_ToolDef">
-            <End Role="ToolDef" EntitySet="ToolDef" />
-            <End Role="PurchasingApplication" EntitySet="PurchasingApplication" />
           </AssociationSet>
           <AssociationSet Name="FK_PurchasingApplication_WorkCell" Association="ToolManageModel.FK_PurchasingApplication_WorkCell">
             <End Role="WorkCell" EntitySet="WorkCell" />
@@ -830,6 +836,36 @@
           <AssociationSet Name="FK_ScrapApplication_WorkCell" Association="ToolManageModel.FK_ScrapApplication_WorkCell">
             <End Role="WorkCell" EntitySet="WorkCell" />
             <End Role="ScrapApplication" EntitySet="ScrapApplication" />
+          </AssociationSet>
+          <EntitySet Name="ChangeLog" EntityType="ToolManageModel.ChangeLog" />
+          <AssociationSet Name="FK_ChangeLog_Account" Association="ToolManageModel.FK_ChangeLog_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ChangeLog" EntitySet="ChangeLog" />
+          </AssociationSet>
+          <EntitySet Name="ToolDef" EntityType="ToolManageModel.ToolDef" />
+          <AssociationSet Name="FK_ToolDef_Account_On_editId" Association="ToolManageModel.FK_ToolDef_Account_On_editId">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_Account_On_ownerId" Association="ToolManageModel.FK_ToolDef_Account_On_ownerId">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_Account_On_recordId" Association="ToolManageModel.FK_ToolDef_Account_On_recordId">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_Inner_On_familyId" Association="ToolManageModel.FK_ToolDef_Inner_On_familyId">
+            <End Role="Inner" EntitySet="Inner" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_Inner_On_usedForId" Association="ToolManageModel.FK_ToolDef_Inner_On_usedForId">
+            <End Role="Inner" EntitySet="Inner" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchasingApplication_ToolDef" Association="ToolManageModel.FK_PurchasingApplication_ToolDef">
+            <End Role="ToolDef" EntitySet="ToolDef" />
+            <End Role="PurchasingApplication" EntitySet="PurchasingApplication" />
           </AssociationSet>
           <AssociationSet Name="FK_ToolDef_WorkCell_On_workCellId" Association="ToolManageModel.FK_ToolDef_WorkCell_On_workCellId">
             <End Role="WorkCell" EntitySet="WorkCell" />
@@ -865,11 +901,12 @@
           <NavigationProperty Name="ScrapApplication" Relationship="ToolManageModel.FK_ScrapApplication_Account" FromRole="Account" ToRole="ScrapApplication" />
           <NavigationProperty Name="ScrapApplication1" Relationship="ToolManageModel.FK_ScrapApplication_Account1" FromRole="Account" ToRole="ScrapApplication" />
           <NavigationProperty Name="ScrapApplication2" Relationship="ToolManageModel.FK_ScrapApplication_Account2" FromRole="Account" ToRole="ScrapApplication" />
+          <NavigationProperty Name="ToolEntity" Relationship="ToolManageModel.FK_ToolEntity_Account_On_bringId" FromRole="Account" ToRole="ToolEntity" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="ChangeLog" Relationship="ToolManageModel.FK_ChangeLog_Account" FromRole="Account" ToRole="ChangeLog" />
           <NavigationProperty Name="ToolDef" Relationship="ToolManageModel.FK_ToolDef_Account_On_editId" FromRole="Account" ToRole="ToolDef" />
           <NavigationProperty Name="ToolDef1" Relationship="ToolManageModel.FK_ToolDef_Account_On_ownerId" FromRole="Account" ToRole="ToolDef" />
           <NavigationProperty Name="ToolDef2" Relationship="ToolManageModel.FK_ToolDef_Account_On_recordId" FromRole="Account" ToRole="ToolDef" />
-          <NavigationProperty Name="ToolEntity" Relationship="ToolManageModel.FK_ToolEntity_Account_On_bringId" FromRole="Account" ToRole="ToolEntity" />
-          <Property Name="State" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="Authority">
           <Key>
@@ -958,8 +995,8 @@
           <NavigationProperty Name="Account" Relationship="ToolManageModel.FK_PurchasingApplication_Account" FromRole="PurchasingApplication" ToRole="Account" />
           <NavigationProperty Name="Account1" Relationship="ToolManageModel.FK_PurchasingApplication_Account1" FromRole="PurchasingApplication" ToRole="Account" />
           <NavigationProperty Name="Account2" Relationship="ToolManageModel.FK_PurchasingApplication_Account2" FromRole="PurchasingApplication" ToRole="Account" />
-          <NavigationProperty Name="ToolDef" Relationship="ToolManageModel.FK_PurchasingApplication_ToolDef" FromRole="PurchasingApplication" ToRole="ToolDef" />
           <NavigationProperty Name="WorkCell" Relationship="ToolManageModel.FK_PurchasingApplication_WorkCell" FromRole="PurchasingApplication" ToRole="WorkCell" />
+          <NavigationProperty Name="ToolDef" Relationship="ToolManageModel.FK_PurchasingApplication_ToolDef" FromRole="PurchasingApplication" ToRole="ToolDef" />
         </EntityType>
         <EntityType Name="RepairApplication">
           <Key>
@@ -1001,34 +1038,6 @@
           <NavigationProperty Name="ToolEntity" Relationship="ToolManageModel.FK_ScrapApplication_ToolEntity" FromRole="ScrapApplication" ToRole="ToolEntity" />
           <NavigationProperty Name="WorkCell" Relationship="ToolManageModel.FK_ScrapApplication_WorkCell" FromRole="ScrapApplication" ToRole="WorkCell" />
         </EntityType>
-        <EntityType Name="ToolDef">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FamilyId" Type="Int32" Nullable="false" />
-          <Property Name="Model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PartNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UPL" Type="Int32" Nullable="false" />
-          <Property Name="UsedForId" Type="Int32" Nullable="false" />
-          <Property Name="OwnerId" Type="Int32" Nullable="false" />
-          <Property Name="RecordDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="RecordId" Type="Int32" Nullable="false" />
-          <Property Name="EditDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EditId" Type="Int32" Nullable="false" />
-          <Property Name="WorkCellId" Type="Int32" Nullable="false" />
-          <Property Name="PMPeriod" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Account" Relationship="ToolManageModel.FK_ToolDef_Account_On_editId" FromRole="ToolDef" ToRole="Account" />
-          <NavigationProperty Name="Account1" Relationship="ToolManageModel.FK_ToolDef_Account_On_ownerId" FromRole="ToolDef" ToRole="Account" />
-          <NavigationProperty Name="Account2" Relationship="ToolManageModel.FK_ToolDef_Account_On_recordId" FromRole="ToolDef" ToRole="Account" />
-          <NavigationProperty Name="Inner" Relationship="ToolManageModel.FK_ToolDef_Inner_On_familyId" FromRole="ToolDef" ToRole="Inner" />
-          <NavigationProperty Name="Inner1" Relationship="ToolManageModel.FK_ToolDef_Inner_On_usedForId" FromRole="ToolDef" ToRole="Inner" />
-          <NavigationProperty Name="PurchasingApplication" Relationship="ToolManageModel.FK_PurchasingApplication_ToolDef" FromRole="ToolDef" ToRole="PurchasingApplication" />
-          <NavigationProperty Name="WorkCell" Relationship="ToolManageModel.FK_ToolDef_WorkCell_On_workCellId" FromRole="ToolDef" ToRole="WorkCell" />
-          <NavigationProperty Name="ToolEntity" Relationship="ToolManageModel.FK_ToolEntity_ToolDef_On_toolDefId" FromRole="ToolDef" ToRole="ToolEntity" />
-        </EntityType>
         <EntityType Name="ToolEntity">
           <Key>
             <PropertyRef Name="Id" />
@@ -1064,8 +1073,8 @@
           <NavigationProperty Name="PurchasingApplication" Relationship="ToolManageModel.FK_PurchasingApplication_WorkCell" FromRole="WorkCell" ToRole="PurchasingApplication" />
           <NavigationProperty Name="RepairApplication" Relationship="ToolManageModel.FK_RepairApplication_WorkCell" FromRole="WorkCell" ToRole="RepairApplication" />
           <NavigationProperty Name="ScrapApplication" Relationship="ToolManageModel.FK_ScrapApplication_WorkCell" FromRole="WorkCell" ToRole="ScrapApplication" />
-          <NavigationProperty Name="ToolDef" Relationship="ToolManageModel.FK_ToolDef_WorkCell_On_workCellId" FromRole="WorkCell" ToRole="ToolDef" />
           <Property Name="State" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="ToolDef" Relationship="ToolManageModel.FK_ToolDef_WorkCell_On_workCellId" FromRole="WorkCell" ToRole="ToolDef" />
         </EntityType>
         <Association Name="FK_Account_Authority">
           <End Type="ToolManageModel.Authority" Role="Authority" Multiplicity="1" />
@@ -1223,42 +1232,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ToolDef_Account_On_editId">
-          <End Type="ToolManageModel.Account" Role="Account" Multiplicity="1" />
-          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ToolDef">
-              <PropertyRef Name="EditId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ToolDef_Account_On_ownerId">
-          <End Type="ToolManageModel.Account" Role="Account" Multiplicity="1" />
-          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ToolDef">
-              <PropertyRef Name="OwnerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ToolDef_Account_On_recordId">
-          <End Type="ToolManageModel.Account" Role="Account" Multiplicity="1" />
-          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ToolDef">
-              <PropertyRef Name="RecordId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ToolEntity_Account_On_bringId">
           <End Type="ToolManageModel.Account" Role="Account" Multiplicity="1" />
           <End Type="ToolManageModel.ToolEntity" Role="ToolEntity" Multiplicity="*" />
@@ -1307,30 +1280,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ToolDef_Inner_On_familyId">
-          <End Type="ToolManageModel.Inner" Role="Inner" Multiplicity="1" />
-          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Inner">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ToolDef">
-              <PropertyRef Name="FamilyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ToolDef_Inner_On_usedForId">
-          <End Type="ToolManageModel.Inner" Role="Inner" Multiplicity="1" />
-          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Inner">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ToolDef">
-              <PropertyRef Name="UsedForId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_inOutStock_ToolEntity">
           <End Type="ToolManageModel.ToolEntity" Role="ToolEntity" Multiplicity="1" />
           <End Type="ToolManageModel.InOutStock" Role="InOutStock" Multiplicity="*" />
@@ -1352,18 +1301,6 @@
             </Principal>
             <Dependent Role="Maintenance">
               <PropertyRef Name="ToolEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PurchasingApplication_ToolDef">
-          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="1" />
-          <End Type="ToolManageModel.PurchasingApplication" Role="PurchasingApplication" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ToolDef">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PurchasingApplication">
-              <PropertyRef Name="ToolDefId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1424,6 +1361,133 @@
             </Principal>
             <Dependent Role="ScrapApplication">
               <PropertyRef Name="WorkCellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ChangeLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BeforeChange" Type="Int32" Nullable="false" />
+          <Property Name="AfterChange" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ChangeAccountId" Type="Int32" Nullable="false" />
+          <Property Name="ChangeDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Detail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="ToolManageModel.FK_ChangeLog_Account" FromRole="ChangeLog" ToRole="Account" />
+        </EntityType>
+        <Association Name="FK_ChangeLog_Account">
+          <End Type="ToolManageModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="ToolManageModel.ChangeLog" Role="ChangeLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChangeLog">
+              <PropertyRef Name="ChangeAccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ToolDef">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyId" Type="Int32" Nullable="false" />
+          <Property Name="Model" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PartNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UPL" Type="Int32" Nullable="false" />
+          <Property Name="UsedForId" Type="Int32" Nullable="false" />
+          <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <Property Name="RecordDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RecordId" Type="Int32" Nullable="false" />
+          <Property Name="EditDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditId" Type="Int32" Nullable="false" />
+          <Property Name="WorkCellId" Type="Int32" Nullable="false" />
+          <Property Name="PMPeriod" Type="Int32" Nullable="false" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Picture" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="ToolManageModel.FK_ToolDef_Account_On_editId" FromRole="ToolDef" ToRole="Account" />
+          <NavigationProperty Name="Account1" Relationship="ToolManageModel.FK_ToolDef_Account_On_ownerId" FromRole="ToolDef" ToRole="Account" />
+          <NavigationProperty Name="Account2" Relationship="ToolManageModel.FK_ToolDef_Account_On_recordId" FromRole="ToolDef" ToRole="Account" />
+          <NavigationProperty Name="Inner" Relationship="ToolManageModel.FK_ToolDef_Inner_On_familyId" FromRole="ToolDef" ToRole="Inner" />
+          <NavigationProperty Name="Inner1" Relationship="ToolManageModel.FK_ToolDef_Inner_On_usedForId" FromRole="ToolDef" ToRole="Inner" />
+          <NavigationProperty Name="PurchasingApplication" Relationship="ToolManageModel.FK_PurchasingApplication_ToolDef" FromRole="ToolDef" ToRole="PurchasingApplication" />
+          <NavigationProperty Name="WorkCell" Relationship="ToolManageModel.FK_ToolDef_WorkCell_On_workCellId" FromRole="ToolDef" ToRole="WorkCell" />
+          <NavigationProperty Name="ToolEntity" Relationship="ToolManageModel.FK_ToolEntity_ToolDef_On_toolDefId" FromRole="ToolDef" ToRole="ToolEntity" />
+        </EntityType>
+        <Association Name="FK_ToolDef_Account_On_editId">
+          <End Type="ToolManageModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="EditId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_Account_On_ownerId">
+          <End Type="ToolManageModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_Account_On_recordId">
+          <End Type="ToolManageModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="RecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_Inner_On_familyId">
+          <End Type="ToolManageModel.Inner" Role="Inner" Multiplicity="1" />
+          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inner">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="FamilyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_Inner_On_usedForId">
+          <End Type="ToolManageModel.Inner" Role="Inner" Multiplicity="1" />
+          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inner">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="UsedForId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchasingApplication_ToolDef">
+          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="1" />
+          <End Type="ToolManageModel.PurchasingApplication" Role="PurchasingApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolDef">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchasingApplication">
+              <PropertyRef Name="ToolDefId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1584,27 +1648,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ToolDef">
-            <EntityTypeMapping TypeName="ToolManageModel.ToolDef">
-              <MappingFragment StoreEntitySet="ToolDef">
-                <ScalarProperty Name="PMPeriod" ColumnName="PMPeriod" />
-                <ScalarProperty Name="WorkCellId" ColumnName="WorkCellId" />
-                <ScalarProperty Name="EditId" ColumnName="EditId" />
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
-                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
-                <ScalarProperty Name="RecordDate" ColumnName="RecordDate" />
-                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
-                <ScalarProperty Name="UsedForId" ColumnName="UsedForId" />
-                <ScalarProperty Name="UPL" ColumnName="UPL" />
-                <ScalarProperty Name="PartNo" ColumnName="PartNo" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="FamilyId" ColumnName="FamilyId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ToolEntity">
             <EntityTypeMapping TypeName="ToolManageModel.ToolEntity">
               <MappingFragment StoreEntitySet="ToolEntity">
@@ -1628,6 +1671,42 @@
                 <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
                 <ScalarProperty Name="ContactName" ColumnName="ContactName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChangeLog">
+            <EntityTypeMapping TypeName="ToolManageModel.ChangeLog">
+              <MappingFragment StoreEntitySet="ChangeLog">
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+                <ScalarProperty Name="ChangeAccountId" ColumnName="ChangeAccountId" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="AfterChange" ColumnName="AfterChange" />
+                <ScalarProperty Name="BeforeChange" ColumnName="BeforeChange" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ToolDef">
+            <EntityTypeMapping TypeName="ToolManageModel.ToolDef">
+              <MappingFragment StoreEntitySet="ToolDef">
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="PMPeriod" ColumnName="PMPeriod" />
+                <ScalarProperty Name="WorkCellId" ColumnName="WorkCellId" />
+                <ScalarProperty Name="EditId" ColumnName="EditId" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+                <ScalarProperty Name="RecordDate" ColumnName="RecordDate" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="UsedForId" ColumnName="UsedForId" />
+                <ScalarProperty Name="UPL" ColumnName="UPL" />
+                <ScalarProperty Name="PartNo" ColumnName="PartNo" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="FamilyId" ColumnName="FamilyId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

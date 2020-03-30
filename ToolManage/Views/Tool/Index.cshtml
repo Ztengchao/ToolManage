@@ -1,0 +1,197 @@
+﻿@model ToolManage.Models.ToolDef
+@using ToolManage.Controllers
+@{
+
+}
+
+<!--model-->
+<!--model 修改夹具-->
+<div class="modal fade" id="myModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id);
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">夹具信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="code" class="col-sm-2 control-label">夹具Code</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.Code, new { type = "text", @class = "form-control", placeholder = "Code" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="toolName" class="col-sm-2 control-label">夹具名称</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.Name, new { type = "text", @class = "form-control", placeholder = "Name" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="familyNo" class="col-sm-2 control-label">FamilyNo</label>
+                            <div class="col-sm-10">
+                                <input type="text" value="@ToolController.GetInner(Model.FamilyId)" name="familyNo" id="familyNo" class="form-control" placeholder="FamilyNo" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modelNo" class="col-sm-2 control-label">ModelNo</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.Model, new { type = "text", @class = "form-control", placeholder = "ModelNo" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="partNo" class="col-sm-2 control-label">PartNo</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.PartNo, new { type = "text", @class = "form-control", placeholder = "PartNo" })
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!--警告框-->
+<div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Tips:</strong> 输入错误.
+</div>
+<div class="title">
+    <h4>夹具查询</h4>
+</div>
+<div class="toolFind border">
+    <form class="form-inline" id="search">
+        <div class="input">
+            <div style="display:none;">
+                <input id="NowPage" name="NowPage" value="@ViewBag.NowPage" />
+            </div>
+            <input value="@(Request["familyNoSearch"]?.ToString())" name="familyNoSearch" type="text" class="form-control" placeholder="FamilyNo" />
+            <input value="@(Request["modelNoSearch"]?.ToString())" name="modelNoSearch" type="text" class="form-control" placeholder="ModelNo" />
+            <input value="@(Request["partNoSearch"]?.ToString())" name="partNoSearch" type="text" class="form-control" placeholder="PartNo" />
+            <input value="@(Request["codeSearch"]?.ToString())" name="codeSearch" type="text" class="form-control" placeholder="Code" />
+        </div>
+        <textarea value="@(Request["UseForSearch"]?.ToString())" name="UseForSearch" class="form-control" placeholder="UseFor"></textarea>
+        <button type="submit" class="btn btn-primary btn-lg">查询</button>
+    </form>
+</div>
+<div class="toolList border clearfix">
+    <table class="table table-striped">
+        <tr>
+            <th>Code</th>
+            <th>F&M&P</th>
+            <th>Name</th>
+            <th>上次修改时间</th>
+            <th>操作</th>
+        </tr>
+        @foreach (ToolManage.Models.ToolDef item in ViewBag.Data)
+        {
+            <tr>
+                <td>@item.Code</td>
+                <td>
+                    <button type="button" class="btn btn-link  table-btn-popover" data-container="body"
+                            data-toggle="popover" data-placement="right" data-trigger="hover" data-html="true"
+                            data-content="F:JABIL FU<br/>M:MOD 3MX2<br/>P:PAN90320/1PAN90320">
+                        JABIL FU
+                    </button>
+                </td>
+                <td>@item.Name</td>
+                <td>@item.EditDate</td>
+                <td>
+                    <a href="../../toolInfo/index.html">查看</a>
+                    @Html.ActionLink("修改", "Index", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+    <nav>
+        <ul class="pagination">
+            @if (ViewBag.NowPage == 0)
+            {
+                <li class="disabled">
+                    <a aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="#" onclick="prePage()" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = ViewBag.NowPage - 3; i < ViewBag.NowPage; i++)
+            {
+                if (i < 0)
+                {
+                    continue;
+                }
+                <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+            }
+
+            <li class="active"><a href="#">@(ViewBag.NowPage+1) <span class="sr-only">(current)</span></a></li>
+            @for (int i = ViewBag.NowPage + 1; i < ViewBag.NowPage + 4; i++)
+            {
+                if (i > ViewBag.MaxPage)
+                {
+                    break;
+                }
+                <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+            }
+
+            @if (ViewBag.NowPage == ViewBag.MaxPage)
+            {
+                <li class="disabled">
+                    <a aria-label="Previous">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="#" onclick="prePage()" aria-label="Previous">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+<script>
+    window.addEventListener('load', function () {
+        // 给table中的popover 都添加了自定义的类名 .table-btn-popover
+
+        // 开启
+        $('.table-btn-popover').popover()
+    })
+</script>
+<script>
+    $(() => {
+        document.getElementById("toolList").className = "active";
+
+        jump = page => {
+            $("#NowPage").val(page);
+            $("#search").submit();
+        }
+
+        prePage = () => {
+            jump($("#NowPage").val() - 1);
+        }
+
+        nextPage = () => {
+            jump($("#NowPage").val() + 1);
+        }
+    })
+</script>

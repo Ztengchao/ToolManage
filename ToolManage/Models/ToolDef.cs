@@ -36,6 +36,8 @@ namespace ToolManage.Models
         public int EditId { get; set; }
         public int WorkCellId { get; set; }
         public int PMPeriod { get; set; }
+        public string State { get; set; }
+        public string Picture { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual Account Account1 { get; set; }

@@ -133,6 +133,7 @@
     <Compile Include="Controllers\AuthorityController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ToolController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -143,6 +144,9 @@
     </Compile>
     <Compile Include="Models\AccountMetadata.cs" />
     <Compile Include="Models\Authority.cs">
+      <DependentUpon>ToolManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChangeLog.cs">
       <DependentUpon>ToolManage.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ConsumeReturn.cs">
@@ -197,6 +201,7 @@
     <Content Include="Content\authority.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\department.css" />
+    <Content Include="Content\toolCreate.css" />
     <Content Include="Content\user.css" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\login.css" />
@@ -249,6 +254,8 @@
     <Content Include="Views\Authority\Index.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Tool\Create.cshtml" />
+    <Content Include="Views\Tool\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
