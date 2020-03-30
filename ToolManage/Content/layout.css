@@ -33,3 +33,29 @@
   justify-content: center;
   width: 80%;
 }
+
+.title {
+	background-color: #4777e9;
+	width: 97%;
+	height: 40px;
+	margin: 0px auto;
+	boder: 1px solid darkblue;
+	box-shadow: 1px 1px 3px #6588d1;
+	border-radius: 5px;
+	color: #f8fafc;
+}
+
+.title h4 {
+	height: 100%;
+	line-height: 40px;
+	padding-left: 30px;
+}
+
+.border {
+	background-color: #fffeff;
+	width: 97%;
+	margin: 10px auto;
+	padding: 10px;
+	border-radius: 5px;
+	box-shadow: 1px 3px 3px rgba(0,0,0,.1);
+}
