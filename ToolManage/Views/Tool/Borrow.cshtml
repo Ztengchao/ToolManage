@@ -18,7 +18,7 @@
     </a>
 </div>
 <div class="title">
-    <h4>夹具借用</h4>
+    <h4>夹具详情</h4>
 </div>
 <div class="toolFind border">
     <form class="form-inline" id="search">
@@ -41,7 +41,7 @@
             <th>Code</th>
             <th>F&M&P</th>
             <th>Name</th>
-            <th>上次修改时间</th>
+            <th>库存</th>
             <th>操作</th>
         </tr>
         @foreach (ToolManage.Models.ToolDef item in ViewBag.Data)
@@ -56,10 +56,11 @@
                     </button>
                 </td>
                 <td>@item.Name</td>
-                <td>@item.EditDate</td>
                 <td>
-                    @Html.ActionLink("借用", "Detail", new { id = item.Id })
-                    @Html.ActionLink("保修", "Index", new { toolId = item.Id })
+                    @(item.ToolEntity.Where(i=>i.State=="0").Count()+"/"+item.ToolEntity.Where(i=>i.State!="-1").Count())
+                </td>
+                <td>
+                    @Html.ActionLink("借用|保修", "BorrowDetail", new { id = item.Id })
                 </td>
             </tr>
         }

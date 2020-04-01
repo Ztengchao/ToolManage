@@ -28,12 +28,13 @@ namespace ToolManage.Models
         public int ToolDefId { get; set; }
         public int UsedCount { get; set; }
         public string Location { get; set; }
-        public byte[] Picture { get; set; }
         public string BillNo { get; set; }
         public System.DateTime RegDate { get; set; }
         public System.DateTime ProductionDate { get; set; }
-        public int BringId { get; set; }
+        public Nullable<int> BringId { get; set; }
         public string State { get; set; }
+        public string Code { get; set; }
+        public string Picture { get; set; }
     
         public virtual Account Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

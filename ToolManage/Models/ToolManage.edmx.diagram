@@ -4,20 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f821f97c4e3044118e5a3a9ae5ce3c70" Name="Diagram1" ZoomLevel="88">
-        <EntityTypeShape EntityType="ToolManageModel.Account" Width="1.5" PointX="5.25" PointY="19.125" />
-        <EntityTypeShape EntityType="ToolManageModel.Authority" Width="1.5" PointX="3" PointY="24.125" />
-        <EntityTypeShape EntityType="ToolManageModel.ConsumeReturn" Width="1.5" PointX="10.5" PointY="24.625" />
-        <EntityTypeShape EntityType="ToolManageModel.Inner" Width="1.5" PointX="5.25" PointY="14.875" />
-        <EntityTypeShape EntityType="ToolManageModel.InOutStock" Width="1.5" PointX="7.5" PointY="14.375" />
-        <EntityTypeShape EntityType="ToolManageModel.Maintenance" Width="1.5" PointX="7.5" PointY="24.625" />
-        <EntityTypeShape EntityType="ToolManageModel.PurchasingApplication" Width="1.5" PointX="12.75" PointY="18.875" />
-        <EntityTypeShape EntityType="ToolManageModel.RepairApplication" Width="1.5" PointX="10.5" PointY="14.375" />
-        <EntityTypeShape EntityType="ToolManageModel.ScrapApplication" Width="1.5" PointX="10.5" PointY="19" />
-        <EntityTypeShape EntityType="ToolManageModel.ToolEntity" Width="1.5" PointX="12.75" PointY="24.5" />
-        <EntityTypeShape EntityType="ToolManageModel.WorkCell" Width="1.5" PointX="0.75" PointY="17.5" />
+      <Diagram DiagramId="f821f97c4e3044118e5a3a9ae5ce3c70" Name="Diagram1" ZoomLevel="67">
+        <EntityTypeShape EntityType="ToolManageModel.Account" Width="1.5" PointX="5.25" PointY="17.875" />
+        <EntityTypeShape EntityType="ToolManageModel.Authority" Width="1.5" PointX="3" PointY="19.625" />
+        <EntityTypeShape EntityType="ToolManageModel.ChangeLog" Width="1.5" PointX="7.5" PointY="50.625" />
+        <EntityTypeShape EntityType="ToolManageModel.ConsumeReturn" Width="1.5" PointX="10.5" PointY="14.5" />
+        <EntityTypeShape EntityType="ToolManageModel.Inner" Width="1.5" PointX="5.25" PointY="25.75" />
+        <EntityTypeShape EntityType="ToolManageModel.InOutStock" Width="1.5" PointX="13.5" PointY="19.375" />
+        <EntityTypeShape EntityType="ToolManageModel.Maintenance" Width="1.5" PointX="10.5" PointY="24.625" />
+        <EntityTypeShape EntityType="ToolManageModel.PurchasingApplication" Width="1.5" PointX="7.5" PointY="13.625" />
+        <EntityTypeShape EntityType="ToolManageModel.RepairApplication" Width="1.5" PointX="7.5" PointY="19.125" />
+        <EntityTypeShape EntityType="ToolManageModel.ScrapApplication" Width="1.5" PointX="10.5" PointY="18.75" />
+        <EntityTypeShape EntityType="ToolManageModel.ToolDef" Width="1.5" PointX="7.5" PointY="24" />
+        <EntityTypeShape EntityType="ToolManageModel.ToolEntity" Width="1.5" PointX="12.75" PointY="23.625" />
+        <EntityTypeShape EntityType="ToolManageModel.WorkCell" Width="1.5" PointX="0.75" PointY="19.375" />
         <AssociationConnector Association="ToolManageModel.FK_Account_Authority" />
         <AssociationConnector Association="ToolManageModel.FK_Account_WorkCell" />
+        <AssociationConnector Association="ToolManageModel.FK_ChangeLog_Account" />
         <AssociationConnector Association="ToolManageModel.FK_consumeReturn_Account" />
         <AssociationConnector Association="ToolManageModel.FK_inOutStock_Account" />
         <AssociationConnector Association="ToolManageModel.FK_Maintenance_Account" />
@@ -29,26 +32,23 @@
         <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_Account" />
         <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_Account1" />
         <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_Account2" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Account_On_editId" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Account_On_ownerId" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Account_On_recordId" />
         <AssociationConnector Association="ToolManageModel.FK_ToolEntity_Account_On_bringId" />
         <AssociationConnector Association="ToolManageModel.FK_Authority_WorkCell" />
         <AssociationConnector Association="ToolManageModel.FK_consumeReturn_ToolEntity" />
         <AssociationConnector Association="ToolManageModel.FK_inOutStock_Inner" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Inner_On_familyId" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Inner_On_usedForId" />
         <AssociationConnector Association="ToolManageModel.FK_inOutStock_ToolEntity" />
         <AssociationConnector Association="ToolManageModel.FK_Maintenance_ToolEntity" />
+        <AssociationConnector Association="ToolManageModel.FK_PurchasingApplication_ToolDef" />
         <AssociationConnector Association="ToolManageModel.FK_PurchasingApplication_WorkCell" />
         <AssociationConnector Association="ToolManageModel.FK_RepairApplication_ToolEntity" />
         <AssociationConnector Association="ToolManageModel.FK_RepairApplication_WorkCell" />
         <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_ToolEntity" />
         <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_WorkCell" />
-        <EntityTypeShape EntityType="ToolManageModel.ChangeLog" Width="1.5" PointX="7.5" PointY="27.875" />
-        <AssociationConnector Association="ToolManageModel.FK_ChangeLog_Account" />
-        <EntityTypeShape EntityType="ToolManageModel.ToolDef" Width="1.5" PointX="7.5" PointY="18.125" />
-        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Account_On_editId" />
-        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Account_On_ownerId" />
-        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Account_On_recordId" />
-        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Inner_On_familyId" />
-        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Inner_On_usedForId" />
-        <AssociationConnector Association="ToolManageModel.FK_PurchasingApplication_ToolDef" />
         <AssociationConnector Association="ToolManageModel.FK_ToolDef_WorkCell_On_workCellId" />
         <AssociationConnector Association="ToolManageModel.FK_ToolEntity_ToolDef_On_toolDefId" />
       </Diagram>

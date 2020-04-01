@@ -114,6 +114,17 @@ namespace ToolManage.Controllers
             return View();
         }
 
+        public ActionResult BorrowDetail(int id)
+        {
+            var define = db.ToolDef.Find(id);
+            if (define == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(define);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ToolDef toolDef)
@@ -221,6 +232,13 @@ namespace ToolManage.Controllers
             db.Entry(changLog).State = EntityState.Added;
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Borrow(ConsumeReturn cr)
+        {
+            return RedirectToAction("BorrowDetail", new { id = 1 });
         }
 
         public static string GetInner(int id)

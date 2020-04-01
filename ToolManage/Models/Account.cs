@@ -17,6 +17,7 @@ namespace ToolManage.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Account()
         {
+            this.ChangeLog = new HashSet<ChangeLog>();
             this.ConsumeReturn = new HashSet<ConsumeReturn>();
             this.InOutStock = new HashSet<InOutStock>();
             this.Maintenance = new HashSet<Maintenance>();
@@ -28,11 +29,10 @@ namespace ToolManage.Models
             this.ScrapApplication = new HashSet<ScrapApplication>();
             this.ScrapApplication1 = new HashSet<ScrapApplication>();
             this.ScrapApplication2 = new HashSet<ScrapApplication>();
-            this.ToolEntity = new HashSet<ToolEntity>();
-            this.ChangeLog = new HashSet<ChangeLog>();
             this.ToolDef = new HashSet<ToolDef>();
             this.ToolDef1 = new HashSet<ToolDef>();
             this.ToolDef2 = new HashSet<ToolDef>();
+            this.ToolEntity = new HashSet<ToolEntity>();
         }
     
         public int Id { get; set; }
@@ -47,6 +47,8 @@ namespace ToolManage.Models
     
         public virtual Authority Authority1 { get; set; }
         public virtual WorkCell WorkCell { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChangeLog> ChangeLog { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ConsumeReturn> ConsumeReturn { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -70,14 +72,12 @@ namespace ToolManage.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScrapApplication> ScrapApplication2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ToolEntity> ToolEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChangeLog> ChangeLog { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ToolDef> ToolDef { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ToolDef> ToolDef1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ToolDef> ToolDef2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ToolEntity> ToolEntity { get; set; }
     }
 }
