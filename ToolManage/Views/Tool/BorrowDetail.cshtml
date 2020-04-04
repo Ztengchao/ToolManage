@@ -41,7 +41,7 @@
     <p class="text-muted">(类别信息)</p>
 </div>
 <div class="panel-group border" id="accordion">
-    @foreach (var toolEntity in Model.ToolEntity)
+    @foreach (var toolEntity in Model.ToolEntity.Where(i => i.State != "9"))
     {
         <div class="panel panel-default">
             <div class="panel-heading" id="@("heading" + toolEntity.Id)">
@@ -51,7 +51,7 @@
                     </a>
                     <button class="btn btn-default">@toolEntity.StateString</button>
                     <button class="btn btn-primary" data-toggle="modal" data-target="#repairModal">报修</button>
-                    <button onclick="borrow(@(toolEntity.Id),@("'"+toolEntity.Code+"'"))" class="@("btn btn-primary" + toolEntity.State == "0" ? "" : " disabled")" data-toggle="modal" data-target="#borrowModal">借用</button>
+                    <button onclick="borrow(@(toolEntity.Id),@("'"+toolEntity.Code+"'"))" class="@("btn btn-primary" + (toolEntity.State == "0" ? "" : " disabled"))" data-toggle="modal" data-target="#borrowModal">借用</button>
                 </h4>
             </div>
             <div id="@("Collapse" + toolEntity.Id)" class="panel-collapse collapse">
@@ -62,11 +62,11 @@
                         <li><span>维修次数:</span>@toolEntity.RepairApplication.Where(i => i.State == "1").Count()</li>
                         <li><span>入库订单:</span>@toolEntity.BillNo</li>
                         <li><span>记录时间:</span>@toolEntity.RegDate</li>
-                        <li><span>上次借用时间:</span>@toolEntity.ConsumeReturn.OrderBy(i => i.Id).Last().Date</li>
+                        <li><span>上次借用时间:</span>@(toolEntity.ConsumeReturn.Count==0? "无借用记录": toolEntity.ConsumeReturn.OrderBy(i => i.Id).Last().Date.ToString())</li>
                         @if (toolEntity.State == "1")
                         {
-                            <li><span>借用人:</span>@toolEntity.ConsumeReturn.OrderBy(i => i.Id).Last().Account.Name</li>
-                            <li><span>借用地点:</span>@toolEntity.ConsumeReturn.OrderBy(i => i.Id).Last().BorrowLocation</li>
+                            <li><span>借用人:</span>@(toolEntity.ConsumeReturn.OrderBy(i => i.Id)?.Last().Account.Name)</li>
+                            <li><span>借用地点:</span>@(toolEntity.ConsumeReturn.OrderBy(i => i.Id)?.Last().BorrowLocation)</li>
                         }
                         <li><span>所在库位:</span>@toolEntity.Location</li>
                     </ul>
@@ -106,7 +106,7 @@
                         <div class="form-group">
                             <label for="productLine" class="col-sm-2 control-label">借用地点</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="BorrowLocation" id="BorrowLocation" value="BLAK15-L2">
+                                <input type="text" class="form-control" name="BorrowLocation" id="BorrowLocation">
                             </div>
                         </div>
                         <div class="form-group">

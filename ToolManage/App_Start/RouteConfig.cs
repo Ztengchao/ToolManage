@@ -14,6 +14,11 @@ namespace ToolManage
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Delete",
+                url: "{controller}/delete/{action}/{id}"
+            );
         }
     }
 }

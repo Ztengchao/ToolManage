@@ -70,10 +70,11 @@ namespace ToolManage.Controllers
         public ActionResult Detail(int id)
         {
             var toolDef = db.ToolDef.Find(id);
-            if (toolDef == null || toolDef.WorkCellId != ((Account)Session["account"]).WorkCellId)
+            if (toolDef == null || toolDef.WorkCellId != ((Account)Session["account"]).WorkCellId || toolDef.State == "1")
             {
                 return RedirectToAction("Index", new { errorMessage = "未找到该工夹具定义" });
             }
+            ViewBag.Data = toolDef.ToolEntity.Where(i => i.State != "9").ToList();
             return View(toolDef);
         }
 
@@ -82,7 +83,7 @@ namespace ToolManage.Controllers
             var workcellId = ((Account)Session["account"]).WorkCellId;
             var account = (Account)Session["account"];
             var data = db.ToolDef.Where(i => i.State == "0" && i.WorkCellId == account.WorkCellId);
-            
+
             #region 搜索
             if (!string.IsNullOrWhiteSpace(familyNoSearch))
             {
@@ -123,6 +124,19 @@ namespace ToolManage.Controllers
             }
 
             return View(define);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var toolEntity = db.ToolEntity.Find(id);
+            if (toolEntity == null)
+            {
+                return RedirectToAction("Index");
+            }
+            toolEntity.State = "9";
+            db.Entry(toolEntity).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Detail", new { id = toolEntity.ToolDefId });
         }
 
         [HttpPost]
@@ -239,6 +253,42 @@ namespace ToolManage.Controllers
         public ActionResult Borrow(ConsumeReturn cr)
         {
             return RedirectToAction("BorrowDetail", new { id = 1 });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeEntity(ToolEntity toolEntity)
+        {
+            if (toolEntity == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            if (toolEntity.Id == 0)
+            {
+                //新增
+                toolEntity.RegDate = DateTime.Now;
+                toolEntity.Picture = "";
+                toolEntity.State = "0";
+                toolEntity.UsedCount = 0;
+                toolEntity.ProductionDate = DateTime.Now; //添加修改生产日期
+                toolEntity.BringId = ((Account)Session["account"]).Id;
+                db.Entry(toolEntity).State = EntityState.Added;
+            }
+            else
+            {
+                var oldEntity = db.ToolEntity.Find(toolEntity.Id);
+                if (oldEntity == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                oldEntity.Location = toolEntity.Location;
+                oldEntity.Code = toolEntity.Code;
+                oldEntity.BillNo = toolEntity.BillNo;
+                db.Entry(oldEntity).State = EntityState.Modified;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Detail", new { id = toolEntity.ToolDefId });
         }
 
         public static string GetInner(int id)
