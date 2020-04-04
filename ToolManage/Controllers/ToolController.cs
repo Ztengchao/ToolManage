@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Data.Entity;
 using ToolManage.Models;
-using System.IO;
 
 namespace ToolManage.Controllers
 {
@@ -79,6 +78,11 @@ namespace ToolManage.Controllers
             return View(new ToolDef());
         }
 
+        public ActionResult Return()
+        {
+            return View();
+        }
+
         public ActionResult Detail(int id)
         {
             var toolDef = db.ToolDef.Find(id);
@@ -148,6 +152,7 @@ namespace ToolManage.Controllers
             toolEntity.State = "9";
             db.Entry(toolEntity).State = EntityState.Modified;
             db.SaveChanges();
+            Log(id, "删除工夹具实体：" + toolEntity.Code, "1");
             return RedirectToAction("Detail", new { id = toolEntity.ToolDefId });
         }
 
@@ -200,16 +205,7 @@ namespace ToolManage.Controllers
             }
             db.Entry(toolDef).State = EntityState.Added;
             db.SaveChanges();
-            var changLog = new ChangeLog
-            {
-                ChangeAccountId = account.Id,
-                ChangeId = toolDef.Id,
-                Detail = "新建工夹具定义：" + toolDef.Name,
-                ChangeDate = DateTime.Now,
-                Type = "0",
-            };
-            db.Entry(changLog).State = EntityState.Added;
-            db.SaveChanges();
+            Log(toolDef.Id, "新增工夹具定义：" + toolDef.Name, "0");
 
             return RedirectToAction("Index");
         }
@@ -247,16 +243,7 @@ namespace ToolManage.Controllers
             db.Entry(toolDefineOld).State = EntityState.Modified;
             db.SaveChanges();
 
-            var changLog = new ChangeLog
-            {
-                ChangeAccountId = ((Account)Session["account"]).Id,
-                ChangeId = toolDefineOld.Id,
-                Detail = "修改工夹具定义：" + toolDef.Name,
-                ChangeDate = DateTime.Now,
-                Type = "0",
-            };
-            db.Entry(changLog).State = EntityState.Added;
-            db.SaveChanges();
+            Log(toolDefineOld.Id, "修改工夹具定义：" + toolDef.Name, "0");
             return RedirectToAction("Index");
         }
 
@@ -264,6 +251,19 @@ namespace ToolManage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Borrow(ConsumeReturn cr)
         {
+            var entity = db.ToolEntity.Find(cr.ToolEntityId);
+            if (entity == null || entity.State != "0")
+            {
+                return RedirectToAction("Index");
+            }
+            cr.Date = DateTime.Now;
+            cr.BorrowReturn = true;
+            cr.AccountId = ((Account)Session["account"]).Id;
+            db.Entry(cr).State = EntityState.Added;
+
+            entity.State = "1";
+            entity.UsedCount++;
+            db.SaveChanges();
             return RedirectToAction("BorrowDetail", new { id = 1 });
         }
 
@@ -286,6 +286,8 @@ namespace ToolManage.Controllers
                 toolEntity.ProductionDate = DateTime.Now; //添加修改生产日期
                 toolEntity.BringId = ((Account)Session["account"]).Id;
                 db.Entry(toolEntity).State = EntityState.Added;
+                db.SaveChanges();
+                Log(toolEntity.Id, "新增工夹具实体：" + toolEntity.Code, "1");
             }
             else
             {
@@ -298,8 +300,9 @@ namespace ToolManage.Controllers
                 oldEntity.Code = toolEntity.Code;
                 oldEntity.BillNo = toolEntity.BillNo;
                 db.Entry(oldEntity).State = EntityState.Modified;
+                db.SaveChanges();
+                Log(oldEntity.Id, "修改工夹具实体：" + oldEntity.Code, "1");
             }
-            db.SaveChanges();
             return RedirectToAction("Detail", new { id = toolEntity.ToolDefId });
         }
 
@@ -323,6 +326,20 @@ namespace ToolManage.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void Log(int id, string message, string type)
+        {
+            var log = new ChangeLog
+            {
+                ChangeAccountId = ((Account)Session["account"]).Id,
+                Type = type,
+                Detail = message,
+                ChangeId = id,
+                ChangeDate = DateTime.Now
+            };
+            db.Entry(log).State = EntityState.Added;
+            db.SaveChanges();
         }
     }
 }

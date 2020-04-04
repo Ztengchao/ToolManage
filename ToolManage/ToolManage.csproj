@@ -273,6 +273,7 @@
     <Content Include="Views\Tool\Detail.cshtml" />
     <Content Include="Views\Tool\Borrow.cshtml" />
     <Content Include="Views\Tool\BorrowDetail.cshtml" />
+    <Content Include="Views\Tool\Return.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
