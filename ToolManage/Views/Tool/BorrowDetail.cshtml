@@ -51,7 +51,7 @@
                     </a>
                     <button class="btn btn-default">@toolEntity.StateString</button>
                     <button class="btn btn-primary" data-toggle="modal" data-target="#repairModal">报修</button>
-                    <button onclick="borrow(@(toolEntity.Id),@("'"+toolEntity.Code+"'"))" class="@("btn btn-primary" + (toolEntity.State == "0" ? "" : " disabled"))" data-toggle="modal" data-target="#borrowModal">借用</button>
+                    <button onclick="borrow(@(toolEntity.Id),@("'"+toolEntity.Code+"'"))" class="@("btn btn-primary" + (toolEntity.State == "0" ? "" : " disabled"))" @(toolEntity.State == "0" ? " data-toggle=\"modal\" data-target=\"#borrowModal\"" : "")>借用</button>
                 </h4>
             </div>
             <div id="@("Collapse" + toolEntity.Id)" class="panel-collapse collapse">

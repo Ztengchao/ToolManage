@@ -15,6 +15,10 @@
     @Scripts.Render("~/bundles/bootstrap")
 </head>
 
+@if (Session["account"] == null)
+{
+    Html.Action("Index", "Login");
+}
 
 <body>
     <div class="root">

@@ -1,44 +1,34 @@
-﻿
+﻿@using ToolManage.Models
 <div class="title">
     <h4>夹具归还列表</h4>
 </div>
 <div class="border">
-    <a href="../toolBorrow/index.html" class="btn btn-primary">返回首页</a>
+    <p>@Html.ActionLink("返回", "Borrow", new { }, new { @class = "btn btn-primary" })</p>
     <table class="table table-striped">
         <tr>
             <th>Code</th>
             <th>借出时间</th>
-            <th>归还时间</th>
             <th>归还库位</th>
             <th>操作</th>
         </tr>
-        <tr>
-            <td>EF0789-1</td>
-            <td>2020-03-23 18:00</td>
-            <td>2020-03-24 18:00</td>
-            <td>16-A2</td>
-            <td>
-                <a data-toggle="modal" data-target="#returnModal">点击归还</a>
-            </td>
-        </tr>
-        <tr>
-            <td>EF0789-1</td>
-            <td>2020-03-23 18:00</td>
-            <td>2020-03-24 18:00</td>
-            <td>16-A2</td>
-            <td>
-                <a data-toggle="modal" data-target="#returnModal">点击归还</a>
-            </td>
-        </tr>
-        <tr>
-            <td>EF0789-1</td>
-            <td>2020-03-23 18:00</td>
-            <td>2020-03-24 18:00</td>
-            <td>16-A2</td>
-            <td>
-                <a data-toggle="modal" data-target="#returnModal">点击归还</a>
-            </td>
-        </tr>
+        @foreach (ConsumeReturn item in ViewBag.Data)
+        {
+            <tr>
+                <td>@item.ToolEntity.Code</td>
+                <td>@item.Date</td>
+                <td>@item.ToolEntity.Location</td>
+                <td>
+                    @if (item.BorrowReturn)
+                    {
+                        <div>已归还</div>
+                    }
+                    else
+                    {
+                        <a onclick="change(@(item.Id))" data-toggle="modal" data-target="#returnModal">点击归还</a>
+                    }
+                </td>
+            </tr>
+        }
     </table>
 </div>
 <!--Return Modal-->
@@ -53,9 +43,22 @@
                 确认归还吗?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">确定</button>
+                @using (Html.BeginForm("Return", "Tool", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <input name="Id" id="Id" style="display:none;" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                }
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(() => {
+        change = _id => {
+            $('#Id').val(_id);
+        }
+    })
+</script>

@@ -13,9 +13,7 @@
     </div>
 }
 <div class="return clearfix">
-    <a href="../toolReturn/index.html" role="button" class="btn btn-primary">
-        归还夹具
-    </a>
+    @Html.ActionLink("归还夹具", "Return", "Tool", new { role = "button", @class = "btn btn-primary" })
 </div>
 <div class="title">
     <h4>夹具详情</h4>

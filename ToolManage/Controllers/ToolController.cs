@@ -9,6 +9,7 @@ namespace ToolManage.Controllers
     public class ToolController : Controller
     {
         private readonly ToolManageDataContext db = new ToolManageDataContext();
+        private Account Account => (Account)Session["account"];
         private static int CountPerPage => 10;
 
         public ActionResult Img(int id)
@@ -80,6 +81,7 @@ namespace ToolManage.Controllers
 
         public ActionResult Return()
         {
+            ViewBag.Data = db.ConsumeReturn.Where(i => i.AccountId == Account.Id).ToList();
             return View();
         }
 
@@ -257,14 +259,35 @@ namespace ToolManage.Controllers
                 return RedirectToAction("Index");
             }
             cr.Date = DateTime.Now;
-            cr.BorrowReturn = true;
+            cr.BorrowReturn = false;
             cr.AccountId = ((Account)Session["account"]).Id;
             db.Entry(cr).State = EntityState.Added;
 
             entity.State = "1";
             entity.UsedCount++;
+            db.Entry(entity).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("BorrowDetail", new { id = 1 });
+            return RedirectToAction("BorrowDetail", new { id = cr.ToolEntity.ToolDef.Id });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Return(int id)
+        {
+            var cr = db.ConsumeReturn.Find(id);
+            if (cr == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            cr.BorrowReturn = true;
+            cr.ToolEntity.State = "0";
+
+            db.Entry(cr.ToolEntity).State = EntityState.Modified;
+            db.Entry(cr).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Return");
         }
 
         [HttpPost]
