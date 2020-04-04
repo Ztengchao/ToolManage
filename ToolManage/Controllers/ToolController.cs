@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Data.Entity;
 using ToolManage.Models;
+using System.IO;
 
 namespace ToolManage.Controllers
 {
@@ -10,6 +11,17 @@ namespace ToolManage.Controllers
     {
         private readonly ToolManageDataContext db = new ToolManageDataContext();
         private static int CountPerPage => 10;
+
+        public ActionResult Img(int id)
+        {
+            var def = db.ToolDef.Find(id);
+            if (def == null || !System.IO.File.Exists(def.Picture))
+            {
+                return new EmptyResult();
+            }
+            var img = System.IO.File.ReadAllBytes(def.Picture);
+            return new FileContentResult(img, "image/jpeg");
+        }
 
         // GET: Tool
         public ActionResult Index(ToolDef toolDef, int? toolId, string errorMessage, string familyNoSearch, string modelNoSearch, string partNoSearch, string codeSearch, string UseForSearch, int nowPage = 0)
