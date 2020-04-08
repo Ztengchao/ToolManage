@@ -52,6 +52,7 @@
           <Property Name="BorrowReturn" Type="bit" Nullable="false" />
           <Property Name="Remark" Type="nvarchar" MaxLength="50" />
           <Property Name="BorrowLocation" Type="nvarchar" MaxLength="10" />
+          <Property Name="ReturnDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Inner">
           <Key>
@@ -946,6 +947,7 @@
           <Property Name="BorrowLocation" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Account" Relationship="ToolManageModel.FK_consumeReturn_Account" FromRole="ConsumeReturn" ToRole="Account" />
           <NavigationProperty Name="ToolEntity" Relationship="ToolManageModel.FK_consumeReturn_ToolEntity" FromRole="ConsumeReturn" ToRole="ToolEntity" />
+          <Property Name="ReturnDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Inner">
           <Key>
@@ -1563,6 +1565,7 @@
           <EntitySetMapping Name="ConsumeReturn">
             <EntityTypeMapping TypeName="ToolManageModel.ConsumeReturn">
               <MappingFragment StoreEntitySet="ConsumeReturn">
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
                 <ScalarProperty Name="BorrowLocation" ColumnName="BorrowLocation" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="BorrowReturn" ColumnName="BorrowReturn" />

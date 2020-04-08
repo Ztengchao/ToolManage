@@ -21,6 +21,7 @@ namespace ToolManage.Models
         public bool BorrowReturn { get; set; }
         public string Remark { get; set; }
         public string BorrowLocation { get; set; }
+        public Nullable<System.DateTime> ReturnDate { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual ToolEntity ToolEntity { get; set; }

@@ -282,6 +282,7 @@ namespace ToolManage.Controllers
 
             cr.BorrowReturn = true;
             cr.ToolEntity.State = "0";
+            cr.ReturnDate = DateTime.Now;
 
             db.Entry(cr.ToolEntity).State = EntityState.Modified;
             db.Entry(cr).State = EntityState.Modified;

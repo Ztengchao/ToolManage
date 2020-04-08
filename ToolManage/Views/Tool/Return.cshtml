@@ -8,6 +8,8 @@
         <tr>
             <th>Code</th>
             <th>借出时间</th>
+            <th>借出地点</th>
+            <th>归还时间</th>
             <th>归还库位</th>
             <th>操作</th>
         </tr>
@@ -16,6 +18,17 @@
             <tr>
                 <td>@item.ToolEntity.Code</td>
                 <td>@item.Date</td>
+                <td>@item.BorrowLocation</td>
+                <td>
+                    @if (!item.BorrowReturn)
+                    {
+                        <div>未归还</div>
+                    }
+                    else
+                    {
+                        <div>@item.ReturnDate</div>
+                    }
+                </td>
                 <td>@item.ToolEntity.Location</td>
                 <td>
                     @if (item.BorrowReturn)
