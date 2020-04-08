@@ -58,7 +58,7 @@
                     @(item.ToolEntity.Where(i=>i.State=="0").Count()+"/"+item.ToolEntity.Where(i=>i.State!="9").Count())
                 </td>
                 <td>
-                    @Html.ActionLink("借用|保修", "BorrowDetail", new { id = item.Id })
+                    @Html.ActionLink("借用|报修", "BorrowDetail", new { id = item.Id })
                 </td>
             </tr>
         }

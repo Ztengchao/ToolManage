@@ -1,0 +1,142 @@
+﻿@{
+}
+<link href="~/Content/toolRepair.css" rel="stylesheet" />
+
+<div class="title">
+    <h4>报修处理</h4>
+</div>
+<!--一个.order对应一次报修申请-->
+<div class="order clearfix border">
+    <table class="table table-striped">
+        <tr>
+            <th>报修器件</th>
+            <th>报修人</th>
+            <th>申请时间</th>
+            <th>报修备注</th>
+            <th>操作</th>
+        </tr>
+        @foreach (ToolManage.Models.RepairApplication item in ViewBag.Data)
+        {
+            <tr>
+                <td>@item.ToolEntity.Code</td>
+                <td>@item.Account.Name</td>
+                <td>@item.Date</td>
+                <td>@item.Describe</td>
+                <td>
+                    <a data-toggle="modal" onclick="change(@(item.Id))" data-target="#orderModal">立即处理</a>
+                </td>
+            </tr>
+        }
+    </table>
+    <nav>
+        <ul class="pagination">
+            @if (ViewBag.NowPage == 0)
+            {
+                <li class="disabled">
+                    <a aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="#" onclick="prePage()" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = ViewBag.NowPage - 3; i < ViewBag.NowPage; i++)
+            {
+                if (i < 0)
+                {
+                    continue;
+                }
+                <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+            }
+
+            <li class="active"><a href="#">@(ViewBag.NowPage+1) <span class="sr-only">(current)</span></a></li>
+            @for (int i = ViewBag.NowPage + 1; i < ViewBag.NowPage + 4; i++)
+            {
+                if (i > ViewBag.MaxPage)
+                {
+                    break;
+                }
+                <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+            }
+
+            @if (ViewBag.NowPage == ViewBag.MaxPage)
+            {
+                <li class="disabled">
+                    <a aria-label="Previous">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="#" onclick="prePage()" aria-label="Previous">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+<!--model 采购申请-->
+<div class="modal fade" id="orderModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">申请信息</h4>
+            </div>
+            <div class="modal-body">
+                <div class="reply">
+                    <div class="form-inline">
+                        <textarea class="form-control" placeholder="报修申请回复备注"></textarea>
+                        <button onclick="disAgree()" class="btn btn-danger">审核拒绝</button>
+                        <button onclick="agree()" class="btn btn-primary">审核通过</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(() => {
+        document.getElementById("toolRepair").className = "active";
+
+        applicationId = 0;
+
+        jump = page => {
+            $("#NowPage").val(page);
+            $("#search").submit();
+        }
+
+        prePage = () => {
+            jump($("#NowPage").val() - 1);
+        }
+
+        nextPage = () => {
+            jump($("#NowPage").val() + 1);
+        }
+
+        change = id => {
+            applicationId = id;
+        }
+
+        agree = () => {
+            window.location.href = "RepairAgree?applicationId=" + applicationId + "&agree=true";
+        }
+
+        disAgree = () => {
+            window.location.href = "RepairAgree?applicationId=" + applicationId + "&agree=false";
+        }
+    })
+</script>

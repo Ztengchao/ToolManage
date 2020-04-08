@@ -158,6 +158,40 @@ namespace ToolManage.Controllers
             return RedirectToAction("Detail", new { id = toolEntity.ToolDefId });
         }
 
+        public ActionResult Repair(int nowPage = 0)
+        {
+            var data = db.RepairApplication.Where(i => i.WorkCellId == Account.WorkCellId && i.State == "0");
+            ViewBag.MaxPage = data.Count() / CountPerPage;
+            data = data.OrderBy(i => i.Date).Skip(nowPage * CountPerPage).Take(CountPerPage);
+            ViewBag.Data = data.ToArray();
+            ViewBag.NowPage = nowPage;
+            return View();
+        }
+
+        public ActionResult RepairAgree(int applicationId, bool agree)
+        {
+            var application = db.RepairApplication.Find(applicationId);
+            if (application == null)
+            {
+                return HttpNotFound();
+            }
+            if (agree)
+            {
+                application.State = "1";
+            }
+            else
+            {
+                application.State = "2";
+                application.ToolEntity.State = "0";
+            }
+
+            application.HandleId = Account.Id;
+            db.Entry(application).State = EntityState.Modified;
+            db.Entry(application.ToolEntity).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Repair");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ToolDef toolDef)
@@ -291,6 +325,11 @@ namespace ToolManage.Controllers
             return RedirectToAction("Return");
         }
 
+        /// <summary>
+        /// 修改工夹具实体
+        /// </summary>
+        /// <param name="toolEntity"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ChangeEntity(ToolEntity toolEntity)
@@ -330,6 +369,11 @@ namespace ToolManage.Controllers
             return RedirectToAction("Detail", new { id = toolEntity.ToolDefId });
         }
 
+        /// <summary>
+        /// 申请报修
+        /// </summary>
+        /// <param name="repairApplication"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Repair(RepairApplication repairApplication)

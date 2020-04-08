@@ -211,6 +211,7 @@
     <Content Include="Content\authority.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\department.css" />
+    <Content Include="Content\toolRepair.css" />
     <Content Include="Content\toolBorrowDetail.css" />
     <Content Include="Content\toolBorrow.css" />
     <Content Include="Content\toolDetail.css" />
@@ -274,6 +275,7 @@
     <Content Include="Views\Tool\Borrow.cshtml" />
     <Content Include="Views\Tool\BorrowDetail.cshtml" />
     <Content Include="Views\Tool\Return.cshtml" />
+    <Content Include="Views\Tool\Repair.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,0 +1,21 @@
+.order a:hover {
+    color: #0099FF;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.order nav {
+    float: right;
+    margin-bottom: -15px;
+}
+
+
+/*model*/
+
+.reply .btn {
+    margin-left: 20px;
+}
