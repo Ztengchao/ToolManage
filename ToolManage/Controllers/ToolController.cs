@@ -330,6 +330,24 @@ namespace ToolManage.Controllers
             return RedirectToAction("Detail", new { id = toolEntity.ToolDefId });
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Repair(RepairApplication repairApplication)
+        {
+            repairApplication.ApplicationId = Account.Id;
+            repairApplication.Date = DateTime.Now;
+            repairApplication.State = "0";
+            repairApplication.WorkCellId = Account.WorkCellId;
+            repairApplication.Date = DateTime.Now;
+            repairApplication.Picture = new byte[] { 0 };
+            var entity = db.ToolEntity.Find(repairApplication.ToolEntityId);
+            entity.State = "2";
+            db.Entry(entity).State = EntityState.Modified;
+            db.Entry(repairApplication).State = EntityState.Added;
+            db.SaveChanges();
+            return RedirectToAction("BorrowDetail", new { id = entity.ToolDefId });
+        }
+
         public static string GetInner(int id)
         {
             using (ToolManageDataContext db = new ToolManageDataContext())
