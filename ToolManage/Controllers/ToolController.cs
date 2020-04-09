@@ -168,8 +168,17 @@ namespace ToolManage.Controllers
             return View();
         }
 
-        public ActionResult RepairAgree(int applicationId, bool agree)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RepairAgree()
         {
+            if (Request["applicationId"] == null || Request["agree"] == null)
+            {
+                return HttpNotFound();
+            }
+            var applicationId = int.Parse(Request["applicationId"]);
+            var agree = bool.Parse(Request["agree"]);
+
             var application = db.RepairApplication.Find(applicationId);
             if (application == null)
             {

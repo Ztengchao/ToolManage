@@ -94,11 +94,15 @@
             </div>
             <div class="modal-body">
                 <div class="reply">
-                    <div class="form-inline">
+                    @using (Html.BeginForm("RepairAgree", "Tool", FormMethod.Post, new { @class = "form-inline" ,id="accept"}))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input style="display:none;" name="applicationId" id="applicationId" />
+                        <input style="display:none;" name="agree" id="agree" />
                         <textarea class="form-control" placeholder="报修申请回复备注"></textarea>
-                        <button onclick="disAgree()" class="btn btn-danger">审核拒绝</button>
-                        <button onclick="agree()" class="btn btn-primary">审核通过</button>
-                    </div>
+                        <button onclick="agreeF(false)" type="button" class="btn btn-danger">审核拒绝</button>
+                        <button onclick="agreeF(true)" type="button" class="btn btn-primary">审核通过</button>
+                    }
                 </div>
             </div>
             <div class="modal-footer">
@@ -111,8 +115,6 @@
 <script>
     $(() => {
         document.getElementById("toolRepair").className = "active";
-
-        applicationId = 0;
 
         jump = page => {
             $("#NowPage").val(page);
@@ -128,15 +130,12 @@
         }
 
         change = id => {
-            applicationId = id;
+            $("#applicationId").val(id);
         }
 
-        agree = () => {
-            window.location.href = "RepairAgree?applicationId=" + applicationId + "&agree=true";
-        }
-
-        disAgree = () => {
-            window.location.href = "RepairAgree?applicationId=" + applicationId + "&agree=false";
+        agreeF = t => {
+            $("#agree").val(t);
+            $("#accept").submit();
         }
     })
 </script>
