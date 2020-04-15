@@ -143,6 +143,7 @@
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MaintanceController.cs" />
+    <Compile Include="Controllers\RepairController.cs" />
     <Compile Include="Controllers\ToolController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -218,6 +219,7 @@
     <Content Include="Content\authority.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\department.css" />
+    <Content Include="Content\repairList.css" />
     <Content Include="Content\maintanceList.css" />
     <Content Include="Content\toolRepair.css" />
     <Content Include="Content\toolBorrowDetail.css" />
