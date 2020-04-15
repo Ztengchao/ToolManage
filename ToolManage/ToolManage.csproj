@@ -288,6 +288,7 @@
     <Content Include="Views\Tool\Repair.cshtml" />
     <Content Include="Views\Maintance\Index.cshtml" />
     <Content Include="Views\Repair\Index.cshtml" />
+    <Content Include="Views\Maintance\Type.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
