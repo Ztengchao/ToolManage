@@ -17,8 +17,8 @@ namespace ToolManage.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ScrapDoc()
         {
-            this.Account = new HashSet<Account>();
             this.ScrapApplication = new HashSet<ScrapApplication>();
+            this.WorkCell1 = new HashSet<WorkCell>();
         }
     
         public int Id { get; set; }
@@ -26,10 +26,12 @@ namespace ToolManage.Models
         public System.DateTime CreateDate { get; set; }
         public string Remark { get; set; }
         public string State { get; set; }
+        public int WorkcellId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Account> Account { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScrapApplication> ScrapApplication { get; set; }
+        public virtual WorkCell WorkCell { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WorkCell> WorkCell1 { get; set; }
     }
 }

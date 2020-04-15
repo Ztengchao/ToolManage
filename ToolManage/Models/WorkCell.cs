@@ -19,8 +19,10 @@ namespace ToolManage.Models
         {
             this.Account = new HashSet<Account>();
             this.Authority = new HashSet<Authority>();
+            this.CheckType = new HashSet<CheckType>();
             this.RepairApplication = new HashSet<RepairApplication>();
             this.ScrapApplication = new HashSet<ScrapApplication>();
+            this.ScrapDoc = new HashSet<ScrapDoc>();
             this.ToolDef = new HashSet<ToolDef>();
         }
     
@@ -29,15 +31,21 @@ namespace ToolManage.Models
         public string ContactName { get; set; }
         public string ContactPhone { get; set; }
         public string State { get; set; }
+        public Nullable<int> ScrapDocId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Account> Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Authority> Authority { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CheckType> CheckType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RepairApplication> RepairApplication { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScrapApplication> ScrapApplication { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ScrapDoc> ScrapDoc { get; set; }
+        public virtual ScrapDoc ScrapDoc1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ToolDef> ToolDef { get; set; }
     }

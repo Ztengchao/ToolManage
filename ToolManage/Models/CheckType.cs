@@ -22,13 +22,13 @@ namespace ToolManage.Models
         }
     
         public int Id { get; set; }
-        public int AccountId { get; set; }
+        public int WorkcellId { get; set; }
         public string State { get; set; }
         public string Name { get; set; }
     
-        public virtual Account Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CheckDetail> CheckDetail { get; set; }
+        public virtual WorkCell WorkCell { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Maintenance> Maintenance { get; set; }
     }

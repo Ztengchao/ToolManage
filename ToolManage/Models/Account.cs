@@ -18,7 +18,6 @@ namespace ToolManage.Models
         public Account()
         {
             this.ChangeLog = new HashSet<ChangeLog>();
-            this.CheckType = new HashSet<CheckType>();
             this.ConsumeReturn = new HashSet<ConsumeReturn>();
             this.Maintenance = new HashSet<Maintenance>();
             this.RepairApplication = new HashSet<RepairApplication>();
@@ -41,15 +40,11 @@ namespace ToolManage.Models
         public string JobNumber { get; set; }
         public int Authority { get; set; }
         public string State { get; set; }
-        public Nullable<int> ScrapDocId { get; set; }
     
         public virtual Authority Authority1 { get; set; }
-        public virtual ScrapDoc ScrapDoc { get; set; }
         public virtual WorkCell WorkCell { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChangeLog> ChangeLog { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CheckType> CheckType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ConsumeReturn> ConsumeReturn { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
