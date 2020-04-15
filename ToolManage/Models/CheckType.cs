@@ -12,22 +12,24 @@ namespace ToolManage.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Inner
+    public partial class CheckType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Inner()
+        public CheckType()
         {
-            this.ToolDef = new HashSet<ToolDef>();
-            this.ToolDef1 = new HashSet<ToolDef>();
+            this.CheckDetail = new HashSet<CheckDetail>();
+            this.Maintenance = new HashSet<Maintenance>();
         }
     
         public int Id { get; set; }
-        public string Detail { get; set; }
-        public string Type { get; set; }
+        public int AccountId { get; set; }
+        public string State { get; set; }
+        public string Name { get; set; }
     
+        public virtual Account Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ToolDef> ToolDef { get; set; }
+        public virtual ICollection<CheckDetail> CheckDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ToolDef> ToolDef1 { get; set; }
+        public virtual ICollection<Maintenance> Maintenance { get; set; }
     }
 }

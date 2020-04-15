@@ -158,25 +158,31 @@
     <Compile Include="Models\ChangeLog.cs">
       <DependentUpon>ToolManage.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CheckDetail.cs">
+      <DependentUpon>ToolManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CheckType.cs">
+      <DependentUpon>ToolManage.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ConsumeReturn.cs">
       <DependentUpon>ToolManage.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Inner.cs">
       <DependentUpon>ToolManage.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\InOutStock.cs">
-      <DependentUpon>ToolManage.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Maintenance.cs">
       <DependentUpon>ToolManage.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PurchasingApplication.cs">
+    <Compile Include="Models\MaintenanceDetail.cs">
       <DependentUpon>ToolManage.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RepairApplication.cs">
       <DependentUpon>ToolManage.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ScrapApplication.cs">
+      <DependentUpon>ToolManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScrapDoc.cs">
       <DependentUpon>ToolManage.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ToolDef.cs">

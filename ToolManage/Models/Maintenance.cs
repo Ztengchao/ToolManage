@@ -14,14 +14,23 @@ namespace ToolManage.Models
     
     public partial class Maintenance
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Maintenance()
+        {
+            this.MaintenanceDetail = new HashSet<MaintenanceDetail>();
+        }
+    
         public int Id { get; set; }
         public int AccountId { get; set; }
         public int ToolEntityId { get; set; }
         public System.DateTime Date { get; set; }
-        public string Project { get; set; }
+        public int CheckTypeId { get; set; }
         public string Remark { get; set; }
     
         public virtual Account Account { get; set; }
+        public virtual CheckType CheckType { get; set; }
         public virtual ToolEntity ToolEntity { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MaintenanceDetail> MaintenanceDetail { get; set; }
     }
 }

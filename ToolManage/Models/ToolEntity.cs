@@ -18,7 +18,6 @@ namespace ToolManage.Models
         public ToolEntity()
         {
             this.ConsumeReturn = new HashSet<ConsumeReturn>();
-            this.InOutStock = new HashSet<InOutStock>();
             this.Maintenance = new HashSet<Maintenance>();
             this.RepairApplication = new HashSet<RepairApplication>();
             this.ScrapApplication = new HashSet<ScrapApplication>();
@@ -34,13 +33,11 @@ namespace ToolManage.Models
         public Nullable<int> BringId { get; set; }
         public string State { get; set; }
         public string Code { get; set; }
-        public string Picture { get; set; }
+        public Nullable<System.DateTime> CheckDate { get; set; }
     
         public virtual Account Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ConsumeReturn> ConsumeReturn { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<InOutStock> InOutStock { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Maintenance> Maintenance { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

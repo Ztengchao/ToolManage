@@ -352,7 +352,6 @@ namespace ToolManage.Controllers
             {
                 //新增
                 toolEntity.RegDate = DateTime.Now;
-                toolEntity.Picture = "";
                 toolEntity.State = "0";
                 toolEntity.UsedCount = 0;
                 toolEntity.ProductionDate = DateTime.Now; //添加修改生产日期

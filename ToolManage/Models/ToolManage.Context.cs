@@ -28,13 +28,15 @@ namespace ToolManage.Models
         public virtual DbSet<Account> Account { get; set; }
         public virtual DbSet<Authority> Authority { get; set; }
         public virtual DbSet<ChangeLog> ChangeLog { get; set; }
+        public virtual DbSet<CheckDetail> CheckDetail { get; set; }
+        public virtual DbSet<CheckType> CheckType { get; set; }
         public virtual DbSet<ConsumeReturn> ConsumeReturn { get; set; }
         public virtual DbSet<Inner> Inner { get; set; }
-        public virtual DbSet<InOutStock> InOutStock { get; set; }
         public virtual DbSet<Maintenance> Maintenance { get; set; }
-        public virtual DbSet<PurchasingApplication> PurchasingApplication { get; set; }
+        public virtual DbSet<MaintenanceDetail> MaintenanceDetail { get; set; }
         public virtual DbSet<RepairApplication> RepairApplication { get; set; }
         public virtual DbSet<ScrapApplication> ScrapApplication { get; set; }
+        public virtual DbSet<ScrapDoc> ScrapDoc { get; set; }
         public virtual DbSet<ToolDef> ToolDef { get; set; }
         public virtual DbSet<ToolEntity> ToolEntity { get; set; }
         public virtual DbSet<WorkCell> WorkCell { get; set; }

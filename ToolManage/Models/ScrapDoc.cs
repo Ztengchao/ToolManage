@@ -12,33 +12,24 @@ namespace ToolManage.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class WorkCell
+    public partial class ScrapDoc
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public WorkCell()
+        public ScrapDoc()
         {
             this.Account = new HashSet<Account>();
-            this.Authority = new HashSet<Authority>();
-            this.RepairApplication = new HashSet<RepairApplication>();
             this.ScrapApplication = new HashSet<ScrapApplication>();
-            this.ToolDef = new HashSet<ToolDef>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public string ContactName { get; set; }
-        public string ContactPhone { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public string Remark { get; set; }
         public string State { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Account> Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Authority> Authority { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RepairApplication> RepairApplication { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScrapApplication> ScrapApplication { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ToolDef> ToolDef { get; set; }
     }
 }

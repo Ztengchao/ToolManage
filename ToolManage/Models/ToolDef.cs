@@ -17,7 +17,6 @@ namespace ToolManage.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ToolDef()
         {
-            this.PurchasingApplication = new HashSet<PurchasingApplication>();
             this.ToolEntity = new HashSet<ToolEntity>();
         }
     
@@ -44,8 +43,6 @@ namespace ToolManage.Models
         public virtual Account Account2 { get; set; }
         public virtual Inner Inner { get; set; }
         public virtual Inner Inner1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PurchasingApplication> PurchasingApplication { get; set; }
         public virtual WorkCell WorkCell { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ToolEntity> ToolEntity { get; set; }
