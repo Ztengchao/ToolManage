@@ -60,6 +60,10 @@
                 {
                     <li id="toolRepair">@Html.ActionLink("报修管理", "Repair", "Tool")</li>
                 }
+                @if (authority.HasAuthority(AuthorityType.MaintanceList))
+                {
+                    <li id="maintanceList">@Html.ActionLink("检修列表", "Index", "Maintance")</li>
+                }
             </ul>
         </div>
         <div class="content">

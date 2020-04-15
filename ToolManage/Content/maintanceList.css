@@ -1,0 +1,14 @@
+.table {
+    margin-bottom: 0;
+}
+
+.table a:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color: #0099FF;
+}
+
+.table+nav {
+    float: right;
+    margin-bottom: -15px;
+}

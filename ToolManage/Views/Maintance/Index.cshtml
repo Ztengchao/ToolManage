@@ -1,0 +1,104 @@
+﻿@{
+}
+<link href="~/Content/maintanceList.css" />
+<div class="title">
+    <h4>检修列表</h4>
+</div>
+<div class="border clearfix">
+    <table class="table table-striped">
+        <tr>
+            <th>Code</th>
+            <th>柜号</th>
+            <th>最后检修日期</th>
+            <th>操作</th>
+        </tr>
+        @foreach (ToolManage.Models.ToolEntity toolEntity in ViewBag.Data)
+        {
+            <tr>
+                <td>@toolEntity.Code</td>
+                <td>@toolEntity.Location</td>
+                <td>@(toolEntity.CheckDate.HasValue?toolEntity.CheckDate.Value.ToString():"从未检查")</td>
+                <td>
+                    <a href="../repair/index.html">开始检查</a>
+                </td>
+            </tr>
+        }
+    </table>
+    <nav>
+        <form style="display:none;" id="search">
+            <input id="NowPage" name="NowPage" value="@ViewBag.NowPage" />
+        </form>
+        <ul class="pagination">
+            @if (ViewBag.NowPage == 0)
+            {
+                <li class="disabled">
+                    <a aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="#" onclick="prePage()" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = ViewBag.NowPage - 3; i < ViewBag.NowPage; i++)
+            {
+                if (i < 0)
+                {
+                    continue;
+                }
+                <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+            }
+
+            <li class="active"><a href="#">@(ViewBag.NowPage+1) <span class="sr-only">(current)</span></a></li>
+            @for (int i = ViewBag.NowPage + 1; i < ViewBag.NowPage + 4; i++)
+            {
+                if (i > ViewBag.MaxPage)
+                {
+                    break;
+                }
+                <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+            }
+
+            @if (ViewBag.NowPage == ViewBag.MaxPage)
+            {
+                <li class="disabled">
+                    <a aria-label="Previous">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="#" onclick="prePage()" aria-label="Previous">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
+<script>
+    $(() => {
+        $('#maintanceList').attr('class','active')
+
+        jump = page => {
+            $("#NowPage").val(page);
+            $("#search").submit();
+        }
+
+        prePage = () => {
+            jump($("#NowPage").val() - 1);
+        }
+
+        nextPage = () => {
+            jump($("#NowPage").val() + 1);
+        }
+    })
+</script>
