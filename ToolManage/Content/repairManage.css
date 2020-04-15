@@ -1,0 +1,32 @@
+.panel-group .add-btn {
+    float: right;
+    margin-bottom: 10px;
+}
+
+.panel-heading .panel-title .btn-danger {
+    float: right;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.panel-heading .panel-title .btn-default {
+    margin-left: 20px;
+}
+
+.panel-body ul li {
+    margin-bottom: 10px;
+}
+
+.panel-body ul li:last-child {
+    margin-bottom: -10px;
+}
+
+.panel-body ul li span {
+    margin-right: 30px;
+}
+
+.panel-body ul li a:hover {
+    color: #0099ff;
+    cursor: pointer;
+    text-decoration: none;
+}

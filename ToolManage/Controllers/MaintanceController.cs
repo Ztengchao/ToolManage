@@ -15,7 +15,7 @@ namespace ToolManage.Controllers
         private Authority Authority => (Authority)Session["authority"];
         private static int CountPerPage => 10;
 
-        public ActionResult Index(int nowPage=0)
+        public ActionResult Index(int nowPage = 0)
         {
             var tooldefs = db.ToolDef.Where(i => i.WorkCellId == Account.WorkCellId);
             var data = new List<ToolEntity>();
@@ -38,5 +38,77 @@ namespace ToolManage.Controllers
             ViewBag.NowPage = nowPage;
             return View();
         }
+
+        /// <summary>
+        /// 维修管理
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Type()
+        {
+            ViewBag.Data = db.CheckType.Where(i => i.WorkcellId == Account.WorkCellId && i.State == "0").Select(
+                i => new MaintanceType
+                {
+                    CheckType = i,
+                    CheckDetails = i.CheckDetail.ToList()
+                }).ToList();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Submit(int Id, int Type, string Name)
+        {
+            // type对应操作
+            // 0 --新增检修项
+            // 1 --新增检修类目
+            // 2 --删除检修类目
+            // 3 --删除检修项
+            switch (Type)
+            {
+                case 0:
+                    var item = new CheckDetail
+                    {
+                        CheckTypeId = Id,
+                        Name = Name,
+                        State = "0",
+                    };
+                    db.Entry(item).State = EntityState.Added;
+                    break;
+                case 1:
+                    var category = new CheckType
+                    {
+                        Name = Name,
+                        WorkcellId = Account.WorkCellId,
+                        State = "0",
+                    };
+                    db.Entry(category).State = EntityState.Added;
+                    break;
+                case 2:
+                    var category2 = db.CheckType.Find(Id);
+                    if (category2 != null)
+                    {
+                        category2.State = "1";
+                        db.Entry(category2).State = EntityState.Modified;
+                    }
+                    break;
+                case 3:
+                    var item2 = db.CheckDetail.Find(Id);
+                    if (item2 != null)
+                    {
+                        item2.State = "1";
+                        db.Entry(item2).State = EntityState.Modified;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Type");
+        }
+    }
+
+    public class MaintanceType
+    {
+        public CheckType CheckType { get; set; }
+        public List<CheckDetail> CheckDetails { get; set; }
     }
 }

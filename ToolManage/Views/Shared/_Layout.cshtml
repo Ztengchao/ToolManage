@@ -60,13 +60,17 @@
                 {
                     <li id="toolRepair">@Html.ActionLink("报修管理", "Repair", "Tool")</li>
                 }
+                @if (authority.HasAuthority(AuthorityType.RepairList))
+                {
+                    <li id="repairList">@Html.ActionLink("维修列表", "Index", "Repair")</li>
+                }
                 @if (authority.HasAuthority(AuthorityType.MaintanceList))
                 {
                     <li id="maintanceList">@Html.ActionLink("检修列表", "Index", "Maintance")</li>
                 }
-                @if (authority.HasAuthority(AuthorityType.RepairList))
+                @if (authority.HasAuthority(AuthorityType.RepairManage))
                 {
-                    <li id="repairList">@Html.ActionLink("维修列表", "Index", "Repair")</li>
+                    <li id="maintanceManage">@Html.ActionLink("检修管理", "Type","Maintance")</li>
                 }
             </ul>
         </div>

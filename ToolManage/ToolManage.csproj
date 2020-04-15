@@ -219,6 +219,7 @@
     <Content Include="Content\authority.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\department.css" />
+    <Content Include="Content\repairManage.css" />
     <Content Include="Content\repairList.css" />
     <Content Include="Content\maintanceList.css" />
     <Content Include="Content\toolRepair.css" />
