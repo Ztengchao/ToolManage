@@ -219,7 +219,8 @@
     <Content Include="Content\authority.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\department.css" />
-    <Content Include="Content\repairManage.css" />
+    <Content Include="Content\maintanceDetail.css" />
+    <Content Include="Content\maintanceManage.css" />
     <Content Include="Content\repairList.css" />
     <Content Include="Content\maintanceList.css" />
     <Content Include="Content\toolRepair.css" />
@@ -290,6 +291,7 @@
     <Content Include="Views\Maintance\Index.cshtml" />
     <Content Include="Views\Repair\Index.cshtml" />
     <Content Include="Views\Maintance\Type.cshtml" />
+    <Content Include="Views\Maintance\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

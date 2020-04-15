@@ -1,0 +1,96 @@
+.toolInfo {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.toolInfo .mustInfo,
+.imgArea {
+    margin-top: 15px;
+}
+
+.toolInfo .mustInfo,
+.toolInfo .otherInfo {
+    position: relative;
+    padding: 10px;
+}
+
+.toolInfo .mustInfo {
+    border: 1px solid #CCCCCC;
+    margin-bottom: 10px;
+}
+
+.mustInfo span {
+    margin-right: 30px;
+}
+
+.toolInfo .otherInfo {
+    margin-bottom: 30px;
+}
+
+.text-muted {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    font-size: 12px;
+}
+
+.toolInfo .otherInfo {
+    border: 1px solid #CCCCCC;
+}
+
+.toolInfo .imgArea {
+    width: 300px;
+    height: 240px;
+    margin-left: 100px;
+    border: 1px solid rgba(73, 101, 142, .3);
+    box-shadow: 0 1px 5px rgba(73, 101, 142, .2);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.imgArea img {
+    width: 100%;
+    height: 100%;
+    background-color: #68b8ed;
+}
+
+.toolInfo p {
+    margin-left: 15px;
+}
+
+.remark h4 {
+	margin-top: 0;
+}
+
+.repairForm {
+	margin: 20px auto;
+}
+
+.repairForm select {
+	width: 150px;
+	float: right;
+	margin-right: 10px;
+}
+
+.checkItem {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.checkItem div {
+	width: 45%;
+}
+
+.checkItem div span {
+	margin-right: 70px;
+}
+
+form .btn {
+	float: right;
+	margin-right: 10px;
+}
+
+.checkItem .radio-inline {
+	color: #0099FF;
+}

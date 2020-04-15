@@ -1,6 +1,4 @@
-﻿@{
-}
-<link href="~/Content/maintanceList.css" rel="stylesheet" />
+﻿<link href="~/Content/maintanceList.css" rel="stylesheet" />
 <div class="title">
     <h4>检修列表</h4>
 </div>
@@ -19,7 +17,7 @@
                 <td>@toolEntity.Location</td>
                 <td>@(toolEntity.CheckDate.HasValue?toolEntity.CheckDate.Value.ToString():"从未检查")</td>
                 <td>
-                    <a href="../repair/index.html">开始检查</a>
+                    @Html.ActionLink("开始检查", "Detail", new { id = toolEntity.Id })
                 </td>
             </tr>
         }
@@ -86,7 +84,7 @@
 
 <script>
     $(() => {
-        $('#maintanceList').attr('class','active')
+        $('#maintanceList').attr('class', 'active')
 
         jump = page => {
             $("#NowPage").val(page);
