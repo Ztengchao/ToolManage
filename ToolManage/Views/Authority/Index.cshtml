@@ -13,6 +13,8 @@
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(model => model.Id);
+                @Html.HiddenFor(model => model.Remark);
+                @Html.HiddenFor(model => model.State);
                 @Html.Hidden("workcellId", (int)ViewBag.workcellId);
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -26,6 +28,13 @@
                         <div class="col-sm-10">
                             @Html.TextAreaFor(model => model.Name, new { @class = "form-control", placeholder = "请输入权限名称" })
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">权限选择</label>
+                        <div class="col-sm-6">
+                            @Html.DropDownList("选择权限", (SelectList)ViewBag.AllAuthoritys, new { @class = "form-control", @id = "selectAuthority" })
+                        </div>
+                        <button onclick="addAuthority()" type="button" class="btn btn-md btn-primary">添加</button>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">权限列表</label>
@@ -43,13 +52,6 @@
                                 }
                             </ul>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">权限选择</label>
-                        <div class="col-sm-6">
-                            @Html.DropDownList("选择权限", (SelectList)ViewBag.AllAuthoritys, new { @class = "form-control", @id = "selectAuthority" })
-                        </div>
-                        <button onclick="addAuthority()" type="button" class="btn btn-md btn-primary">添加</button>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -145,12 +147,13 @@
     addAuthority = () => {
         var index = document.getElementById("selectAuthority").selectedIndex;
         var option = document.getElementById("selectAuthority").options[index];
-        if (document.getElementById(option.value) != null) {
+        if (document.getElementById('auth'+option.value) != null) {
             return;
         }
         selectedAuthority.value |= (1 << option.value);
         var all = document.getElementById("allAuthorites");
         all.innerHTML = all.innerHTML + "<li id='auth" + option.value + "'><span class='text-muted'>" + option.text + "</span><button onclick='del(\"" + option.value + "\")' class='btn btn-xs btn-danger' type='button'>删除</button></li>"
+        document.getElementById("selectAuthority").options.remove(index);
     }
 
     selectWorkcell = () => {
@@ -168,6 +171,8 @@
     }
 
     del = id => {
+        var del = document.getElementById('auth' + id);
+        document.getElementById("selectAuthority").options.add(new Option(del.firstElementChild.innerText, id));
         document.getElementById('auth' + id).remove();
         selectedAuthority.value &= (~(1 << id));
     }

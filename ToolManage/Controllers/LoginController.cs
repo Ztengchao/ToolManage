@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Security.AccessControl;
 using System.Web.Mvc;
 using ToolManage.Models;
 
@@ -28,6 +27,7 @@ namespace ToolManage.Controllers
             }
 
             Session.Add("account", acc);
+            Session.Add("authority", acc.Authority1);
             return RedirectToAction("Index", "Authority");// TODO根据账户类型跳转
         }
 
@@ -36,6 +36,11 @@ namespace ToolManage.Controllers
             if (Session["account"] != null)
             {
                 Session.Remove("account");
+            }
+
+            if (Session["authority"]!=null)
+            {
+                Session.Remove("authority");
             }
 
             return RedirectToAction("Index");

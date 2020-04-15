@@ -58,6 +58,14 @@ namespace ToolManage.Helper
                     return "部门管理";
                 case AuthorityType.User:
                     return "用户管理";
+                case AuthorityType.RepairManage:
+                    return "报修管理";
+                case AuthorityType.ToolBorrow:
+                    return "夹具借用";
+                case AuthorityType.ToolInput:
+                    return "夹具录入";
+                case AuthorityType.ToolList:
+                    return "夹具列表";
                 default:
                     return "";
             }
@@ -66,7 +74,7 @@ namespace ToolManage.Helper
         /// <summary>
         /// 所有权限类型
         /// </summary>
-        public static int AuthorityCount => 3;
+        public static int AuthorityCount => 7;
 
         public static List<AuthorityTypeString> AllAuthorityType()
         {
@@ -74,6 +82,19 @@ namespace ToolManage.Helper
             for(var i = 0; i < AuthorityCount; i++)
             {
                 list.Add(new AuthorityTypeString { AuthorityType = (AuthorityType)i });
+            }
+            return list;
+        }
+
+        public static List<AuthorityTypeString> TypesAuthorityNotHave(this Authority authority)
+        {
+            var list = new List<AuthorityTypeString>();
+            for(var i = 0; i < AuthorityCount; i++)
+            {
+                if (!authority.HasAuthority((AuthorityType)i))
+                {
+                    list.Add(new AuthorityTypeString { AuthorityType = (AuthorityType)i });
+                }
             }
             return list;
         }
@@ -94,14 +115,30 @@ namespace ToolManage.Helper
         /// <summary>
         /// 权限管理 权限
         /// </summary>
-        Authority = 0,
+        Authority,
         /// <summary>
         /// 部门管理 权限
         /// </summary>
-        Workcell = 1,
+        Workcell,
         /// <summary>
         /// 用户管理 权限
         /// </summary>
-        User = 2,
+        User,
+        /// <summary>
+        /// 夹具列表 权限
+        /// </summary>
+        ToolList,
+        /// <summary>
+        /// 夹具录入 权限
+        /// </summary>
+        ToolInput,
+        /// <summary>
+        /// 夹具借用 权限
+        /// </summary>
+        ToolBorrow,
+        /// <summary>
+        /// 报修管理
+        /// </summary>
+        RepairManage
     }
 }

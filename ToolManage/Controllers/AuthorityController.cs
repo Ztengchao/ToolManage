@@ -10,6 +10,9 @@ namespace ToolManage.Controllers
     {
         private readonly ToolManageDataContext db = new ToolManageDataContext();
 
+        private Account Account => (Account)Session["account"];
+        private Authority Authority => (Authority)Session["authority"];
+
         // GET: Authority
         public ActionResult Index(int? workcellId, int? authorityId)
         {
@@ -40,7 +43,7 @@ namespace ToolManage.Controllers
             ViewBag.workcellId = workcellId;
             ViewBag.Workcells = new SelectList(db.WorkCell, "Id", "Name", workcellId.Value);
             ViewBag.Authoritys = db.WorkCell.Find(workcellId.Value).Authority;
-            ViewBag.AllAuthoritys = new SelectList(AuthorityHelper.AllAuthorityType(), "Id", "Name");
+            ViewBag.AllAuthoritys = new SelectList(authority.TypesAuthorityNotHave(), "Id", "Name");
             return View(authority);
         }
 
@@ -70,6 +73,11 @@ namespace ToolManage.Controllers
             }
 
             db.SaveChanges();
+            if (Account.Authority == authority.Id)
+            {
+                Session.Remove("authority");
+                Session.Add("authority", authority);
+            }
             return RedirectToAction("Index", new { authorityId= authority.Id, workcellId = authority.WorkCellId });
         }
 
