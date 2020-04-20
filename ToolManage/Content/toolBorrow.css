@@ -3,14 +3,6 @@
 	margin: 0 auto;
 }
 
-.return {
-	padding-right: 20px;
-}
-
-.return .btn {
-	float: right;
-}
-
 .input{
 	display: flex;
 	justify-content: space-between;
@@ -22,13 +14,25 @@
 
 .toolFind .form-inline textarea {
 	width: 300px;
-	margin: 20px 30px 0px 0;
+	margin: 10px 30px 0px 0;
 }
 
 .toolFind button {
 	padding-left: 20px;
 	padding-right: 20px;
-	margin-top: 20px;
+}
+
+.tool-return {
+	margin-bottom: 20px;
+	margin-right: 20px;
+}
+
+.tool-return a {
+	float: right;
+}
+
+.toolFind form button {
+	margin-top: 10px;
 }
 
 .toolList .table {
@@ -44,4 +48,32 @@
 .toolList nav {
 	float: right;
 	margin-bottom: -15px;
+}
+
+.content {
+	width: 100%;
+}
+
+@media screen and (max-width: 580px) {
+	/*屏幕宽度小于等于580px才会显示该样式*/
+	.alert {
+		width: 100%;
+		margin: 10px 0;
+	}
+	.input {
+		flex-wrap: wrap;
+	}
+	
+	.input input {
+		width: 45%;
+		margin-top: 10px;
+	}
+	
+	.toolFind .form-inline textarea {
+		width: 100%;
+	}
+	
+	.toolFind form button {
+		float: right;
+	}
 }

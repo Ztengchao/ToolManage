@@ -1,45 +1,18 @@
-﻿.title {
-    background-color: #4777e9;
-    width: 97%;
-    height: 40px;
-    margin: 0px auto;
-    boder: 1px solid darkblue;
-    box-shadow: 1px 1px 3px #6588d1;
-    border-radius: 5px;
-    color: #f8fafc;
-}
-
-    .title h4 {
-        height: 100%;
-        line-height: 40px;
-        padding-left: 30px;
-    }
-
-.toolInfo,
-.toolList {
-    background-color: #fffeff;
-    width: 97%;
-    margin: 10px auto;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 1px 3px 3px rgba(0, 0, 0, .1);
-}
-
 .toolInfo {
     margin-bottom: 20px;
 }
 
-    .toolInfo,
-    .toolInfo .mustInfo,
-    .toolInfo .otherInfo {
-        position: relative;
-        padding: 10px;
-    }
+.toolInfo,
+.toolInfo .mustInfo,
+.toolInfo .otherInfo {
+    position: relative;
+    padding: 10px;
+}
 
-        .toolInfo .mustInfo {
-            border: 1px solid #CCCCCC;
-            margin-bottom: 10px;
-        }
+.toolInfo .mustInfo {
+    border: 1px solid #CCCCCC;
+    margin-bottom: 10px;
+}
 
 .mustInfo span {
     margin-right: 30px;
@@ -86,6 +59,10 @@
     background-color: #fff;
 }
 
+.toolList .td_center {
+    text-align: center;
+}
+
 .toolList a:hover {
     text-decoration: none;
     color: #0099FF;
@@ -94,4 +71,24 @@
 
 .toolInfo p {
     margin-left: 15px;
+}
+
+.content {
+	width: 100%;
+}
+
+@media screen and (max-width: 580px) {
+	/*屏幕宽度小于等于580px才会显示该样式*/
+	.col-md-7, .col-md-5 {
+		width: 100%;
+	}
+	
+	.toolInfo .imgArea {
+		margin: 0 auto 10px;
+	}
+	
+	.checkItem div {
+		width: 100%;
+	}
+	
 }

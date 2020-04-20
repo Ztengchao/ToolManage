@@ -19,3 +19,10 @@
 .reply .btn {
     margin-left: 20px;
 }
+
+@media screen and (max-width: 580px) {
+	/*屏幕宽度小于等于580px才会显示该样式*/
+	.reply .btn {
+		margin-top: 10px;
+	}
+}

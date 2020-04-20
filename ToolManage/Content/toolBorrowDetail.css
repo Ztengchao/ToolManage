@@ -94,3 +94,22 @@
 .toolInfo p {
     margin-left: 15px;
 }
+
+.content {
+	width: 100%;
+}
+
+@media screen and (max-width: 580px) {
+	/*屏幕宽度小于等于580px才会显示该样式*/
+	.col-md-7, .col-md-5 {
+		width: 100%;
+	}
+	
+	.toolInfo .imgArea {
+		margin: 0 auto 10px;
+	}
+	
+	.panel-title a, .panel-title button {
+	    margin-right: 3px;
+	}
+}

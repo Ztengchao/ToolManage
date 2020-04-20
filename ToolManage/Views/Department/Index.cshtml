@@ -39,12 +39,13 @@
     </div>
 </div>
 
-<div class="wrap">
+<!-- <div class="wrap">
     @Html.ActionLink("新增部门", "Index", new { workcellId = -1 }, new { @class = "btn btn-primary btn-lg", role = "button" })
-</div>
-<div class="wrap tableArea clearfix">
-    <table class="table table-hover table-striped">
-        <tr class="info">
+</div> -->
+<div class="border clearfix table-responsive">
+	@Html.ActionLink("新增部门", "Index", new { workcellId = -1 }, new { @class = "btn btn-primary btn-lg", role = "button" })
+    <table class="table table-striped">
+        <tr>
             <th>部门名称</th>
             <th>经理名称</th>
             <th>联系方式</th>

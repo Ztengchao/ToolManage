@@ -1,5 +1,10 @@
 .add {
-	margin-bottom: 10px;
+	margin: 10px;
+}
+
+.add .selectForm {
+	float: right;
+	width: 150px;
 }
 
 .authorites li span {
@@ -12,6 +17,7 @@
 	padding: 20px 20px 0;
 	background-color: #fbfbfb;
 	box-shadow: 0 1px 5px rgba(0,0,0,.1);
+	margin: 0 10px;
 }
 
 .panel-title a {
@@ -19,7 +25,7 @@
 	width: 100px;
 }
 
-.panel-title button {
+.panel-title .btn {
 	margin-right: 10px;
 }
 
@@ -27,3 +33,22 @@ ul li {
 	margin-bottom: 10px;
 }
 
+@media screen and (max-width: 580px) {
+	.wrap {
+		margin: 0;
+	}
+	.add {
+		margin: 10px 0;
+	}
+	.panel-title .btn {
+		margin-right: 5px;
+	}
+}
+
+@media screen and (max-width: 580px) {
+	/*屏幕宽度小于等于580px才会显示该样式*/
+	.form-group .btn-md {
+		margin-left: 15px;
+		margin-top: 10px;
+	}
+}

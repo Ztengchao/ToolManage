@@ -38,7 +38,6 @@
             <img src="@Url.Action("Img",new { id = Model.Id})" />
         </div>
     </div>
-    <p class="text-muted">(类别信息)</p>
 </div>
 <div class="panel-group border" id="accordion">
     @foreach (var toolEntity in Model.ToolEntity.Where(i => i.State != "9"))

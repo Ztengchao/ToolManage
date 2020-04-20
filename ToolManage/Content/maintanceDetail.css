@@ -1,11 +1,22 @@
+.content {
+	width: 100%;
+}
+
 .toolInfo {
     position: relative;
     margin-bottom: 20px;
 }
 
-.toolInfo .mustInfo,
-.imgArea {
-    margin-top: 15px;
+.info {
+	width: 60%;
+}
+
+.img {
+	width: 40%;
+}
+
+.info, .img {
+	float: left;
 }
 
 .toolInfo .mustInfo,
@@ -54,10 +65,6 @@
     background-color: #68b8ed;
 }
 
-.toolInfo p {
-    margin-left: 15px;
-}
-
 .remark h4 {
 	margin-top: 0;
 }
@@ -74,16 +81,18 @@
 
 .checkItem {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	flex-wrap: wrap;
+	margin: 10px 20px;
 }
 
 .checkItem div {
-	width: 45%;
+	text-align: center;
+	width: 40%;
 }
 
 .checkItem div span {
-	margin-right: 70px;
+	margin-right: 30px;
 }
 
 form .btn {
@@ -93,4 +102,20 @@ form .btn {
 
 .checkItem .radio-inline {
 	color: #0099FF;
+}
+
+@media screen and (max-width: 580px) {
+	/*屏幕宽度小于等于580px才会显示该样式*/
+	.col-md-5, .col-md-5 {
+		width: 100%;
+	}
+	
+	.toolInfo .imgArea {
+		margin: 0 auto 10px;
+	}
+	
+	.checkItem div {
+		width: 100%;
+	}
+	
 }
