@@ -109,10 +109,10 @@
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="ToolEntityId" Type="int" Nullable="false" />
           <Property Name="Describe" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Picture" Type="image" />
           <Property Name="HandleId" Type="int" />
           <Property Name="State" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="WorkCellId" Type="int" Nullable="false" />
+          <Property Name="RepairDate" Type="datetime" />
         </EntityType>
         <EntityType Name="ScrapApplication">
           <Key>
@@ -750,6 +750,7 @@
           <EntitySet Name="ConsumeReturn" EntityType="ToolManageModel.ConsumeReturn" />
           <EntitySet Name="Inner" EntityType="ToolManageModel.Inner" />
           <EntitySet Name="Maintenance" EntityType="ToolManageModel.Maintenance" />
+          <EntitySet Name="MaintenanceDetail" EntityType="ToolManageModel.MaintenanceDetail" />
           <EntitySet Name="RepairApplication" EntityType="ToolManageModel.RepairApplication" />
           <EntitySet Name="ScrapApplication" EntityType="ToolManageModel.ScrapApplication" />
           <EntitySet Name="ScrapDoc" EntityType="ToolManageModel.ScrapDoc" />
@@ -820,6 +821,10 @@
             <End Role="CheckType" EntitySet="CheckType" />
             <End Role="CheckDetail" EntitySet="CheckDetail" />
           </AssociationSet>
+          <AssociationSet Name="FK_MaintenanceDetail_CheckDetail" Association="ToolManageModel.FK_MaintenanceDetail_CheckDetail">
+            <End Role="CheckDetail" EntitySet="CheckDetail" />
+            <End Role="MaintenanceDetail" EntitySet="MaintenanceDetail" />
+          </AssociationSet>
           <AssociationSet Name="FK_CheckType_WorkCell" Association="ToolManageModel.FK_CheckType_WorkCell">
             <End Role="WorkCell" EntitySet="WorkCell" />
             <End Role="CheckType" EntitySet="CheckType" />
@@ -843,6 +848,10 @@
           <AssociationSet Name="FK_Maintenance_ToolEntity" Association="ToolManageModel.FK_Maintenance_ToolEntity">
             <End Role="ToolEntity" EntitySet="ToolEntity" />
             <End Role="Maintenance" EntitySet="Maintenance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaintenanceDetail_Maintenance" Association="ToolManageModel.FK_MaintenanceDetail_Maintenance">
+            <End Role="Maintenance" EntitySet="Maintenance" />
+            <End Role="MaintenanceDetail" EntitySet="MaintenanceDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_RepairApplication_ToolEntity" Association="ToolManageModel.FK_RepairApplication_ToolEntity">
             <End Role="ToolEntity" EntitySet="ToolEntity" />
@@ -879,15 +888,6 @@
           <AssociationSet Name="FK_ToolEntity_ToolDef_On_toolDefId" Association="ToolManageModel.FK_ToolEntity_ToolDef_On_toolDefId">
             <End Role="ToolDef" EntitySet="ToolDef" />
             <End Role="ToolEntity" EntitySet="ToolEntity" />
-          </AssociationSet>
-          <EntitySet Name="MaintenanceDetail" EntityType="ToolManageModel.MaintenanceDetail" />
-          <AssociationSet Name="FK_MaintenanceDetail_CheckDetail" Association="ToolManageModel.FK_MaintenanceDetail_CheckDetail">
-            <End Role="CheckDetail" EntitySet="CheckDetail" />
-            <End Role="MaintenanceDetail" EntitySet="MaintenanceDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MaintenanceDetail_Maintenance" Association="ToolManageModel.FK_MaintenanceDetail_Maintenance">
-            <End Role="Maintenance" EntitySet="Maintenance" />
-            <End Role="MaintenanceDetail" EntitySet="MaintenanceDetail" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Account">
@@ -1006,6 +1006,17 @@
           <NavigationProperty Name="ToolEntity" Relationship="ToolManageModel.FK_Maintenance_ToolEntity" FromRole="Maintenance" ToRole="ToolEntity" />
           <NavigationProperty Name="MaintenanceDetail" Relationship="ToolManageModel.FK_MaintenanceDetail_Maintenance" FromRole="Maintenance" ToRole="MaintenanceDetail" />
         </EntityType>
+        <EntityType Name="MaintenanceDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="MaintenanceId" Type="Int32" Nullable="false" />
+          <Property Name="CheckDetailId" Type="Int32" Nullable="false" />
+          <Property Name="Success" Type="Boolean" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CheckDetail" Relationship="ToolManageModel.FK_MaintenanceDetail_CheckDetail" FromRole="MaintenanceDetail" ToRole="CheckDetail" />
+          <NavigationProperty Name="Maintenance" Relationship="ToolManageModel.FK_MaintenanceDetail_Maintenance" FromRole="MaintenanceDetail" ToRole="Maintenance" />
+        </EntityType>
         <EntityType Name="RepairApplication">
           <Key>
             <PropertyRef Name="Id" />
@@ -1015,10 +1026,10 @@
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ToolEntityId" Type="Int32" Nullable="false" />
           <Property Name="Describe" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="HandleId" Type="Int32" />
           <Property Name="State" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="WorkCellId" Type="Int32" Nullable="false" />
+          <Property Name="RepairDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Account" Relationship="ToolManageModel.FK_RepairApplication_Account" FromRole="RepairApplication" ToRole="Account" />
           <NavigationProperty Name="Account1" Relationship="ToolManageModel.FK_RepairApplication_Account1" FromRole="RepairApplication" ToRole="Account" />
           <NavigationProperty Name="ToolEntity" Relationship="ToolManageModel.FK_RepairApplication_ToolEntity" FromRole="RepairApplication" ToRole="ToolEntity" />
@@ -1324,6 +1335,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MaintenanceDetail_CheckDetail">
+          <End Type="ToolManageModel.CheckDetail" Role="CheckDetail" Multiplicity="1" />
+          <End Type="ToolManageModel.MaintenanceDetail" Role="MaintenanceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CheckDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaintenanceDetail">
+              <PropertyRef Name="CheckDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CheckType_WorkCell">
           <End Type="ToolManageModel.WorkCell" Role="WorkCell" Multiplicity="1" />
           <End Type="ToolManageModel.CheckType" Role="CheckType" Multiplicity="*" />
@@ -1393,6 +1416,18 @@
             </Principal>
             <Dependent Role="Maintenance">
               <PropertyRef Name="ToolEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaintenanceDetail_Maintenance">
+          <End Type="ToolManageModel.Maintenance" Role="Maintenance" Multiplicity="1" />
+          <End Type="ToolManageModel.MaintenanceDetail" Role="MaintenanceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Maintenance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaintenanceDetail">
+              <PropertyRef Name="MaintenanceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1504,41 +1539,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="MaintenanceDetail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="MaintenanceId" Type="Int32" Nullable="false" />
-          <Property Name="CheckDetailId" Type="Int32" Nullable="false" />
-          <Property Name="Success" Type="Boolean" Nullable="false" />
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="CheckDetail" Relationship="ToolManageModel.FK_MaintenanceDetail_CheckDetail" FromRole="MaintenanceDetail" ToRole="CheckDetail" />
-          <NavigationProperty Name="Maintenance" Relationship="ToolManageModel.FK_MaintenanceDetail_Maintenance" FromRole="MaintenanceDetail" ToRole="Maintenance" />
-        </EntityType>
-        <Association Name="FK_MaintenanceDetail_CheckDetail">
-          <End Type="ToolManageModel.CheckDetail" Role="CheckDetail" Multiplicity="1" />
-          <End Type="ToolManageModel.MaintenanceDetail" Role="MaintenanceDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CheckDetail">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MaintenanceDetail">
-              <PropertyRef Name="CheckDetailId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MaintenanceDetail_Maintenance">
-          <End Type="ToolManageModel.Maintenance" Role="Maintenance" Multiplicity="1" />
-          <End Type="ToolManageModel.MaintenanceDetail" Role="MaintenanceDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Maintenance">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MaintenanceDetail">
-              <PropertyRef Name="MaintenanceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1639,13 +1639,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MaintenanceDetail">
+            <EntityTypeMapping TypeName="ToolManageModel.MaintenanceDetail">
+              <MappingFragment StoreEntitySet="MaintenanceDetail">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="CheckDetailId" ColumnName="CheckDetailId" />
+                <ScalarProperty Name="MaintenanceId" ColumnName="MaintenanceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="RepairApplication">
             <EntityTypeMapping TypeName="ToolManageModel.RepairApplication">
               <MappingFragment StoreEntitySet="RepairApplication">
+                <ScalarProperty Name="RepairDate" ColumnName="RepairDate" />
                 <ScalarProperty Name="WorkCellId" ColumnName="WorkCellId" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="HandleId" ColumnName="HandleId" />
-                <ScalarProperty Name="Picture" ColumnName="Picture" />
                 <ScalarProperty Name="Describe" ColumnName="Describe" />
                 <ScalarProperty Name="ToolEntityId" ColumnName="ToolEntityId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -1734,16 +1744,6 @@
                 <ScalarProperty Name="ContactName" ColumnName="ContactName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MaintenanceDetail">
-            <EntityTypeMapping TypeName="ToolManageModel.MaintenanceDetail">
-              <MappingFragment StoreEntitySet="MaintenanceDetail">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Success" ColumnName="Success" />
-                <ScalarProperty Name="CheckDetailId" ColumnName="CheckDetailId" />
-                <ScalarProperty Name="MaintenanceId" ColumnName="MaintenanceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

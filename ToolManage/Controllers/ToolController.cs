@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Data.Entity;
 using ToolManage.Models;
+using System.Collections.Generic;
 
 namespace ToolManage.Controllers
 {
@@ -166,6 +167,61 @@ namespace ToolManage.Controllers
             ViewBag.Data = data.ToArray();
             ViewBag.NowPage = nowPage;
             return View();
+        }
+
+        public ActionResult EntityDetail(int id)
+        {
+            var entity = db.ToolEntity.Find(id);
+            if (entity == null)
+            {
+                return HttpNotFound();
+            }
+
+            var data = new List<EntityDetailData>();
+            foreach (var item in entity.Maintenance)
+            {
+                data.Add(new EntityDetailData
+                {
+                    Date = item.Date,
+                    Name = item.Account.Name,
+                    Type = "维护",
+                });
+            }
+
+            foreach (var item in entity.ConsumeReturn)
+            {
+                if (item.BorrowReturn)
+                {
+                    //已归还
+                    data.Add(new EntityDetailData
+                    {
+                        Date = item.ReturnDate.Value,
+                        Name = item.Account.Name,
+                        Type = "归还"
+                    });
+                }
+
+                data.Add(new EntityDetailData
+                {
+                    Date = item.Date,
+                    Name = item.Account.Name,
+                    Type = "归还"
+                });
+            }
+
+            foreach (var item in entity.RepairApplication.Where(i => i.State == "3"))
+            {
+                //维修完成的维修申请
+                data.Add(new EntityDetailData
+                {
+                    Date = item.RepairDate,
+                    Name = item.Account.Name,
+                    Type = "维修"
+                });
+            }
+
+            ViewBag.Data = data.OrderByDescending(i => i.Date);
+            return View(entity);
         }
 
         [HttpPost]
@@ -391,7 +447,6 @@ namespace ToolManage.Controllers
             repairApplication.State = "0";
             repairApplication.WorkCellId = Account.WorkCellId;
             repairApplication.Date = DateTime.Now;
-            repairApplication.Picture = new byte[] { 0 };
             var entity = db.ToolEntity.Find(repairApplication.ToolEntityId);
             entity.State = "2";
             db.Entry(entity).State = EntityState.Modified;
@@ -435,5 +490,24 @@ namespace ToolManage.Controllers
             db.Entry(log).State = EntityState.Added;
             db.SaveChanges();
         }
+    }
+
+    /// <summary>
+    /// 工夹具实体详细信息使用的类
+    /// </summary>
+    public class EntityDetailData
+    {
+        /// <summary>
+        /// 类型
+        /// </summary>
+        public string Type { get; set; }
+        /// <summary>
+        /// 日期
+        /// </summary>
+        public DateTime Date { get; set; }
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; set; }
     }
 }

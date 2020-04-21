@@ -179,7 +179,6 @@ namespace ToolManage.Controllers
                     Describe = Remark,
                     WorkCellId = Account.WorkCellId,
                     ToolEntityId = ToolEntityId,
-                    Picture = new byte[] { 0 },
                 };
                 toolEntity.State = "2";
                 db.Entry(repair).State = EntityState.Added;

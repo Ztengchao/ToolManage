@@ -47,6 +47,7 @@
                 <th>创建日期</th>
                 <th>入库单</th>
                 <th>状态</th>
+
                 <th>操作</th>
             </tr>
             @foreach (ToolManage.Models.ToolEntity toolEntity in ViewBag.Data)
@@ -58,7 +59,10 @@
                     <td>@toolEntity.BillNo</td>
                     <td>@toolEntity.StateString</td>
                     <td>
-                        <a onclick="deletel(@(toolEntity.Id))" data-toggle="modal" data-target="#deleteModal">删除 |</a>
+                        @Html.ActionLink("查看详情", "EntityDetail", new { id = toolEntity.Id })
+                        <span>|</span>
+                        <a onclick="deletel(@(toolEntity.Id))" data-toggle="modal" data-target="#deleteModal">删除</a>
+                        <span>|</span>
                         <a onclick="change(@(toolEntity.Id),@("'"+toolEntity.Code+"'"),@("'"+toolEntity.Location+"'")
                             ,@("'"+toolEntity.BillNo.Trim()+"'"))" data-toggle="modal" data-target="#myModal">修改</a>
                     </td>
@@ -72,7 +76,7 @@
 <div class="modal fade" id="myModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            @using (Html.BeginForm("ChangeEntity", "Tool",FormMethod.Post))
+            @using (Html.BeginForm("ChangeEntity", "Tool", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
                 <input style="display:none" id="ToolDefId" name="ToolDefId" value="@(Model.Id)" />

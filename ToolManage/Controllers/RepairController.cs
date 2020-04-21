@@ -44,6 +44,8 @@ namespace ToolManage.Controllers
             if (state)
             {
                 repairApplication.State = "3";
+                repairApplication.RepairDate = DateTime.Now;
+                repairApplication.HandleId = Account.Id;
                 repairApplication.ToolEntity.State = "0";
             }
             else

@@ -19,10 +19,10 @@ namespace ToolManage.Models
         public System.DateTime Date { get; set; }
         public int ToolEntityId { get; set; }
         public string Describe { get; set; }
-        public byte[] Picture { get; set; }
         public Nullable<int> HandleId { get; set; }
         public string State { get; set; }
         public int WorkCellId { get; set; }
+        public Nullable<System.DateTime> RepairDate { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual Account Account1 { get; set; }
