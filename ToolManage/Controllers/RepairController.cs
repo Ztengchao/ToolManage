@@ -33,7 +33,7 @@ namespace ToolManage.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ConfirmRepair(int Id)
+        public ActionResult ConfirmRepair(int Id,bool state)
         {
             var repairApplication = db.RepairApplication.Find(Id);
             if (repairApplication == null)
@@ -41,8 +41,16 @@ namespace ToolManage.Controllers
                 return RedirectToAction("Index");
             }
 
-            repairApplication.State = "3";
-            repairApplication.ToolEntity.State = "0";
+            if (state)
+            {
+                repairApplication.State = "3";
+                repairApplication.ToolEntity.State = "0";
+            }
+            else
+            {
+                repairApplication.State = "4";
+                repairApplication.ToolEntity.State = "3";
+            }
             db.Entry(repairApplication).State = System.Data.Entity.EntityState.Modified;
             db.Entry(repairApplication.ToolEntity).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();

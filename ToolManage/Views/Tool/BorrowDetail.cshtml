@@ -40,7 +40,7 @@
     </div>
 </div>
 <div class="panel-group border" id="accordion">
-    @foreach (var toolEntity in Model.ToolEntity.Where(i => i.State != "9"))
+    @foreach (var toolEntity in Model.ToolEntity.Where(i => i.State != "9" && i.State != "3"))
     {
         <div class="panel panel-default">
             <div class="panel-heading" id="@("heading" + toolEntity.Id)">

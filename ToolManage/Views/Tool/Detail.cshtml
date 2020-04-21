@@ -46,6 +46,7 @@
                 <th>柜号</th>
                 <th>创建日期</th>
                 <th>入库单</th>
+                <th>状态</th>
                 <th>操作</th>
             </tr>
             @foreach (ToolManage.Models.ToolEntity toolEntity in ViewBag.Data)
@@ -55,6 +56,7 @@
                     <td>@toolEntity.Location</td>
                     <td>@toolEntity.RegDate</td>
                     <td>@toolEntity.BillNo</td>
+                    <td>@toolEntity.StateString</td>
                     <td>
                         <a onclick="deletel(@(toolEntity.Id))" data-toggle="modal" data-target="#deleteModal">删除 |</a>
                         <a onclick="change(@(toolEntity.Id),@("'"+toolEntity.Code+"'"),@("'"+toolEntity.Location+"'")

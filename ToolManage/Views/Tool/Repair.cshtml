@@ -99,7 +99,7 @@
                         @Html.AntiForgeryToken()
                         <input style="display:none;" name="applicationId" id="applicationId" />
                         <input style="display:none;" name="agree" id="agree" />
-                        <textarea class="form-control" placeholder="报修申请回复备注"></textarea>
+                        @*<textarea class="form-control" placeholder="报修申请回复备注"></textarea>*@
                         <button onclick="agreeF(false)" type="button" class="btn btn-danger">审核拒绝</button>
                         <button onclick="agreeF(true)" type="button" class="btn btn-primary">审核通过</button>
                     }
