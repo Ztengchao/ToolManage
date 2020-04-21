@@ -504,7 +504,7 @@ namespace ToolManage.Controllers
         /// <summary>
         /// 日期
         /// </summary>
-        public DateTime Date { get; set; }
+        public DateTime? Date{ get; set; }
         /// <summary>
         /// 名称
         /// </summary>
