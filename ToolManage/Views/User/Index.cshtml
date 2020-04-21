@@ -79,7 +79,10 @@
         <strong>Tips:</strong> @((string)ViewBag.ErrorMessage)
     </div>
 }
-<div class="wrap">
+<div class="title">
+    <h4>员工管理</h4>
+</div>
+<div class="wrap border">
     @Html.ActionLink("新增员工", "Index", new { accountId = -1 }, new { @class = "btn btn-primary add", role = "button" })
     <form class="form-inline clearfix" id="search">
         <div style="display:none;">
@@ -111,96 +114,98 @@
         </div>
     </form>
 </div>
-<div class="tableArea clearfix table-responsive">
-    <table class="table table-hover table-striped">
-        <tr>
-            <th>工号</th>
-            <th>姓名</th>
-            <th>账号</th>
-            <th>联系方式</th>
-            <th>权限</th>
-            <th>操作</th>
-        </tr>
-        @foreach (ToolManage.Models.Account item in ViewBag.Data)
-        {
+<div class="tableArea clearfix border">
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
             <tr>
-                <td>
-                    @item.JobNumber.Trim()
-                </td>
-                <td>
-                    @item.Name.Trim()
-                </td>
-                <td>
-                    @item.UserName.Trim()
-                </td>
-                <td>
-                    @item.Phone.Trim()
-                </td>
-                <td>
-                    @item.Authority1.Name.Trim()
-                </td>
-                <td>
-                    @Html.ActionLink("修改", "Index", new { accountId = item.Id })
-                    @Html.ActionLink("删除", "Delete", new { id = item.Id })
-                </td>
+                <th>工号</th>
+                <th>姓名</th>
+                <th>账号</th>
+                <th>联系方式</th>
+                <th>权限</th>
+                <th>操作</th>
             </tr>
-        }
-    </table>
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            @if (ViewBag.NowPage == 0)
+            @foreach (ToolManage.Models.Account item in ViewBag.Data)
             {
-                <li class="disabled">
-                    <a aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
+                <tr>
+                    <td>
+                        @item.JobNumber.Trim()
+                    </td>
+                    <td>
+                        @item.Name.Trim()
+                    </td>
+                    <td>
+                        @item.UserName.Trim()
+                    </td>
+                    <td>
+                        @item.Phone.Trim()
+                    </td>
+                    <td>
+                        @item.Authority1.Name.Trim()
+                    </td>
+                    <td>
+                        @Html.ActionLink("修改", "Index", new { accountId = item.Id })
+                        @Html.ActionLink("删除", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
             }
-            else
-            {
-                <li>
-                    <a href="#" onclick="prePage()" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-            }
-            @for (int i = ViewBag.NowPage - 3; i < ViewBag.NowPage; i++)
-            {
-                if (i < 0)
+        </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                @if (ViewBag.NowPage == 0)
                 {
-                    continue;
+                    <li class="disabled">
+                        <a aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
                 }
-                <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
-            }
-
-            <li class="active"><a href="#">@(ViewBag.NowPage+1) <span class="sr-only">(current)</span></a></li>
-            @for (int i = ViewBag.NowPage + 1; i < ViewBag.NowPage + 4; i++)
-            {
-                if (i > ViewBag.MaxPage)
+                else
                 {
-                    break;
+                    <li>
+                        <a href="#" onclick="prePage()" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
                 }
-                <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
-            }
+                @for (int i = ViewBag.NowPage - 3; i < ViewBag.NowPage; i++)
+                {
+                    if (i < 0)
+                    {
+                        continue;
+                    }
+                    <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+                }
 
-            @if (ViewBag.NowPage == ViewBag.MaxPage)
-            {
-                <li class="disabled">
-                    <a aria-label="Previous">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            }
-            else
-            {
-                <li>
-                    <a href="#" onclick="prePage()" aria-label="Previous">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            }
-        </ul>
-    </nav>
+                <li class="active"><a href="#">@(ViewBag.NowPage+1) <span class="sr-only">(current)</span></a></li>
+                @for (int i = ViewBag.NowPage + 1; i < ViewBag.NowPage + 4; i++)
+                {
+                    if (i > ViewBag.MaxPage)
+                    {
+                        break;
+                    }
+                    <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+                }
+
+                @if (ViewBag.NowPage == ViewBag.MaxPage)
+                {
+                    <li class="disabled">
+                        <a aria-label="Previous">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="#" onclick="prePage()" aria-label="Previous">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
 </div>
 
 @if (ViewBag.ShowModal)

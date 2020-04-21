@@ -1,5 +1,5 @@
 .add {
-	margin: 10px;
+	margin-bottom: 10px;
 }
 
 .add .selectForm {
@@ -10,14 +10,6 @@
 .authorites li span {
 	display: inline-block;
 	margin-right: 30px;
-}
-
-.wrap {
-	border: 1px solid lightgray;
-	padding: 20px 20px 0;
-	background-color: #fbfbfb;
-	box-shadow: 0 1px 5px rgba(0,0,0,.1);
-	margin: 0 10px;
 }
 
 .panel-title a {
@@ -35,10 +27,7 @@ ul li {
 
 @media screen and (max-width: 580px) {
 	.wrap {
-		margin: 0;
-	}
-	.add {
-		margin: 10px 0;
+		margin-top: 10px;
 	}
 	.panel-title .btn {
 		margin-right: 5px;
@@ -50,5 +39,9 @@ ul li {
 	.form-group .btn-md {
 		margin-left: 15px;
 		margin-top: 10px;
+	}
+	
+	.panel-title a {
+		width: 80px;
 	}
 }

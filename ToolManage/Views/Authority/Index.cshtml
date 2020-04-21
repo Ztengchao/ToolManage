@@ -82,15 +82,19 @@
     </div>
 </div>
 
-<div class="add clearfix">
-    <button class="btn bg-primary col-md-1" onclick="addNew()" data-toggle="modal" data-target="#changeModal">
-        新增权限
-    </button>
-    <div class="col-md-2 col-md-offset-8">
-        @Html.DropDownList("选择部门", (SelectList)ViewBag.Workcells, new { @class = "form-control", onchange = "selectWorkcell()", id = "selectWorkcell" })
-    </div>
+
+<div class="title">
+    <h4>权限管理</h4>
 </div>
-<div class="wrap">
+<div class="wrap border">
+    <div class="add clearfix">
+        <button class="btn bg-primary" onclick="addNew()" data-toggle="modal" data-target="#changeModal">
+            新增权限
+        </button>
+        <div class="selectForm">
+            @Html.DropDownList("选择部门", (SelectList)ViewBag.Workcells, new { @class = "form-control", onchange = "selectWorkcell()", id = "selectWorkcell" })
+        </div>
+    </div>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         @foreach (ToolManage.Models.Authority authority in ViewBag.Authoritys)
         {
@@ -147,7 +151,7 @@
     addAuthority = () => {
         var index = document.getElementById("selectAuthority").selectedIndex;
         var option = document.getElementById("selectAuthority").options[index];
-        if (document.getElementById('auth'+option.value) != null) {
+        if (document.getElementById('auth' + option.value) != null) {
             return;
         }
         selectedAuthority.value |= (1 << option.value);

@@ -12,9 +12,7 @@
         <strong>Tips:</strong> @((string)ViewBag.ErrorMessage)
     </div>
 }
-<div class="tool-return clearfix">
-    @Html.ActionLink("归还夹具", "Return", "Tool", new { role = "button", @class = "btn btn-primary" })
-</div>
+
 <div class="title">
     <h4>夹具详情</h4>
 </div>
@@ -29,8 +27,11 @@
             <input value="@(Request["partNoSearch"]?.ToString())" name="partNoSearch" type="text" class="form-control" placeholder="PartNo" />
             <input value="@(Request["codeSearch"]?.ToString())" name="codeSearch" type="text" class="form-control" placeholder="Code" />
         </div>
-        <textarea value="@(Request["UseForSearch"]?.ToString())" name="UseForSearch" class="form-control" placeholder="UseFor"></textarea>
-        <button type="submit" class="btn btn-primary btn-lg">查询</button>
+        <div>
+            <textarea value="@(Request["UseForSearch"]?.ToString())" name="UseForSearch" class="form-control" placeholder="UseFor"></textarea>
+            <button type="submit" class="btn btn-primary">查询</button>
+            @Html.ActionLink("归还夹具", "Return", "Tool", new { role = "button", @class = "btn btn-primary", style = "float:right" })
+        </div>
     </form>
 </div>
 <div class="toolList border clearfix table-responsive">
