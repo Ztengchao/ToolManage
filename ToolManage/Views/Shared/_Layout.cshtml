@@ -30,8 +30,11 @@
 <body>
     <div class="root">
         <div class="side-bar">
-            <div class="logo">TMS</div>
-            <ul class="nav nav-pills nav-stacked">
+            <div class="logo">
+                <span>TMS</span>
+                <span class="glyphicon glyphicon-th" id="openNav"></span>
+            </div>
+            <ul class="nav nav-pills nav-stacked" id="nav">
                 @if (authority.HasAuthority(AuthorityType.Authority))
                 {
                     <li id="authority">@Html.ActionLink("权限管理", "Index", "Authority")</li>
@@ -105,6 +108,18 @@
         </div>
     </div>
 
+    <script>
+        flag = true;
+        document.getElementById("openNav").onclick = function () {
+            if (flag) {
+                document.getElementById("nav").style.display = 'block';
+                flag = false;
+            } else {
+                document.getElementById("nav").style.display = '';
+                flag = true;
+            }
+        }
+    </script>
 </body>
 
 </html>

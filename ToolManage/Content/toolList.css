@@ -31,7 +31,7 @@
 
 .toolList nav {
 	float: right;
-	margin-bottom: -15px;
+	margin-bottom: -10px;
 }
 
 @media screen and (max-width: 580px) {
