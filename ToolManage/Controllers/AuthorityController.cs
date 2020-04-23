@@ -29,7 +29,7 @@ namespace ToolManage.Controllers
             else
             {
                 authority = db.Authority.Find(authorityId.Value);
-                if (authority == null||authority.State!="0")
+                if (authority == null || authority.State != "0")
                 {
                     authority = new Authority();
                 }
@@ -42,7 +42,7 @@ namespace ToolManage.Controllers
 
             ViewBag.workcellId = workcellId;
             ViewBag.Workcells = new SelectList(db.WorkCell, "Id", "Name", workcellId.Value);
-            ViewBag.Authoritys = db.WorkCell.Find(workcellId.Value).Authority;
+            ViewBag.Authoritys = db.WorkCell.Find(workcellId.Value).Authority.Where(i => i.State == "0");
             ViewBag.AllAuthoritys = new SelectList(authority.TypesAuthorityNotHave(), "Id", "Name");
             return View(authority);
         }
@@ -78,7 +78,7 @@ namespace ToolManage.Controllers
                 Session.Remove("authority");
                 Session.Add("authority", authority);
             }
-            return RedirectToAction("Index", new { authorityId= authority.Id, workcellId = authority.WorkCellId });
+            return RedirectToAction("Index", new { authorityId = authority.Id, workcellId = authority.WorkCellId });
         }
 
         [HttpGet]
