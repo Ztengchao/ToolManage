@@ -1,0 +1,47 @@
+.add {
+	margin-bottom: 10px;
+}
+
+.add .selectForm {
+	float: right;
+	width: 150px;
+}
+
+.authorites li span {
+	display: inline-block;
+	margin-right: 30px;
+}
+
+.panel-title a {
+	display: inline-block;
+	width: 100px;
+}
+
+.panel-title .btn {
+	margin-right: 10px;
+}
+
+ul li {
+	margin-bottom: 10px;
+}
+
+@media screen and (max-width: 580px) {
+	.wrap {
+		margin-top: 10px;
+	}
+	.panel-title .btn {
+		margin-right: 5px;
+	}
+}
+
+@media screen and (max-width: 580px) {
+	/*屏幕宽度小于等于580px才会显示该样式*/
+	.form-group .btn-md {
+		margin-left: 15px;
+		margin-top: 10px;
+	}
+	
+	.panel-title a {
+		width: 80px;
+	}
+}

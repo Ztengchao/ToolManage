@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using ToolManage.Models;
 
 namespace ToolManage.Helper
@@ -76,6 +77,37 @@ namespace ToolManage.Helper
                     return "报废单管理";
                 default:
                     return "";
+            }
+        }
+
+        public static ActionResult ToActionResult(this AuthorityType authorityType)
+        {
+            switch (authorityType)
+            {
+                case AuthorityType.Authority:
+                    return new RedirectResult("Authority/Index");
+                case AuthorityType.Workcell:
+                    return new RedirectResult("Department/Index");
+                case AuthorityType.User:
+                    return new RedirectResult("User/Index");
+                case AuthorityType.RepairManage:
+                    return new RedirectResult("Tool/Repair");
+                case AuthorityType.ToolBorrow:
+                    return new RedirectResult("Tool/Borrow");
+                case AuthorityType.ToolInput:
+                    return new RedirectResult("Tool/Create");
+                case AuthorityType.ToolList:
+                    return new RedirectResult("Tool/Index");
+                case AuthorityType.MaintanceList:
+                    return new RedirectResult("Maintance/Index");
+                case AuthorityType.RepairList:
+                    return new RedirectResult("Repair/Index");
+                case AuthorityType.MaintanceManage:
+                    return new RedirectResult("Maintance/Type");
+                case AuthorityType.ScrapDocManage:
+                    return new RedirectResult("Scrap/Index");
+                default:
+                    return new EmptyResult();
             }
         }
 

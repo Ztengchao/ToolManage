@@ -1,0 +1,152 @@
+﻿@model ToolManage.Models.WorkCell
+
+<link href="~/Content/department.css" rel="stylesheet" />
+<!--弹窗-->
+<!--model-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @using (Html.BeginForm("Change", "Department", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Workcell信息</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="Name">部门名称</label>
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "请输入部门名称", type = "text" })
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">经理名称</label>
+                        @Html.TextBoxFor(model => model.ContactName, new { @class = "form-control", placeholder = "请输入经理名称", type = "text" })
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">经理联系方式</label>
+                        @Html.TextBoxFor(model => model.ContactPhone, new { @class = "form-control", placeholder = "请输入经理联系方式", type = "text" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="title">
+    <h4>部门管理</h4>
+</div>
+<div class="border clearfix table-responsive">
+    @Html.ActionLink("新增部门", "Index", new { workcellId = -1 }, new { @class = "btn btn-primary", role = "button" })
+    <table class="table table-striped">
+        <tr>
+            <th>部门名称</th>
+            <th>经理名称</th>
+            <th>联系方式</th>
+            <th>变更日志</th>
+            <th>操作</th>
+        </tr>
+        @foreach (ToolManage.Models.WorkCell item in ViewBag.Data)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.ContactName</td>
+                <td>@item.ContactPhone</td>
+                <td><a href="#">点击查看</a></td>
+                <td>
+                    @Html.ActionLink("修改", "Index", new { workcellId = item.Id })
+                    @Html.ActionLink("删除", "Delete", new { workcellId = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            @if (ViewBag.NowPage == 0)
+            {
+                <li class="disabled">
+                    <a aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="#" onclick="prePage()" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = ViewBag.NowPage - 3; i < ViewBag.NowPage; i++)
+            {
+                if (i < 0)
+                {
+                    continue;
+                }
+                <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+            }
+
+            <li class="active"><a href="#">@(ViewBag.NowPage+1) <span class="sr-only">(current)</span></a></li>
+            @for (int i = ViewBag.NowPage + 1; i < ViewBag.NowPage + 4; i++)
+            {
+                if (i > ViewBag.MaxPage)
+                {
+                    break;
+                }
+                <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+            }
+
+            @if (ViewBag.NowPage == ViewBag.MaxPage)
+            {
+                <li class="disabled">
+                    <a aria-label="Previous">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="#" onclick="prePage()" aria-label="Previous">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
+@if (ViewBag.ShowModal)
+{
+    <script>
+        $(() => {
+            $('#myModal').modal("show");
+        })
+    </script>
+}
+
+<script>
+    $(() => {
+        var nowPage = @ViewBag.NowPage;
+        $("#department").addClass("active");
+
+        jump = page => {
+            window.location.href = "Department?nowPage=" + page;
+        }
+
+        prePage = () => {
+            jump(nowPage - 1);
+        }
+
+        nextPage = () => {
+            jump(nowPage + 1);
+        }
+    })
+</script>

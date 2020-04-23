@@ -1,0 +1,94 @@
+.toolInfo {
+    margin-bottom: 20px;
+}
+
+.toolInfo,
+.toolInfo .mustInfo,
+.toolInfo .otherInfo {
+    position: relative;
+    padding: 10px;
+}
+
+.toolInfo .mustInfo {
+    border: 1px solid #CCCCCC;
+    margin-bottom: 10px;
+}
+
+.mustInfo span {
+    margin-right: 30px;
+}
+
+.toolInfo .otherInfo {
+    margin-bottom: 30px;
+}
+
+.text-muted {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    font-size: 12px;
+}
+
+.toolInfo .otherInfo {
+    border: 1px solid #CCCCCC;
+}
+
+.toolInfo .imgArea {
+    width: 300px;
+    height: 240px;
+    margin-left: 45px;
+    border: 1px solid rgba(73, 101, 142, .3);
+    box-shadow: 0 1px 5px rgba(73, 101, 142, .2);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.imgArea img {
+    width: 100%;
+    height: 100%;
+    background-color: #68b8ed;
+}
+
+.toolList button {
+    display: block;
+    float: right;
+    margin: 20px 10px;
+}
+
+.toolList table {
+    background-color: #fff;
+}
+
+.toolList .td_center {
+    text-align: center;
+}
+
+.toolList a:hover {
+    text-decoration: none;
+    color: #0099FF;
+    cursor: pointer;
+}
+
+.toolInfo p {
+    margin-left: 15px;
+}
+
+.content {
+	width: 100%;
+}
+
+@media screen and (max-width: 580px) {
+	/*屏幕宽度小于等于580px才会显示该样式*/
+	.col-md-7, .col-md-5 {
+		width: 100%;
+	}
+	
+	.toolInfo .imgArea {
+		margin: 0 auto 10px;
+	}
+	
+	.checkItem div {
+		width: 100%;
+	}
+	
+}

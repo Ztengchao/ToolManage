@@ -1,0 +1,57 @@
+.purchase {
+	margin-bottom: 20px;
+}
+
+.purchase .btn {
+	float: right;
+	margin-bottom: 10px;
+}
+
+a:hover {
+	cursor: pointer;
+	text-decoration: none;
+	color: #0099FF;
+}
+
+.repairCard ul {
+	width: 100%;
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+}
+
+.cardOne {
+	background-color: #4777e7;
+	box-shadow: 1px 1px 3px #6588d1;
+}
+
+.cardTwo {
+	background-color: #fe8973;
+	box-shadow: 1px 1px 3px coral;
+}
+
+.cardThree {
+	background-color: rgb(172, 113, 233);
+	box-shadow: 1px 1px 3px plum;
+}
+
+.cardFour {
+	background-color: #8290f4;
+	box-shadow: 1px 1px 3px royalblue;
+}
+
+.repairCard li {
+	border-radius: 5px;
+	color: #fffeff;
+	padding: 10px;
+}
+
+.repairCard h4 span {
+	margin-right: 30px;
+}
+
+.repairCard p span {
+	margin-right: 10px;
+}
+

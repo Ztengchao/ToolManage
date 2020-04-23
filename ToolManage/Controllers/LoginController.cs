@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using ToolManage.Helper;
 using ToolManage.Models;
 
 namespace ToolManage.Controllers
@@ -28,7 +29,7 @@ namespace ToolManage.Controllers
 
             Session.Add("account", acc);
             Session.Add("authority", acc.Authority1);
-            return RedirectToAction("Index", "Authority");// TODO根据账户类型跳转
+            return acc.Authority1.AllAuthority().First().ToActionResult();
         }
 
         public ActionResult LogOut()

@@ -1,0 +1,116 @@
+﻿@model ToolManage.Models.ToolDef
+@using ToolManage.Controllers
+
+<link href="~/Content/layout.css" rel="stylesheet" />
+<link href="~/Content/toolCreate.css" rel="stylesheet" />
+
+
+@using (Html.BeginForm("Create", "Tool", FormMethod.Post,new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+	<div class="title">
+		<h4>夹具信息录入</h4>
+	</div>
+    <div class="wrap border row">
+        <div class="col-md-7">
+            <div class="form-horizontal">
+                @Html.HiddenFor(model => model.Id)
+                <div class="form-group">
+                    <label for="code" class="col-sm-2 control-label">夹具Code</label>
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.Code, new { @class = "form-control", placeholder = "Code", type = "text" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="toolName" class="col-sm-2 control-label">夹具名称</label>
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Name", type = "text" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="familyNo" class="col-sm-2 control-label">FamilyNo</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="familyNo" name="familyNo" value="@ToolController.GetInner(Model.FamilyId)" placeholder="FamilyNo">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="modelNo" class="col-sm-2 control-label">ModelNo</label>
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.Model, new { @class = "form-control", placeholder = "ModelNo", type = "text" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="partNo" class="col-sm-2 control-label">PartNo</label>
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.PartNo, new { @class = "form-control", placeholder = "PartNo", type = "text" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-md-offset-1">
+            <div class="uploadArea">
+                <div class="imgArea">
+                    <img id="img" src="" alt=" " />
+                </div>
+                <div id="uploadImg">
+                    <input name="upload" id="upload" type="file" />
+                    上传图片
+                </div>
+            </div>
+        </div>
+        <p class="text-muted">(基础信息)</p>
+    </div>
+    <div class="supplement row">
+        <div class="form-horizontal col-md-7">
+            <div class="form-group">
+                <label for="upl" class="col-sm-2 control-label">UPL</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(model => model.UPL, new { @class = "form-control", placeholder = "UPL", type = "text" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="pmPeriod" class="col-sm-2 control-label">PMPeriod</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(model => model.PMPeriod, new { @class = "form-control", placeholder = "PMPeriod", type = "text" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="usefor" class="col-sm-2 control-label">用途</label>
+                <div class="col-sm-10">
+                    <textarea type="text" class="form-control" id="usefor" name="usefor" value="@ToolController.GetInner(Model.UsedForId)" placeholder="userFor"></textarea>
+                </div>
+            </div>
+        </div>
+        <p class="text-muted">(补充信息)</p>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">完成</button>
+}
+
+
+<script>
+    const wwww = document.querySelector.bind(document)
+    // input 标签上传图片事件
+    wwww('#upload').addEventListener('change', function () {
+        const [file] = this.files;
+
+        // 判断是否是图片
+        if (!/image\/\w+/.test(file.type)) {
+            alert("只能选择图片");
+            return false;
+        }
+
+        // 创建fileRedaer
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            // this.result 为base64编码
+            wwww('#img').src = this.result;
+        }
+    })
+</script>
+
+<script>
+    $(() => {
+        $("#toolCreate").addClass("active");
+    })
+</script>

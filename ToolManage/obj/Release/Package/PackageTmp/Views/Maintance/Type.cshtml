@@ -1,0 +1,131 @@
+﻿@using ToolManage.Controllers
+<link href="~/Content/maintanceManage.css" rel="stylesheet" />
+<div class="title">
+    <h4>检修管理</h4>
+</div>
+<div class="panel-group border clearfix" id="accordion">
+    <div class="clearfix">
+        <button onclick="AddItem(1,0)" class="btn add-btn btn-primary" data-toggle="modal"
+                data-target="#repair-category">
+            新建检修类目
+        </button>
+    </div>
+    @foreach (MaintanceType maintanceType in ViewBag.Data)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading" id="heading@(maintanceType.CheckType.Id)">
+                <h4 class="panel-title clearfix">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse@(maintanceType.CheckType.Id)">
+                        @maintanceType.CheckType.Name
+                    </a>
+                    <button onclick="AddItem(2,@(maintanceType.CheckType.Id))" class="btn btn-danger" data-toggle="modal" data-target="#repair-delete">删除</button>
+                    <button onclick="AddItem(0,@(maintanceType.CheckType.Id))" class="btn btn-default" data-toggle="modal"
+                            data-target="#repair-item">
+                        增加检修项
+                    </button>
+                </h4>
+            </div>
+            <div id="collapse@(maintanceType.CheckType.Id)" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ul>
+                        @foreach (var checkDetail in maintanceType.CheckDetails)
+                        {
+                            <li>
+                                <span>@checkDetail.Name</span>
+                                <a onclick="AddItem(3,@(checkDetail.Id))" data-toggle="modal" data-target="#repair-delete">删除</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@using (Html.BeginForm("Submit", "Maintance", FormMethod.Post, new { style = "display:none", id = "confirmForm" }))
+{
+    <input id="Type" name="Type" />
+    <input id="Id" name="Id" />
+    <input id="Name" name="Name" />
+}
+
+<!--RepairCategory-->
+<div class="modal fade" id="repair-category" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">检修大类</h4>
+            </div>
+            <div class="modal-body">
+                <label for="categoryName">检修类名称</label>
+                <input type="text" class="form-control" id="categoryName" placeholder="请输入检修类名" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button onclick="sumbitForm(1)" type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--RepairItem-->
+<div class="modal fade" id="repair-item" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">检修项目</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label for="itemName">检修项目名称</label>
+                    <input class="form-control" type="text" id="itemName" placeholder="请输入检修项目名" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button onclick="sumbitForm(2)" type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--RepairDelete-->
+<div class="modal fade" id="repair-delete" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">提示:</h4>
+            </div>
+            <div class="modal-body">
+                确认删除吗？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button onclick="sumbitForm()" type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(() => {
+        $("#maintanceManage").attr("class", "active");
+
+        AddItem = (type, id) => {
+            $('#Type').val(type);
+            $('#Id').val(id);
+        }
+
+        sumbitForm = name => {
+            if (name == 1) {
+                $('#Name').val($('#categoryName').val());
+            } else if (name == 2) {
+                $('#Name').val($('#itemName').val());
+            }
+            $('#confirmForm').submit()
+        }
+    })
+</script>

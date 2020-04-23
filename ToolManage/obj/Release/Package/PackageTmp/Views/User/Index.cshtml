@@ -1,0 +1,299 @@
+﻿@model ToolManage.Models.Account
+<link href="~/Content/user.css" rel="stylesheet" />
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @using (Html.BeginForm("Change", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">新增员工信息</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">工作部门</label>
+                        <div class="col-sm-10">
+                            <input style="display:none;" id="workcellHiden" value="@Model.WorkCellId" />
+                            <select name="WorkCellId" id="WorkCellId" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="JobNumber" class="col-sm-2 control-label">工号</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(model => model.JobNumber, new { @class = "form-control", placeholder = "请输入工号", type = "text" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Name" class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "请输入姓名", type = "text" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="UserName" class="col-sm-2 control-label">账号</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "请输入账号", type = "text" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="PassWord" class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(model => model.PassWord, new { @class = "form-control", placeholder = "请输入密码", type = "text" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Phone" class="col-sm-2 control-label">联系</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "请输入联系方式", type = "text" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选择权限</label>
+                        <div class="col-sm-10">
+                            <input style="display:none;" id="authorityHiden" value="@Model.Authority" />
+                            <select name="Authority" id="Authority" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Tips:</strong> @((string)ViewBag.ErrorMessage)
+    </div>
+}
+<div class="title">
+    <h4>员工管理</h4>
+</div>
+<div class="wrap border">
+    @Html.ActionLink("新增员工", "Index", new { accountId = -1 }, new { @class = "btn btn-primary add", role = "button" })
+    <form class="form-inline clearfix" id="search">
+        <div style="display:none;">
+            <input id="NowPage" name="NowPage" value="@ViewBag.NowPage" />
+        </div>
+        <div class="formArea">
+            <div class="form-group">
+                <label>Workcell:</label>
+                @Html.DropDownList("searchWorkcell", (SelectList)ViewBag.SearchWorkcell, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="pno">工号:</label>
+                <input value="@(Request["searchNum"]?.ToString())" type="text" class="form-control" name="searchNum" placeholder="请输入工号">
+            </div>
+            <div class="form-group">
+                <label>权限:</label>
+                <select name="searchAuthority" id="searchAuthority" class="form-control">
+                    <option value="-1">选择权限</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">姓名:</label>
+                <input value="@(Request["searchName"]?.ToString())" name="searchName" type="text" class="form-control" id="searchName" placeholder="请输入姓名">
+            </div>
+        </div>
+        <div class="button">
+            <button class="btn btn-primary" type="submit">搜索</button>
+            <a role="button" class="btn btn-default" href="/User">清除</a>
+        </div>
+    </form>
+</div>
+<div class="tableArea clearfix border">
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <tr>
+                <th>工号</th>
+                <th>姓名</th>
+                <th>账号</th>
+                <th>联系方式</th>
+                <th>权限</th>
+                <th>操作</th>
+            </tr>
+            @foreach (ToolManage.Models.Account item in ViewBag.Data)
+            {
+                <tr>
+                    <td>
+                        @item.JobNumber.Trim()
+                    </td>
+                    <td>
+                        @item.Name.Trim()
+                    </td>
+                    <td>
+                        @item.UserName.Trim()
+                    </td>
+                    <td>
+                        @item.Phone.Trim()
+                    </td>
+                    <td>
+                        @item.Authority1.Name.Trim()
+                    </td>
+                    <td>
+                        @Html.ActionLink("修改", "Index", new { accountId = item.Id })
+                        @Html.ActionLink("删除", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                @if (ViewBag.NowPage == 0)
+                {
+                    <li class="disabled">
+                        <a aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="#" onclick="prePage()" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                }
+                @for (int i = ViewBag.NowPage - 3; i < ViewBag.NowPage; i++)
+                {
+                    if (i < 0)
+                    {
+                        continue;
+                    }
+                    <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+                }
+
+                <li class="active"><a href="#">@(ViewBag.NowPage+1) <span class="sr-only">(current)</span></a></li>
+                @for (int i = ViewBag.NowPage + 1; i < ViewBag.NowPage + 4; i++)
+                {
+                    if (i > ViewBag.MaxPage)
+                    {
+                        break;
+                    }
+                    <li><a onclick="jump(@i)" href="#">@(i+1) <span class="sr-only">(current)</span></a></li>
+                }
+
+                @if (ViewBag.NowPage == ViewBag.MaxPage)
+                {
+                    <li class="disabled">
+                        <a aria-label="Previous">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="#" onclick="prePage()" aria-label="Previous">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
+
+@if (ViewBag.ShowModal)
+{
+    <script>
+        $(() => {
+            $('#myModal').modal("show")
+        })
+    </script>
+}
+
+<script>
+    document.getElementById("user").className = "active";
+    $(() => {
+        clear = () => {
+            window.location.href="/user"
+        }
+
+        jump = page => {
+            $("#NowPage").val(page);
+            $("#search").submit();
+        }
+
+        prePage = () => {
+            jump($("#NowPage").val() - 1);
+        }
+
+        nextPage = () => {
+            jump($("#NowPage").val() + 1);
+        }
+
+        data = [@for (int i = 0; i < ViewBag.SearchOption.Count; i++)
+        {
+            @Html.Raw(ViewBag.SearchOption[i].ToJsonString() + ",")
+        }]
+
+
+        $("#searchWorkcell").prepend("<option value=\"-1\">选择部门</option>")
+        $("#searchWorkcell").change(() => {
+            $("#searchAuthority").empty()
+            $("#searchAuthority").append("<option value=\"-1\">选择权限</option>")
+            if ($("#searchWorkcell").val() == -1) {
+                return;
+            }
+            x = data.find(i => i.id == $("#searchWorkcell").val())
+            for (var i = 0; i < x.authorities.length; i++) {
+                $("#searchAuthority").append("<option value=\"" + x.authorities[i].id + "\">" + x.authorities[i].name+"</option>")
+            }
+        })
+
+        $("#searchWorkcell").val(@(Request["searchWorkcell"] == null || Request["searchWorkcell"] == "" ? "-1" : Request["searchWorkcell"]))
+        $("#searchWorkcell").change();
+        $("#searchAuthority").val(@(Request["searchAuthority"] == null || Request["searchAuthority"] == "" ? "-1" : Request["searchAuthority"]))
+
+        AddAuthority = workcellId => {
+            $("#Authority").empty()
+            $("#Authority").append("<option value=\"-1\">选择权限</option>")
+            if ($("#WorkCellId").val() == -1) {
+                return;
+            }
+            x = data.find(i => i.id == workcellId)
+            for (var i = 0; i < x.authorities.length; i++) {
+                $("#Authority").append("<option value=\"" + x.authorities[i].id + "\">" + x.authorities[i].name + "</option>")
+            }
+        }
+
+        AddWorkcell = () => {
+            if ($("#workcellHiden").val() == -1) {
+                $("#WorkCellId").append("<option value=\"-1\">选择部门</option>")
+                $("#WorkCellId").val(-1)
+                for (var i = 0; i < data.length; i++) {
+                    $("#WorkCellId").append("<option value=\"" + data[i].id
+                        + "\">" + data[i].name + "</option>")
+                }
+                $("#WorkCellId").change(() => {
+                    AddAuthority($("#WorkCellId").val())
+                })
+            } else {
+                $("#WorkCellId").empty()
+                $("#WorkCellId").append("<option value=\"" + $("#workcellHiden").val()
+                    + "\">" + data.find(i => i.id == $("#workcellHiden").val()).name + "</option>")
+                $("#WorkCellId").val($("#workcellHiden").val())
+                AddAuthority($("#workcellHiden").val())
+                $("#Authority").val($("#authorityHiden").val())
+            }
+        }
+
+
+        AddWorkcell()
+    })
+</script>

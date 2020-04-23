@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f821f97c4e3044118e5a3a9ae5ce3c70" Name="Diagram1" ZoomLevel="67">
+        <EntityTypeShape EntityType="ToolManageModel.Account" Width="1.5" PointX="5.25" PointY="21.625" />
+        <EntityTypeShape EntityType="ToolManageModel.Authority" Width="1.5" PointX="3" PointY="27.875" />
+        <EntityTypeShape EntityType="ToolManageModel.ChangeLog" Width="1.5" PointX="7.5" PointY="42.25" />
+        <EntityTypeShape EntityType="ToolManageModel.CheckDetail" Width="1.5" PointX="5.25" PointY="15.5" />
+        <EntityTypeShape EntityType="ToolManageModel.CheckType" Width="1.5" PointX="3" PointY="15.5" />
+        <EntityTypeShape EntityType="ToolManageModel.ConsumeReturn" Width="1.5" PointX="10.5" PointY="26.875" />
+        <EntityTypeShape EntityType="ToolManageModel.Inner" Width="1.5" PointX="8.25" PointY="28.5" />
+        <EntityTypeShape EntityType="ToolManageModel.Maintenance" Width="1.5" PointX="7.5" PointY="19.75" />
+        <EntityTypeShape EntityType="ToolManageModel.MaintenanceDetail" Width="1.5" PointX="9.75" PointY="16" />
+        <EntityTypeShape EntityType="ToolManageModel.RepairApplication" Width="1.5" PointX="7.5" PointY="23.875" />
+        <EntityTypeShape EntityType="ToolManageModel.ScrapApplication" Width="1.5" PointX="7.5" PointY="14.25" />
+        <EntityTypeShape EntityType="ToolManageModel.ScrapDoc" Width="1.5" PointX="3" PointY="18.5" />
+        <EntityTypeShape EntityType="ToolManageModel.ToolDef" Width="1.5" PointX="10.5" PointY="19.75" />
+        <EntityTypeShape EntityType="ToolManageModel.ToolEntity" Width="1.5" PointX="12.75" PointY="21.25" />
+        <EntityTypeShape EntityType="ToolManageModel.WorkCell" Width="1.5" PointX="0.75" PointY="18.125" />
+        <AssociationConnector Association="ToolManageModel.FK_Account_Authority" />
+        <AssociationConnector Association="ToolManageModel.FK_Account_WorkCell" />
+        <AssociationConnector Association="ToolManageModel.FK_ChangeLog_Account" />
+        <AssociationConnector Association="ToolManageModel.FK_consumeReturn_Account" />
+        <AssociationConnector Association="ToolManageModel.FK_Maintenance_Account" />
+        <AssociationConnector Association="ToolManageModel.FK_RepairApplication_Account" />
+        <AssociationConnector Association="ToolManageModel.FK_RepairApplication_Account1" />
+        <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_Account" />
+        <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_Account1" />
+        <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_Account2" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Account_On_editId" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Account_On_ownerId" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Account_On_recordId" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolEntity_Account_On_bringId" />
+        <AssociationConnector Association="ToolManageModel.FK_Authority_WorkCell" />
+        <AssociationConnector Association="ToolManageModel.FK_CheckDetail_CheckType" />
+        <AssociationConnector Association="ToolManageModel.FK_MaintenanceDetail_CheckDetail" />
+        <AssociationConnector Association="ToolManageModel.FK_CheckType_WorkCell" />
+        <AssociationConnector Association="ToolManageModel.FK_Maintenance_CheckType" />
+        <AssociationConnector Association="ToolManageModel.FK_consumeReturn_ToolEntity" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Inner_On_familyId" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_Inner_On_usedForId" />
+        <AssociationConnector Association="ToolManageModel.FK_Maintenance_ToolEntity" />
+        <AssociationConnector Association="ToolManageModel.FK_MaintenanceDetail_Maintenance" />
+        <AssociationConnector Association="ToolManageModel.FK_RepairApplication_ToolEntity" />
+        <AssociationConnector Association="ToolManageModel.FK_RepairApplication_WorkCell" />
+        <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_ScrapDoc" />
+        <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_ToolEntity" />
+        <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_WorkCell" />
+        <AssociationConnector Association="ToolManageModel.FK_ScrapDoc_WorkCell" />
+        <AssociationConnector Association="ToolManageModel.FK_WorkCell_ScrapDoc" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolDef_WorkCell_On_workCellId" />
+        <AssociationConnector Association="ToolManageModel.FK_ToolEntity_ToolDef_On_toolDefId" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
