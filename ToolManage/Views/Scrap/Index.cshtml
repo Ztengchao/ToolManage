@@ -1,4 +1,6 @@
-﻿<div class="title">
+﻿
+<link href="~/Content/scrapDocManage.css" rel="stylesheet" />
+<div class="title">
     <h4>报废单列表</h4>
 </div>
 <div class="purchase border table-responsive">
@@ -19,7 +21,7 @@
                 <td>@scrapDoc.CreateDate</td>
                 <td>@scrapDoc.Remark</td>
                 <td>
-                    <a href="../destroyTool/index.html">查看</a>
+                    @Html.ActionLink("查看", "Detail", new { id = scrapDoc.Id })
                 </td>
                 <td>
                     <a onclick="deleteDoc(@(scrapDoc.Id))" data-toggle="modal" data-target="#deleteModal">删除</a>
@@ -98,7 +100,7 @@
 <div class="modal fade" id="changeModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            @using (Html.BeginForm("Bind","Scrap",FormMethod.Post))
+            @using (Html.BeginForm("Bind", "Scrap", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
                 <input style="display:none" id="bindId" name="bindId" />

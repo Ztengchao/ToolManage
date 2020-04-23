@@ -52,6 +52,18 @@ namespace ToolManage.Controllers
             {
                 repairApplication.State = "4";
                 repairApplication.ToolEntity.State = "3";
+                var application = new ScrapApplication
+                {
+                    ApplicationId = Account.Id,
+                    WorkCellId = Account.WorkCellId,
+                    Date = DateTime.Now,
+                    Reason = "",
+                    ScrapDocId = db.WorkCell.Find(Account.WorkCellId).ScrapDocId,
+                    ToolEntityId = repairApplication.ToolEntityId,
+                    State = "0",
+                    LifeCount = repairApplication.ToolEntity.UsedCount,
+                };
+                db.Entry(application).State = System.Data.Entity.EntityState.Added;
             }
             db.Entry(repairApplication).State = System.Data.Entity.EntityState.Modified;
             db.Entry(repairApplication.ToolEntity).State = System.Data.Entity.EntityState.Modified;

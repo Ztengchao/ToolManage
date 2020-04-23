@@ -23,6 +23,18 @@ namespace ToolManage.Controllers
             return View();
         }
 
+        public ActionResult Detail(int id)
+        {
+            ViewBag.Data = db.ScrapApplication.Where(i => i.ScrapDocId == id).Select(i =>
+                new ScrapDetail
+                {
+                    Application = i,
+                    Entity = i.ToolEntity,
+                    Def = i.ToolEntity.ToolDef,
+                }).ToList();
+            return View();
+        }
+
         public JsonResult ScrapDoc(int id)
         {
             var doc = new ScrapDoc(db.ScrapDoc.Find(id));
@@ -84,5 +96,11 @@ namespace ToolManage.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+    }
+    public class ScrapDetail
+    {
+        public ScrapApplication Application { get; set; }
+        public ToolEntity Entity { get; set; }
+        public ToolDef Def { get; set; }
     }
 }

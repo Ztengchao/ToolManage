@@ -222,6 +222,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\department.css" />
     <Content Include="Content\entityDetail.css" />
+    <Content Include="Content\scrapDocDetail.css" />
+    <Content Include="Content\scrapDocManage.css" />
     <Content Include="Content\maintanceDetail.css" />
     <Content Include="Content\maintanceManage.css" />
     <Content Include="Content\repairList.css" />
@@ -297,6 +299,7 @@
     <Content Include="Views\Maintance\Detail.cshtml" />
     <Content Include="Views\Tool\EntityDetail.cshtml" />
     <Content Include="Views\Scrap\Index.cshtml" />
+    <Content Include="Views\Scrap\detail.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,0 +1,31 @@
+.apply .form-control {
+    width: 300px;
+}
+
+.apply .btn {
+    margin-left: 20px;
+}
+
+#remark {
+    width: 100%;
+}
+
+.border a {
+    margin-bottom: 20px;
+}
+
+.content {
+	width: 100%;
+}
+
+@media screen and (max-width: 580px) {
+	/*屏幕宽度小于等于580px才会显示该样式*/
+	.apply .form-control {
+	    margin: 10px;
+		width: 100%;
+	}
+	
+	.apply .btn {
+		margin-left: 10px;
+	}
+}
