@@ -168,10 +168,10 @@
 
     addNew = () => {
         selectedAuthority.value = 0;
-        document.getElementById("Id").value = -1;
-        document.getElementById("myModalLabel").innerHTML = "新建权限"
-        document.getElementById("allAuthorites").innerHTML = "";
-        document.getElementById("Name").value = "";
+        $('#Id').val(-1);
+        $('#myModalLabel').html("新建权限");
+        $('#allAuthorites').html('');
+        $('#Name').val('');
     }
 
     del = id => {
