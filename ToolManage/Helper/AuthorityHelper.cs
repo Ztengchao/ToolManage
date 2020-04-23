@@ -72,6 +72,8 @@ namespace ToolManage.Helper
                     return "维修列表";
                 case AuthorityType.MaintanceManage:
                     return "检修管理";
+                case AuthorityType.ScrapDocManage:
+                    return "报废单管理";
                 default:
                     return "";
             }
@@ -80,7 +82,7 @@ namespace ToolManage.Helper
         /// <summary>
         /// 所有权限类型
         /// </summary>
-        public static int AuthorityCount => 10;
+        public static int AuthorityCount => 11;
 
         public static List<AuthorityTypeString> AllAuthorityType()
         {
@@ -158,5 +160,9 @@ namespace ToolManage.Helper
         /// 检修管理
         /// </summary>
         MaintanceManage,
+        /// <summary>
+        /// 报废单管理
+        /// </summary>
+        ScrapDocManage,
     }
 }

@@ -1,0 +1,154 @@
+﻿<div class="title">
+    <h4>报废单列表</h4>
+</div>
+<div class="purchase border table-responsive">
+    <button onclick="addDoc(-1)" class="btn btn-primary" data-toggle="modal" data-target="#addDestroy">新增报废单</button>
+    <table class="table table-striped">
+        <tr>
+            <td>报表名称</td>
+            <td>创建日期</td>
+            <td>备注</td>
+            <td>详情</td>
+            <td>操作</td>
+            <td>当前使用</td>
+        </tr>
+        @foreach (ToolManage.Models.ScrapDoc scrapDoc in ViewBag.Data)
+        {
+            <tr>
+                <td>@scrapDoc.Name</td>
+                <td>@scrapDoc.CreateDate</td>
+                <td>@scrapDoc.Remark</td>
+                <td>
+                    <a href="../destroyTool/index.html">查看</a>
+                </td>
+                <td>
+                    <a onclick="deleteDoc(@(scrapDoc.Id))" data-toggle="modal" data-target="#deleteModal">删除</a>
+                    <a onclick="addDoc(@(scrapDoc.Id))" data-toggle="modal" data-target="#addDestroy">修改</a>
+                </td>
+                <td>
+                    <input onclick="selectDoc(@(scrapDoc.Id))" type="radio" data-toggle="modal" data-target="#changeModal"
+                           @(scrapDoc.Id == ViewBag.SelectedDoc ? "checked" : "")>
+
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<!--model新增报废单-->
+<div class="modal fade" id="addDestroy" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("Add", "Scrap", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input style="display:none" id="Id" name="Id" value="-1" />
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新增报废单</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">报表名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="Name" id="Name" class="form-control" placeholder="报表名称" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="remark" class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="Remark" id="Remark" class="form-control" placeholder="备注" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!--model 删除提示-->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("Delete", "Scrap", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken();
+                <input style="display:none" id="deleteId" name="deleteId" />
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">采购订单</h4>
+                </div>
+                <div class="modal-body">
+                    确认删除该报废单吗？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!--model 更改提示-->
+<div class="modal fade" id="changeModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("Bind","Scrap",FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input style="display:none" id="bindId" name="bindId" />
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">切换报废单</h4>
+                </div>
+                <div class="modal-body">
+                    确定使用当前此报废单？当前所有报废项都会关联到此报废单上
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(() => {
+        $("#scrapDocManage").attr('class', 'active');
+
+        deleteDoc = id => {
+            $('#deleteId').val(id);
+        }
+
+        selectDoc = id => {
+            $('#bindId').val(id);
+        }
+
+        addDoc = id => {
+            if (id == -1) {
+                $('#Id').val(0);
+                $('#Name').val('');
+                $('#Remark').val('');
+                return;
+            }
+
+            $.getJSON("Scrap/ScrapDoc?id=" + id, json => {
+                if (json == null) {
+                    addDoc(-1);
+                    return;
+                }
+
+                $('#Id').val(id);
+                $('#Name').val(json.Name);
+                $('#Remark').val(json.Remark);
+            })
+        }
+    })
+</script>
