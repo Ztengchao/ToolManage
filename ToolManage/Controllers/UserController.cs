@@ -67,7 +67,7 @@ namespace ToolManage.Controllers
                         JobNumber = "",
                         WorkCellId = -1,
                         Id = -1,
-                        State="0"
+                        State = "0"
                     };
                 }
 
@@ -78,8 +78,8 @@ namespace ToolManage.Controllers
             ViewBag.ShowModal = showModal;
             ViewBag.NowPage = nowPage;
             ViewBag.Data = data.ToArray();
-            ViewBag.SearchWorkcell = new SelectList(db.WorkCell.ToList(), "Id", "Name");
-            ViewBag.SearchOption = db.WorkCell.Select(i => new WorkCellContainer() { WorkCell = i, Authorities = i.Authority.ToList() }).ToList();
+            ViewBag.SearchWorkcell = new SelectList(db.WorkCell.Where(i => i.State == "0").ToList(), "Id", "Name");
+            ViewBag.SearchOption = db.WorkCell.Where(i => i.State == "0").Select(i => new WorkCellContainer() { WorkCell = i, Authorities = i.Authority.ToList() }).ToList();
             return View(account);
         }
 
