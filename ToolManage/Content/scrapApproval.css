@@ -1,0 +1,72 @@
+.title {
+	background-color: #4777e9;
+	width: 97%;
+	height: 40px;
+	margin: 10px auto;
+	boder: 1px solid darkblue;
+	box-shadow: 1px 1px 3px #6588d1;
+	border-radius: 5px;
+	color: #f8fafc;
+}
+
+.title h4 {
+	height: 100%;
+	line-height: 40px;
+	padding-left: 30px;
+}
+
+.order {
+	background-color: #fffeff;
+	width: 97%;
+	margin: 10px auto;
+	padding: 10px;
+	padding-left: 30px;
+	border-radius: 5px;
+	box-shadow: 1px 3px 3px rgba(0,0,0,.1);
+	color: darkgray;
+}
+
+.order ul {
+	display: flex;
+	list-style: none;
+	padding: 0;
+	flex-wrap: wrap;
+}
+
+.order ul li {
+	width: 33.33%;
+	margin-top: 10px;
+}
+
+.order .btn {
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: #4777e9;
+	float: right;
+	margin-right: 20px;
+	color: #fffeff;
+}
+
+.order span {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+/*model*/
+.reply .btn {
+	float: right;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+
+@media screen and (max-width: 580px) {
+	/*屏幕宽度小于等于580px才会显示该样式*/
+	.order ul li {
+		width: 50%;
+	}
+	
+	.modal-body .reply textarea {
+		width: 100%;
+		margin-top: 20px;
+	}
+}

@@ -27,11 +27,13 @@ namespace ToolManage.Models
         public string Remark { get; set; }
         public string State { get; set; }
         public int WorkcellId { get; set; }
+        public Nullable<int> ApplicationId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScrapApplication> ScrapApplication { get; set; }
         public virtual WorkCell WorkCell { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkCell> WorkCell1 { get; set; }
+        public virtual Account Account { get; set; }
     }
 }

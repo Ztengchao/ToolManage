@@ -45,6 +45,35 @@ namespace ToolManage.Controllers
             };
         }
 
+        public JsonResult ScrapApplication(int id)
+        {
+            var applications = db.ScrapDoc.Find(id).ScrapApplication
+                .Where(i => i.State == "0")
+                .Select(i => new
+                {
+                    Code = i.ToolEntity.Code,
+                    Name = i.ToolEntity.ToolDef.Name,
+                    Family = ToolController.GetInner(i.ToolEntity.ToolDef.FamilyId),
+                    Date = i.Date.ToString(),
+                    ApplicationName = i.Account.Name.Trim(),
+                    Reason = i.Reason,
+                });
+            return new JsonResult
+            {
+                Data = applications,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public ActionResult Approval()
+        {
+            ViewBag.Data = db.WorkCell.Find(Account.WorkCellId).ScrapDoc
+                .Where(i => i.State != "0" && i.State != "9")
+                .Select(i => new ScrapApproval { ScrapDoc = i, ApplicationName = i.Account.Name });
+
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int deleteId)
@@ -54,7 +83,7 @@ namespace ToolManage.Controllers
             {
                 return HttpNotFound();
             }
-            doc.State = "1";
+            doc.State = "9";
             db.Entry(doc).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -96,11 +125,40 @@ namespace ToolManage.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ApprovalConfirm(bool IsPass, int DocId)
+        {
+            var doc = db.ScrapDoc.Find(DocId);
+            if (doc == null)
+            {
+                return RedirectToAction("Approval");
+            }
+
+            if (IsPass)
+            {
+                doc.State = "2";
+            }
+            else
+            {
+                doc.State = "3";
+            }
+            db.Entry(doc).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Approval");
+        }
     }
     public class ScrapDetail
     {
         public ScrapApplication Application { get; set; }
         public ToolEntity Entity { get; set; }
         public ToolDef Def { get; set; }
+    }
+
+    public class ScrapApproval
+    {
+        public ScrapDoc ScrapDoc { get; set; }
+        public string ApplicationName { get; set; }
     }
 }

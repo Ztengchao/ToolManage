@@ -15,6 +15,23 @@ namespace ToolManage.Models
             Remark = doc.Remark;
         }
 
+        public string StateString
+        {
+            get
+            {
+                switch (State)
+                {
+                    case "1":
+                        return "未处理";
+                    case "2":
+                        return "已通过";
+                    case "3":
+                        return "已拒绝";
+                    default:
+                        return "错误";
+                }
+            }
+        }
 
         public class ScrapDocMetadata
         {

@@ -22,8 +22,8 @@ namespace ToolManage.Models
             this.CheckType = new HashSet<CheckType>();
             this.RepairApplication = new HashSet<RepairApplication>();
             this.ScrapApplication = new HashSet<ScrapApplication>();
-            this.ScrapDoc = new HashSet<ScrapDoc>();
             this.ToolDef = new HashSet<ToolDef>();
+            this.ScrapDoc = new HashSet<ScrapDoc>();
         }
     
         public int Id { get; set; }
@@ -44,9 +44,9 @@ namespace ToolManage.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScrapApplication> ScrapApplication { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ToolDef> ToolDef { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScrapDoc> ScrapDoc { get; set; }
         public virtual ScrapDoc ScrapDoc1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ToolDef> ToolDef { get; set; }
     }
 }

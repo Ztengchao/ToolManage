@@ -16,7 +16,6 @@
         <EntityTypeShape EntityType="ToolManageModel.MaintenanceDetail" Width="1.5" PointX="9.75" PointY="16" />
         <EntityTypeShape EntityType="ToolManageModel.RepairApplication" Width="1.5" PointX="7.5" PointY="23.875" />
         <EntityTypeShape EntityType="ToolManageModel.ScrapApplication" Width="1.5" PointX="7.5" PointY="14.25" />
-        <EntityTypeShape EntityType="ToolManageModel.ScrapDoc" Width="1.5" PointX="3" PointY="18.5" />
         <EntityTypeShape EntityType="ToolManageModel.ToolDef" Width="1.5" PointX="10.5" PointY="19.75" />
         <EntityTypeShape EntityType="ToolManageModel.ToolEntity" Width="1.5" PointX="12.75" PointY="21.25" />
         <EntityTypeShape EntityType="ToolManageModel.WorkCell" Width="1.5" PointX="0.75" PointY="18.125" />
@@ -46,13 +45,15 @@
         <AssociationConnector Association="ToolManageModel.FK_MaintenanceDetail_Maintenance" />
         <AssociationConnector Association="ToolManageModel.FK_RepairApplication_ToolEntity" />
         <AssociationConnector Association="ToolManageModel.FK_RepairApplication_WorkCell" />
-        <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_ScrapDoc" />
         <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_ToolEntity" />
         <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_WorkCell" />
-        <AssociationConnector Association="ToolManageModel.FK_ScrapDoc_WorkCell" />
-        <AssociationConnector Association="ToolManageModel.FK_WorkCell_ScrapDoc" />
         <AssociationConnector Association="ToolManageModel.FK_ToolDef_WorkCell_On_workCellId" />
         <AssociationConnector Association="ToolManageModel.FK_ToolEntity_ToolDef_On_toolDefId" />
+        <EntityTypeShape EntityType="ToolManageModel.ScrapDoc" Width="1.5" PointX="3" PointY="19.5" />
+        <AssociationConnector Association="ToolManageModel.FK_ScrapApplication_ScrapDoc" />
+        <AssociationConnector Association="ToolManageModel.FK_ScrapDoc_WorkCell" />
+        <AssociationConnector Association="ToolManageModel.FK_WorkCell_ScrapDoc" />
+        <AssociationConnector Association="ToolManageModel.FK_ScrapDoc_Account" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

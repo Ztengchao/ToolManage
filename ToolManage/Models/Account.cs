@@ -29,6 +29,7 @@ namespace ToolManage.Models
             this.ToolDef1 = new HashSet<ToolDef>();
             this.ToolDef2 = new HashSet<ToolDef>();
             this.ToolEntity = new HashSet<ToolEntity>();
+            this.ScrapDoc = new HashSet<ScrapDoc>();
         }
     
         public int Id { get; set; }
@@ -67,5 +68,7 @@ namespace ToolManage.Models
         public virtual ICollection<ToolDef> ToolDef2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ToolEntity> ToolEntity { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ScrapDoc> ScrapDoc { get; set; }
     }
 }

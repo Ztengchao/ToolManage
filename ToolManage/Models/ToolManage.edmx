@@ -142,6 +142,7 @@
           <Property Name="Remark" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="State" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="WorkcellId" Type="int" Nullable="false" />
+          <Property Name="ApplicationId" Type="int" />
         </EntityType>
         <EntityType Name="ToolDef">
           <Key>
@@ -468,6 +469,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ScrapDoc_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="ScrapDoc" Type="Self.ScrapDoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScrapDoc">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ScrapDoc_WorkCell">
           <End Role="WorkCell" Type="Self.WorkCell" Multiplicity="1" />
           <End Role="ScrapDoc" Type="Self.ScrapDoc" Multiplicity="*" />
@@ -696,6 +709,10 @@
             <End Role="WorkCell" EntitySet="WorkCell" />
             <End Role="ScrapApplication" EntitySet="ScrapApplication" />
           </AssociationSet>
+          <AssociationSet Name="FK_ScrapDoc_Account" Association="Self.FK_ScrapDoc_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ScrapDoc" EntitySet="ScrapDoc" />
+          </AssociationSet>
           <AssociationSet Name="FK_ScrapDoc_WorkCell" Association="Self.FK_ScrapDoc_WorkCell">
             <End Role="WorkCell" EntitySet="WorkCell" />
             <End Role="ScrapDoc" EntitySet="ScrapDoc" />
@@ -753,7 +770,6 @@
           <EntitySet Name="MaintenanceDetail" EntityType="ToolManageModel.MaintenanceDetail" />
           <EntitySet Name="RepairApplication" EntityType="ToolManageModel.RepairApplication" />
           <EntitySet Name="ScrapApplication" EntityType="ToolManageModel.ScrapApplication" />
-          <EntitySet Name="ScrapDoc" EntityType="ToolManageModel.ScrapDoc" />
           <EntitySet Name="ToolDef" EntityType="ToolManageModel.ToolDef" />
           <EntitySet Name="ToolEntity" EntityType="ToolManageModel.ToolEntity" />
           <EntitySet Name="WorkCell" EntityType="ToolManageModel.WorkCell" />
@@ -861,16 +877,25 @@
             <End Role="WorkCell" EntitySet="WorkCell" />
             <End Role="RepairApplication" EntitySet="RepairApplication" />
           </AssociationSet>
-          <AssociationSet Name="FK_ScrapApplication_ScrapDoc" Association="ToolManageModel.FK_ScrapApplication_ScrapDoc">
-            <End Role="ScrapDoc" EntitySet="ScrapDoc" />
-            <End Role="ScrapApplication" EntitySet="ScrapApplication" />
-          </AssociationSet>
           <AssociationSet Name="FK_ScrapApplication_ToolEntity" Association="ToolManageModel.FK_ScrapApplication_ToolEntity">
             <End Role="ToolEntity" EntitySet="ToolEntity" />
             <End Role="ScrapApplication" EntitySet="ScrapApplication" />
           </AssociationSet>
           <AssociationSet Name="FK_ScrapApplication_WorkCell" Association="ToolManageModel.FK_ScrapApplication_WorkCell">
             <End Role="WorkCell" EntitySet="WorkCell" />
+            <End Role="ScrapApplication" EntitySet="ScrapApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolDef_WorkCell_On_workCellId" Association="ToolManageModel.FK_ToolDef_WorkCell_On_workCellId">
+            <End Role="WorkCell" EntitySet="WorkCell" />
+            <End Role="ToolDef" EntitySet="ToolDef" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolEntity_ToolDef_On_toolDefId" Association="ToolManageModel.FK_ToolEntity_ToolDef_On_toolDefId">
+            <End Role="ToolDef" EntitySet="ToolDef" />
+            <End Role="ToolEntity" EntitySet="ToolEntity" />
+          </AssociationSet>
+          <EntitySet Name="ScrapDoc" EntityType="ToolManageModel.ScrapDoc" />
+          <AssociationSet Name="FK_ScrapApplication_ScrapDoc" Association="ToolManageModel.FK_ScrapApplication_ScrapDoc">
+            <End Role="ScrapDoc" EntitySet="ScrapDoc" />
             <End Role="ScrapApplication" EntitySet="ScrapApplication" />
           </AssociationSet>
           <AssociationSet Name="FK_ScrapDoc_WorkCell" Association="ToolManageModel.FK_ScrapDoc_WorkCell">
@@ -881,13 +906,9 @@
             <End Role="ScrapDoc" EntitySet="ScrapDoc" />
             <End Role="WorkCell" EntitySet="WorkCell" />
           </AssociationSet>
-          <AssociationSet Name="FK_ToolDef_WorkCell_On_workCellId" Association="ToolManageModel.FK_ToolDef_WorkCell_On_workCellId">
-            <End Role="WorkCell" EntitySet="WorkCell" />
-            <End Role="ToolDef" EntitySet="ToolDef" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ToolEntity_ToolDef_On_toolDefId" Association="ToolManageModel.FK_ToolEntity_ToolDef_On_toolDefId">
-            <End Role="ToolDef" EntitySet="ToolDef" />
-            <End Role="ToolEntity" EntitySet="ToolEntity" />
+          <AssociationSet Name="FK_ScrapDoc_Account" Association="ToolManageModel.FK_ScrapDoc_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ScrapDoc" EntitySet="ScrapDoc" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Account">
@@ -917,6 +938,7 @@
           <NavigationProperty Name="ToolDef1" Relationship="ToolManageModel.FK_ToolDef_Account_On_ownerId" FromRole="Account" ToRole="ToolDef" />
           <NavigationProperty Name="ToolDef2" Relationship="ToolManageModel.FK_ToolDef_Account_On_recordId" FromRole="Account" ToRole="ToolDef" />
           <NavigationProperty Name="ToolEntity" Relationship="ToolManageModel.FK_ToolEntity_Account_On_bringId" FromRole="Account" ToRole="ToolEntity" />
+          <NavigationProperty Name="ScrapDoc" Relationship="ToolManageModel.FK_ScrapDoc_Account" FromRole="Account" ToRole="ScrapDoc" />
         </EntityType>
         <EntityType Name="Authority">
           <Key>
@@ -1055,23 +1077,9 @@
           <NavigationProperty Name="Account" Relationship="ToolManageModel.FK_ScrapApplication_Account" FromRole="ScrapApplication" ToRole="Account" />
           <NavigationProperty Name="Account1" Relationship="ToolManageModel.FK_ScrapApplication_Account1" FromRole="ScrapApplication" ToRole="Account" />
           <NavigationProperty Name="Account2" Relationship="ToolManageModel.FK_ScrapApplication_Account2" FromRole="ScrapApplication" ToRole="Account" />
-          <NavigationProperty Name="ScrapDoc" Relationship="ToolManageModel.FK_ScrapApplication_ScrapDoc" FromRole="ScrapApplication" ToRole="ScrapDoc" />
           <NavigationProperty Name="ToolEntity" Relationship="ToolManageModel.FK_ScrapApplication_ToolEntity" FromRole="ScrapApplication" ToRole="ToolEntity" />
           <NavigationProperty Name="WorkCell" Relationship="ToolManageModel.FK_ScrapApplication_WorkCell" FromRole="ScrapApplication" ToRole="WorkCell" />
-        </EntityType>
-        <EntityType Name="ScrapDoc">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Remark" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="WorkcellId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ScrapApplication" Relationship="ToolManageModel.FK_ScrapApplication_ScrapDoc" FromRole="ScrapDoc" ToRole="ScrapApplication" />
-          <NavigationProperty Name="WorkCell" Relationship="ToolManageModel.FK_ScrapDoc_WorkCell" FromRole="ScrapDoc" ToRole="WorkCell" />
-          <NavigationProperty Name="WorkCell1" Relationship="ToolManageModel.FK_WorkCell_ScrapDoc" FromRole="ScrapDoc" ToRole="WorkCell" />
+          <NavigationProperty Name="ScrapDoc" Relationship="ToolManageModel.FK_ScrapApplication_ScrapDoc" FromRole="ScrapApplication" ToRole="ScrapDoc" />
         </EntityType>
         <EntityType Name="ToolDef">
           <Key>
@@ -1139,9 +1147,9 @@
           <NavigationProperty Name="CheckType" Relationship="ToolManageModel.FK_CheckType_WorkCell" FromRole="WorkCell" ToRole="CheckType" />
           <NavigationProperty Name="RepairApplication" Relationship="ToolManageModel.FK_RepairApplication_WorkCell" FromRole="WorkCell" ToRole="RepairApplication" />
           <NavigationProperty Name="ScrapApplication" Relationship="ToolManageModel.FK_ScrapApplication_WorkCell" FromRole="WorkCell" ToRole="ScrapApplication" />
+          <NavigationProperty Name="ToolDef" Relationship="ToolManageModel.FK_ToolDef_WorkCell_On_workCellId" FromRole="WorkCell" ToRole="ToolDef" />
           <NavigationProperty Name="ScrapDoc" Relationship="ToolManageModel.FK_ScrapDoc_WorkCell" FromRole="WorkCell" ToRole="ScrapDoc" />
           <NavigationProperty Name="ScrapDoc1" Relationship="ToolManageModel.FK_WorkCell_ScrapDoc" FromRole="WorkCell" ToRole="ScrapDoc" />
-          <NavigationProperty Name="ToolDef" Relationship="ToolManageModel.FK_ToolDef_WorkCell_On_workCellId" FromRole="WorkCell" ToRole="ToolDef" />
         </EntityType>
         <Association Name="FK_Account_Authority">
           <End Type="ToolManageModel.Authority" Role="Authority" Multiplicity="1" />
@@ -1455,18 +1463,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ScrapApplication_ScrapDoc">
-          <End Type="ToolManageModel.ScrapDoc" Role="ScrapDoc" Multiplicity="0..1" />
-          <End Type="ToolManageModel.ScrapApplication" Role="ScrapApplication" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ScrapDoc">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ScrapApplication">
-              <PropertyRef Name="ScrapDocId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ScrapApplication_ToolEntity">
           <End Type="ToolManageModel.ToolEntity" Role="ToolEntity" Multiplicity="1" />
           <End Type="ToolManageModel.ScrapApplication" Role="ScrapApplication" Multiplicity="*" />
@@ -1488,6 +1484,58 @@
             </Principal>
             <Dependent Role="ScrapApplication">
               <PropertyRef Name="WorkCellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolDef_WorkCell_On_workCellId">
+          <End Type="ToolManageModel.WorkCell" Role="WorkCell" Multiplicity="1" />
+          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkCell">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ToolDef">
+              <PropertyRef Name="WorkCellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolEntity_ToolDef_On_toolDefId">
+          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="1" />
+          <End Type="ToolManageModel.ToolEntity" Role="ToolEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToolDef">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ToolEntity">
+              <PropertyRef Name="ToolDefId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ScrapDoc">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Remark" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="WorkcellId" Type="Int32" Nullable="false" />
+          <Property Name="ApplicationId" Type="Int32" />
+          <NavigationProperty Name="ScrapApplication" Relationship="ToolManageModel.FK_ScrapApplication_ScrapDoc" FromRole="ScrapDoc" ToRole="ScrapApplication" />
+          <NavigationProperty Name="WorkCell" Relationship="ToolManageModel.FK_ScrapDoc_WorkCell" FromRole="ScrapDoc" ToRole="WorkCell" />
+          <NavigationProperty Name="WorkCell1" Relationship="ToolManageModel.FK_WorkCell_ScrapDoc" FromRole="ScrapDoc" ToRole="WorkCell" />
+          <NavigationProperty Name="Account" Relationship="ToolManageModel.FK_ScrapDoc_Account" FromRole="ScrapDoc" ToRole="Account" />
+        </EntityType>
+        <Association Name="FK_ScrapApplication_ScrapDoc">
+          <End Type="ToolManageModel.ScrapDoc" Role="ScrapDoc" Multiplicity="0..1" />
+          <End Type="ToolManageModel.ScrapApplication" Role="ScrapApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScrapDoc">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScrapApplication">
+              <PropertyRef Name="ScrapDocId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1515,27 +1563,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ToolDef_WorkCell_On_workCellId">
-          <End Type="ToolManageModel.WorkCell" Role="WorkCell" Multiplicity="1" />
-          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="*" />
+        <Association Name="FK_ScrapDoc_Account">
+          <End Type="ToolManageModel.Account" Role="Account" Multiplicity="0..1" />
+          <End Type="ToolManageModel.ScrapDoc" Role="ScrapDoc" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="WorkCell">
+            <Principal Role="Account">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ToolDef">
-              <PropertyRef Name="WorkCellId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ToolEntity_ToolDef_On_toolDefId">
-          <End Type="ToolManageModel.ToolDef" Role="ToolDef" Multiplicity="1" />
-          <End Type="ToolManageModel.ToolEntity" Role="ToolEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ToolDef">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ToolEntity">
-              <PropertyRef Name="ToolDefId" />
+            <Dependent Role="ScrapDoc">
+              <PropertyRef Name="ApplicationId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1683,18 +1719,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ScrapDoc">
-            <EntityTypeMapping TypeName="ToolManageModel.ScrapDoc">
-              <MappingFragment StoreEntitySet="ScrapDoc">
-                <ScalarProperty Name="WorkcellId" ColumnName="WorkcellId" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ToolDef">
             <EntityTypeMapping TypeName="ToolManageModel.ToolDef">
               <MappingFragment StoreEntitySet="ToolDef">
@@ -1742,6 +1766,19 @@
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
                 <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScrapDoc">
+            <EntityTypeMapping TypeName="ToolManageModel.ScrapDoc">
+              <MappingFragment StoreEntitySet="ScrapDoc">
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="WorkcellId" ColumnName="WorkcellId" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

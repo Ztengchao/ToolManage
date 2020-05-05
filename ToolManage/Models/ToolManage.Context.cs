@@ -36,9 +36,9 @@ namespace ToolManage.Models
         public virtual DbSet<MaintenanceDetail> MaintenanceDetail { get; set; }
         public virtual DbSet<RepairApplication> RepairApplication { get; set; }
         public virtual DbSet<ScrapApplication> ScrapApplication { get; set; }
-        public virtual DbSet<ScrapDoc> ScrapDoc { get; set; }
         public virtual DbSet<ToolDef> ToolDef { get; set; }
         public virtual DbSet<ToolEntity> ToolEntity { get; set; }
         public virtual DbSet<WorkCell> WorkCell { get; set; }
+        public virtual DbSet<ScrapDoc> ScrapDoc { get; set; }
     }
 }

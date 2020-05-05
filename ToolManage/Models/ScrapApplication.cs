@@ -31,8 +31,8 @@ namespace ToolManage.Models
         public virtual Account Account { get; set; }
         public virtual Account Account1 { get; set; }
         public virtual Account Account2 { get; set; }
-        public virtual ScrapDoc ScrapDoc { get; set; }
         public virtual ToolEntity ToolEntity { get; set; }
         public virtual WorkCell WorkCell { get; set; }
+        public virtual ScrapDoc ScrapDoc { get; set; }
     }
 }

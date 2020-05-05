@@ -75,6 +75,8 @@ namespace ToolManage.Helper
                     return "检修管理";
                 case AuthorityType.ScrapDocManage:
                     return "报废单管理";
+                case AuthorityType.ScrapApproval:
+                    return "报废单审核";
                 default:
                     return "";
             }
@@ -106,6 +108,8 @@ namespace ToolManage.Helper
                     return new RedirectResult("Maintance/Type");
                 case AuthorityType.ScrapDocManage:
                     return new RedirectResult("Scrap/Index");
+                case AuthorityType.ScrapApproval:
+                    return new RedirectResult("Scrap/Approval");
                 default:
                     return new EmptyResult();
             }
@@ -114,7 +118,7 @@ namespace ToolManage.Helper
         /// <summary>
         /// 所有权限类型
         /// </summary>
-        public static int AuthorityCount => 11;
+        public static int AuthorityCount => 12;
 
         public static List<AuthorityTypeString> AllAuthorityType()
         {
@@ -196,5 +200,9 @@ namespace ToolManage.Helper
         /// 报废单管理
         /// </summary>
         ScrapDocManage,
+        /// <summary>
+        /// 报废单审核
+        /// </summary>
+        ScrapApproval,
     }
 }
