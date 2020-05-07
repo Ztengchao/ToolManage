@@ -32,6 +32,7 @@ namespace ToolManage.Controllers
                     Entity = i.ToolEntity,
                     Def = i.ToolEntity.ToolDef,
                 }).ToList();
+            ViewBag.Id = id;
             return View();
         }
 
@@ -148,7 +149,23 @@ namespace ToolManage.Controllers
             db.SaveChanges();
             return RedirectToAction("Approval");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RequestApproval(int docId)
+        {
+            var doc = db.ScrapDoc.Find(docId);
+            if (doc == null)
+            {
+                return HttpNotFound();
+            }
+            doc.State = "1";
+            db.Entry(doc).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
+
     public class ScrapDetail
     {
         public ScrapApplication Application { get; set; }
