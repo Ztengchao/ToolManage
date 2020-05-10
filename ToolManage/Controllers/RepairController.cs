@@ -31,9 +31,30 @@ namespace ToolManage.Controllers
             return View();
         }
 
+        public JsonResult Export()
+        {
+            var data = db.RepairApplication //维修完成和通过审核和报废的维修申请
+                .Where(i => i.WorkCellId == Account.WorkCellId && i.State != "0" & i.State != "2")
+                .Select(i => new
+                {
+                    code = i.ToolEntity.Code,
+                    location = i.ToolEntity.Location,
+                    createDate = i.Date.ToString(),
+                    remark = i.Describe
+                });
+
+            throw new Exception();
+
+            return new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = data
+            };
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ConfirmRepair(int Id,bool state)
+        public ActionResult ConfirmRepair(int Id, bool state)
         {
             var repairApplication = db.RepairApplication.Find(Id);
             if (repairApplication == null)
