@@ -28,6 +28,7 @@
             </tr>
         }
     </table>
+    <button class="btn btn-primary" onclick="handleRepairExport()">导出数据</button>
     <nav>
         <form style="display:none;" id="search">
             <input id="NowPage" name="NowPage" value="@ViewBag.NowPage" />
@@ -132,6 +133,7 @@
     </div>
 </div>
 
+<script src="~/Scripts/exportToExcel.js"></script>
 <script>
     $(() => {
         $('#repairList').attr('class', 'active')
