@@ -28,8 +28,7 @@ function download(str, downloadType) {
 function handleRepairExport() {
     try {
         $.ajax({
-            // http://yapi.hdutu.xyz/mock/44/tsm/repairList
-            url: '/repairList',
+            url: '/Repair/Export',
             dataType: 'json',
             type: 'GET',
             success: function (res) {

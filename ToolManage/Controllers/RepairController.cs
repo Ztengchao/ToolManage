@@ -43,8 +43,6 @@ namespace ToolManage.Controllers
                     remark = i.Describe
                 });
 
-            throw new Exception();
-
             return new JsonResult
             {
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
