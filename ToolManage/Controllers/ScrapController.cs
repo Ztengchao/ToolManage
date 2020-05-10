@@ -52,12 +52,12 @@ namespace ToolManage.Controllers
                 .Where(i => i.State == "0")
                 .Select(i => new
                 {
-                    Code = i.ToolEntity.Code,
-                    Name = i.ToolEntity.ToolDef.Name,
+                    i.ToolEntity.Code,
+                    i.ToolEntity.ToolDef.Name,
                     Family = ToolController.GetInner(i.ToolEntity.ToolDef.FamilyId),
                     Date = i.Date.ToString(),
                     ApplicationName = i.Account.Name.Trim(),
-                    Reason = i.Reason,
+                    i.Reason,
                 });
             return new JsonResult
             {

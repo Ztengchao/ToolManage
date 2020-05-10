@@ -151,6 +151,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\AuthorityHelper.cs" />
+    <Compile Include="Helper\DetectHelper.cs" />
     <Compile Include="Models\Account.cs">
       <DependentUpon>ToolManage.tt</DependentUpon>
     </Compile>

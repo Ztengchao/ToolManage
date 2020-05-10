@@ -53,10 +53,10 @@ function handleRepairExport() {
 }
 
 // 导出夹具定义
-function handleDefineExport() {
+function handleDefineExport(familyNo, ModelNo, PartNo, Code, UsedFor) {
     try {
         $.ajax({
-            url: '/toolClassList',
+            url: '/Tool/Export2?FamilyNo=' + familyNo + '&ModelNo=' + ModelNo + 'PartNo=' + PartNo + '&Code=' + Code + '&UsedFor=' + UsedFor,
             dataType: 'json',
             type: 'GET',
             success: function (res) {

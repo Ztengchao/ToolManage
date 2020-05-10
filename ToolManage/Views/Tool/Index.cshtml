@@ -116,7 +116,8 @@
             </tr>
         }
     </table>
-    <button class="btn btn-primary" onclick="Export()">导出数据</button>
+    <button class="btn btn-primary" onclick="Export('1')">导出工夹具实体</button>
+    <button class="btn btn-primary" onclick="Export('2')">导出工夹具定义</button>
     <nav>
         <ul class="pagination">
             @if (ViewBag.NowPage == 0)
@@ -186,12 +187,21 @@
 <script src="~/Scripts/exportToExcel.js"></script>
 <script>
     $(() => {
-        Export = () => {
-            handleToolExport($('#familyNoSearch').val(),
-                $('#modelNoSearch').val(),
-                $('#partNoSearch').val(),
-                $('#codeSearch').val(),
-                $('#UseForSearch').val())
+        Export = type => {
+            if (type == "1") {
+                handleToolExport($('#familyNoSearch').val(),
+                    $('#modelNoSearch').val(),
+                    $('#partNoSearch').val(),
+                    $('#codeSearch').val(),
+                    $('#UseForSearch').val())
+            }
+            else {
+                handleToolExport($('#familyNoSearch').val(),
+                    $('#modelNoSearch').val(),
+                    $('#partNoSearch').val(),
+                    $('#codeSearch').val(),
+                    $('#UseForSearch').val())
+            }
         }
     })
 </script>

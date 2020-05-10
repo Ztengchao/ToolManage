@@ -25,10 +25,70 @@ namespace ToolManage.Controllers
             return new FileContentResult(img, "image/jpeg");
         }
 
+        /// <summary>
+        /// 导出工夹具实体
+        /// </summary>
+        /// <param name="FamilyNo"></param>
+        /// <param name="ModelNo"></param>
+        /// <param name="PartNo"></param>
+        /// <param name="Code"></param>
+        /// <param name="UsedFor"></param>
+        /// <returns></returns>
         public JsonResult Export(string FamilyNo, string ModelNo, string PartNo, string Code, string UsedFor)
         {
 
             var data = db.ToolEntity.Where(i => i.State == "0" && i.ToolDef.WorkCellId == Account.WorkCellId);
+            #region 搜索
+            if (!string.IsNullOrWhiteSpace(FamilyNo))
+            {
+                data = data.Where(i => db.Inner.FirstOrDefault(t => t.Detail.Contains(FamilyNo) && t.Type == "2" && t.Id == i.ToolDef.FamilyId) != null);
+            }
+            if (!string.IsNullOrWhiteSpace(UsedFor))
+            {
+                data = data.Where(i => db.Inner.FirstOrDefault(t => t.Detail.Contains(UsedFor) && t.Type == "1" && i.ToolDef.UsedForId == t.Id) != null);
+            }
+            if (!string.IsNullOrWhiteSpace(PartNo))
+            {
+                data = data.Where(i => i.ToolDef.PartNo.Contains(PartNo));
+            }
+            if (!string.IsNullOrWhiteSpace(ModelNo))
+            {
+                data = data.Where(i => i.ToolDef.Model.Contains(ModelNo));
+            }
+            if (!string.IsNullOrWhiteSpace(Code))
+            {
+                data = data.Where(i => i.Code.Contains(Code));
+            }
+            #endregion
+
+            return new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = data.Select(i => new
+                {
+                    code = i.Code.Split('-')[0],
+                    seqId = i.Code.Split('-')[1],
+                    billNo = i.BillNo,
+                    regDate = i.RegDate.ToString(),
+                    usedCount = i.UsedCount,
+                    location = i.Location,
+                })
+            };
+        }
+
+        /// <summary>
+        /// 导出工夹具定义
+        /// </summary>
+        /// <param name="FamilyNo"></param>
+        /// <param name="ModelNo"></param>
+        /// <param name="PartNo"></param>
+        /// <param name="Code"></param>
+        /// <param name="UsedFor"></param>
+        /// <returns></returns>
+        public JsonResult Export2(string FamilyNo, string ModelNo, string PartNo, string Code, string UsedFor)
+        {
+
+            var data = db.ToolDef.Where(i => i.State == "0" && i.WorkCellId == Account.WorkCellId);
             #region 搜索
             if (!string.IsNullOrWhiteSpace(FamilyNo))
             {
@@ -57,13 +117,20 @@ namespace ToolManage.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
                 Data = data.Select(i => new
                 {
-                    code = i.Code.Split('-')[0],
-                    seqId = i.Code.Split('-')[1],
-                    billNo = i.BillNo,
-                    regDate = i.RegDate.ToString(),
-                    usedCount = i.UsedCount,
-                    location = i.Location,
-                })
+                    id = i.Id,
+                    workcell = i.WorkCell.Name,
+                    FamilyNo = GetInner(i.FamilyId),
+                    code = i.Code,
+                    name = i.Name,
+                    ModelNo = i.Model,
+                    i.PartNo,
+                    userFor = GetInner(i.UsedForId),
+                    i.UPL,
+                    OwnerId = i.Account1.JobNumber, //Account1为OwnerId对应的用户
+                    OwnerName = i.Account1.Name,
+                    i.PMPeriod,
+                    createTime = i.RecordDate.ToString(),
+                }),
             };
         }
 
