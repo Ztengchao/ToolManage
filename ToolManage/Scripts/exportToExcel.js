@@ -56,7 +56,7 @@ function handleRepairExport() {
 function handleDefineExport(familyNo, ModelNo, PartNo, Code, UsedFor) {
     try {
         $.ajax({
-            url: '/Tool/Export2?FamilyNo=' + familyNo + '&ModelNo=' + ModelNo + 'PartNo=' + PartNo + '&Code=' + Code + '&UsedFor=' + UsedFor,
+            url: '/Tool/Export2?FamilyNo=' + familyNo + '&ModelNo=' + ModelNo + '&PartNo=' + PartNo + '&Code=' + Code + '&UsedFor=' + UsedFor,
             dataType: 'json',
             type: 'GET',
             success: function (res) {
@@ -84,7 +84,7 @@ function handleDefineExport(familyNo, ModelNo, PartNo, Code, UsedFor) {
 function handleToolExport(familyNo, ModelNo, PartNo, Code, UsedFor) {
     try {
         $.ajax({
-            url: '/Tool/Export?FamilyNo=' + familyNo + '&ModelNo=' + ModelNo + 'PartNo=' + PartNo + '&Code=' + Code + '&UsedFor=' + UsedFor,
+            url: '/Tool/Export?FamilyNo=' + familyNo + '&ModelNo=' + ModelNo + '&PartNo=' + PartNo + '&Code=' + Code + '&UsedFor=' + UsedFor,
             dataType: 'json',
             type: 'GET',
             success: function (res) {

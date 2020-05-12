@@ -34,7 +34,7 @@ namespace ToolManage.Controllers
         public JsonResult Export()
         {
             var data = db.RepairApplication //维修完成和通过审核和报废的维修申请
-                .Where(i => i.WorkCellId == Account.WorkCellId && i.State != "0" & i.State != "2")
+                .Where(i => i.WorkCellId == Account.WorkCellId && i.State == "1")
                 .Select(i => new
                 {
                     code = i.ToolEntity.Code,

@@ -206,10 +206,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/28/2018 13:04:24</publishTime>
     </File>
     <File Include="bin/ToolManage.dll">
-      <publishTime>04/29/2020 19:33:55</publishTime>
+      <publishTime>05/11/2020 00:42:13</publishTime>
     </File>
     <File Include="bin/ToolManage.pdb">
-      <publishTime>04/29/2020 19:33:55</publishTime>
+      <publishTime>05/11/2020 00:42:13</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>01/23/2014 13:57:34</publishTime>
@@ -283,6 +283,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Content/repairList.css">
       <publishTime>04/23/2020 00:03:25</publishTime>
     </File>
+    <File Include="Content/scrapApproval.css">
+      <publishTime>05/05/2020 22:39:01</publishTime>
+    </File>
     <File Include="Content/scrapDocDetail.css">
       <publishTime>04/23/2020 14:55:07</publishTime>
     </File>
@@ -335,13 +338,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/12/2020 11:31:56</publishTime>
     </File>
     <File Include="Models/ToolManage.edmx.diagram">
-      <publishTime>04/21/2020 23:04:24</publishTime>
+      <publishTime>05/05/2020 23:11:25</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>01/12/2020 11:32:00</publishTime>
     </File>
     <File Include="Scripts/bootstrap.min.js">
       <publishTime>01/12/2020 11:32:00</publishTime>
+    </File>
+    <File Include="Scripts/exportToExcel.js">
+      <publishTime>05/11/2020 00:32:14</publishTime>
     </File>
     <File Include="Scripts/jquery-3.4.1.js">
       <publishTime>01/12/2020 11:32:00</publishTime>
@@ -395,10 +401,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/15/2020 18:24:02</publishTime>
     </File>
     <File Include="Views/Repair/Index.cshtml">
-      <publishTime>04/23/2020 15:11:21</publishTime>
+      <publishTime>05/10/2020 23:18:32</publishTime>
+    </File>
+    <File Include="Views/Scrap/approval.cshtml">
+      <publishTime>05/05/2020 23:58:16</publishTime>
     </File>
     <File Include="Views/Scrap/detail.cshtml">
-      <publishTime>04/23/2020 15:44:39</publishTime>
+      <publishTime>05/07/2020 13:11:56</publishTime>
     </File>
     <File Include="Views/Scrap/Index.cshtml">
       <publishTime>04/23/2020 15:29:18</publishTime>
@@ -407,7 +416,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/12/2020 11:31:56</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/23/2020 11:06:42</publishTime>
+      <publishTime>05/05/2020 23:50:50</publishTime>
     </File>
     <File Include="Views/Tool/Borrow.cshtml">
       <publishTime>04/21/2020 22:25:41</publishTime>
@@ -425,7 +434,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/21/2020 22:58:39</publishTime>
     </File>
     <File Include="Views/Tool/Index.cshtml">
-      <publishTime>04/20/2020 23:42:34</publishTime>
+      <publishTime>05/11/2020 00:31:25</publishTime>
     </File>
     <File Include="Views/Tool/Repair.cshtml">
       <publishTime>04/21/2020 22:13:35</publishTime>
