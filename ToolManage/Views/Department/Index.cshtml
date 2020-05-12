@@ -9,6 +9,8 @@
             @using (Html.BeginForm("Change", "Department", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.ScrapDocId)
+                @Html.HiddenFor(model => model.State)
                 @Html.HiddenFor(model => model.Id)
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -26,8 +28,12 @@
                         @Html.TextBoxFor(model => model.ContactName, new { @class = "form-control", placeholder = "请输入经理名称", type = "text" })
                     </div>
                     <div class="form-group">
-                        <label for="Name">经理联系方式</label>
-                        @Html.TextBoxFor(model => model.ContactPhone, new { @class = "form-control", placeholder = "请输入经理联系方式", type = "text" })
+                        <label for="Name">经理联系邮箱</label>
+                        @Html.TextBoxFor(model => model.ContactEmail, new { @class = "form-control", placeholder = "请输入经理联系邮箱", type = "text" })
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">经理联系电话</label>
+                        @Html.TextBoxFor(model => model.ContactPhone, new { @class = "form-control", placeholder = "请输入经理联系电话", type = "text" })
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -48,6 +54,7 @@
         <tr>
             <th>部门名称</th>
             <th>经理名称</th>
+            <th>联系邮箱</th>
             <th>联系方式</th>
             <th>变更日志</th>
             <th>操作</th>
@@ -57,6 +64,7 @@
             <tr>
                 <td>@item.Name</td>
                 <td>@item.ContactName</td>
+                <td>@item.ContactEmail</td>
                 <td>@item.ContactPhone</td>
                 <td><a href="#">点击查看</a></td>
                 <td>

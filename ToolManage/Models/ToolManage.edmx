@@ -192,6 +192,7 @@
           <Property Name="ContactPhone" Type="char" MaxLength="11" Nullable="false" />
           <Property Name="State" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="ScrapDocId" Type="int" />
+          <Property Name="ContactEmail" Type="varchar" MaxLength="30" />
         </EntityType>
         <Association Name="FK_Account_Authority">
           <End Role="Authority" Type="Self.Authority" Multiplicity="1" />
@@ -1150,6 +1151,7 @@
           <NavigationProperty Name="ToolDef" Relationship="ToolManageModel.FK_ToolDef_WorkCell_On_workCellId" FromRole="WorkCell" ToRole="ToolDef" />
           <NavigationProperty Name="ScrapDoc" Relationship="ToolManageModel.FK_ScrapDoc_WorkCell" FromRole="WorkCell" ToRole="ScrapDoc" />
           <NavigationProperty Name="ScrapDoc1" Relationship="ToolManageModel.FK_WorkCell_ScrapDoc" FromRole="WorkCell" ToRole="ScrapDoc" />
+          <Property Name="ContactEmail" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Account_Authority">
           <End Type="ToolManageModel.Authority" Role="Authority" Multiplicity="1" />
@@ -1762,6 +1764,7 @@
           <EntitySetMapping Name="WorkCell">
             <EntityTypeMapping TypeName="ToolManageModel.WorkCell">
               <MappingFragment StoreEntitySet="WorkCell">
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
                 <ScalarProperty Name="ScrapDocId" ColumnName="ScrapDocId" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />

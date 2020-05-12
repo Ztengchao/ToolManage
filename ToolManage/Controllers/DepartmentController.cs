@@ -30,6 +30,7 @@ namespace ToolManage.Controllers
                     workCell = db.WorkCell.Find(workcellId);
                     workCell.ContactPhone = workCell.ContactPhone.Trim();
                     workCell.ContactName = workCell.ContactName.Trim();
+                    workCell.ContactEmail = workCell.ContactEmail.Trim();
                     workCell.Name = workCell.Name.Trim();
                 }
                 if (workCell.Id == -1 || workCell.State != "0")
@@ -40,7 +41,8 @@ namespace ToolManage.Controllers
                         State = "0",
                         Name = "",
                         ContactName = "",
-                        ContactPhone = ""
+                        ContactPhone = "",
+                        ContactEmail = ""
                     };
                 }
                 showModal = true;

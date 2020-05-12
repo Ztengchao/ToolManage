@@ -32,6 +32,7 @@ namespace ToolManage.Models
         public string ContactPhone { get; set; }
         public string State { get; set; }
         public Nullable<int> ScrapDocId { get; set; }
+        public string ContactEmail { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Account> Account { get; set; }
