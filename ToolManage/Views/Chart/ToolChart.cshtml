@@ -1,0 +1,260 @@
+﻿
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background: #f0f2f5;
+    }
+
+    .navbar-header {
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        background: #f8f8f8;
+        margin-bottom: 20px;
+    }
+
+    .title2 {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .card {
+        position: relative;
+        flex: 1;
+        margin: 0 30px;
+        padding: 5px 20px;
+        height: 80px;
+        background: #ffffff;
+    }
+
+    .card-number {
+        margin-left: 5px;
+        font-size: 30px;
+    }
+
+    .card-unit {
+        position: absolute;
+        right: 10px;
+        top: 20px;
+        font-size: 24px;
+    }
+
+    .card-chart {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 80px;
+        width: 80px;
+    }
+
+    .card-desc {
+        margin-top: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #7f807d;
+    }
+
+    .card-progress {
+        position: relative;
+        margin-top: 3px;
+        height: 5px;
+        background: #e1e1e1;
+    }
+
+    .card-progress-bar {
+        position: absolute;
+        height: 5px;
+        background: #00b19d;
+    }
+
+    .chart-wrapper {
+        margin: 20px auto;
+        height: 300px;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .chart-item {
+        flex: 1;
+        margin: 0 30px;
+        background: #ffffff;
+    }
+</style>
+<div class="title2">
+    <div class="card">
+        <p class="card-desc">总夹具</p>
+        <p class="card-number">33</p>
+        <span class="card-unit">件</span>
+        <div class="card-progress">
+            <div class="card-progress-bar" style="width: 100%;"></div>
+        </div>
+    </div>
+    <div class="card">
+        <p class="card-desc">在库数</p>
+        <p class="card-number">21</p>
+        <span class="card-unit">件</span>
+        <div class="card-progress">
+            <div class="card-progress-bar" style="width: 64%;"></div>
+        </div>
+    </div>
+    <div class="card">
+        <p class="card-desc">借出数</p>
+        <p class="card-number">8</p>
+        <span class="card-unit">件</span>
+        <div class="card-progress">
+            <div class="card-progress-bar" style="width: 24%; background: #ffaa00;"></div>
+        </div>
+    </div>
+    <div class="card">
+        <p class="card-desc">维修数</p>
+        <span class="card-unit">件</span>
+        <p class="card-number">4</p>
+        <div class="card-progress">
+            <div class="card-progress-bar" style="width: 13%; background: #ef5350;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="title2">
+    <div class="card">
+        <p class="card-desc">添加数（本周）/总添加数</p>
+        <span class="card-unit">件</span>
+        <p class="card-number">16/33</p>
+        <div class="card-progress">
+            <div class="card-progress-bar" style="width: 48%; background: #3ddcf7;"></div>
+        </div>
+    </div>
+    <div class="card">
+        <p class="card-desc">维修数（本周）/总维修数</p>
+        <span class="card-unit">件</span>
+        <p class="card-number">8/19</p>
+        <div class="card-progress">
+            <div class="card-progress-bar" style="width: 42%; background: #ef5350;"></div>
+        </div>
+    </div>
+    <div class="card percent">
+        <p class="card-desc">报废数（本周）/总报废数</p>
+        <span class="card-unit">件</span>
+        <p class="card-number">3/7</p>
+        <div class="card-progress">
+            <div class="card-progress-bar" style="width: 43%; background: #2c353c;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="chart-wrapper">
+    <div id="tool-chart-total" class="chart-item"></div>
+</div>
+
+<div class="chart-wrapper">
+    <div id="borrow-chart-day" class="chart-item"></div>
+</div>
+<div class="chart-wrapper">
+    <div id="repairer-chart-day" class="chart-item"></div>
+    <div id="repairer-chart-month" class="chart-item"></div>
+</div>
+
+<script src="~/Scripts/echarts.min.js"></script>
+<script type="text/javascript">
+    $('#ToolChart').attr('class', 'active')
+    var today = new Date().getDate();
+
+    function main() {
+        var toolTotalChart = echarts.init(document.getElementById('tool-chart-total'));
+        toolTotalChartOption = {
+            title: { text: '总夹具数量/年', top: 10, left: 5 },
+            tooltip: { trigger: 'axis' },
+            xAxis: {
+                type: 'category',
+                // 12个月
+                data: Array(12).fill('').map((_, index) => index + 1 + '月')
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                data: [0, 0, 0, 12, 33],
+                type: 'line',
+                smooth: true,
+                itemStyle: { color: '#2f4554' }
+            }]
+        };
+        toolTotalChart.setOption(toolTotalChartOption);
+
+        var borrowChartDay = echarts.init(document.getElementById('borrow-chart-day'));
+        borrowChartDayOption = {
+            title: { text: '日借用数量/月', top: 10, left: 5 },
+            tooltip: { trigger: 'axis' },
+            xAxis: {
+                type: 'category',
+                // 31天
+                data: Array(31).fill('').map((_, index) => index + 1 + '日')
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                // 模拟31天借用数量
+                data: Array(today).fill('').map((_, index) => Math.round(Math.random() * 4)),
+                type: 'line'
+            }]
+        };
+        borrowChartDay.setOption(borrowChartDayOption);
+
+
+
+        var repairerChartDay = echarts.init(document.getElementById('repairer-chart-day'));
+        repairerChartDayOption = {
+            title: { text: '日维修数量/月', top: 10, left: 5 },
+            tooltip: { trigger: 'axis' },
+            xAxis: {
+                type: 'category',
+                // 每5天一记录
+                axisLabel: { interval: 5 },
+                // 31天
+                data: Array(31).fill('').map((_, index) => index + 1 + '日')
+            },
+            yAxis: {
+                type: 'value',
+                minInterval: 1,
+            },
+            series: [{
+                data: Array(today).fill('').map((_, index) => Math.round(Math.random() * 5)),
+                type: 'line',
+                itemStyle: { color: '#91c7ae' }
+            }]
+        };
+        repairerChartDay.setOption(repairerChartDayOption);
+
+        var repairerChartDay = echarts.init(document.getElementById('repairer-chart-month'));
+        repairerChartDayOption = {
+            title: { text: '日报废数量/月', top: 10, left: 5 },
+            tooltip: { trigger: 'axis' },
+            xAxis: {
+                type: 'category',
+                // 每5天一记录
+                axisLabel: { interval: 5 },
+                // 31天
+                data: Array(31).fill('').map((_, index) => index + 1 + '日')
+            },
+            yAxis: {
+                type: 'value',
+                minInterval: 1,
+            },
+            series: [{
+                data: Array(today).fill('').map((_, index) => Math.round(Math.random() * 2)),
+                type: 'line',
+                itemStyle: { color: '#d48265' }
+            }]
+        };
+        repairerChartDay.setOption(repairerChartDayOption);
+    }
+
+    window.addEventListener('load', main);
+</script>

@@ -292,6 +292,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Content/scrapDocManage.css">
       <publishTime>04/23/2020 14:54:19</publishTime>
     </File>
+    <File Include="Content/scrapFirstTrail.css">
+      <publishTime>04/23/2020 14:54:19</publishTime>
+    </File>
     <File Include="Content/Site.css">
       <publishTime>01/12/2020 11:31:56</publishTime>
     </File>
@@ -409,6 +412,12 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Views/Scrap/detail.cshtml">
       <publishTime>05/07/2020 13:11:56</publishTime>
     </File>
+    <File Include="Views/Scrap/FinalTrail.cshtml">
+      <publishTime>05/15/2020 16:07:04</publishTime>
+    </File>
+    <File Include="Views/Scrap/FirstTrail.cshtml">
+      <publishTime>05/15/2020 16:02:48</publishTime>
+    </File>
     <File Include="Views/Scrap/Index.cshtml">
       <publishTime>04/23/2020 15:29:18</publishTime>
     </File>
@@ -416,7 +425,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/12/2020 11:31:56</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>05/05/2020 23:50:50</publishTime>
+      <publishTime>05/15/2020 16:09:35</publishTime>
     </File>
     <File Include="Views/Tool/Borrow.cshtml">
       <publishTime>04/21/2020 22:25:41</publishTime>

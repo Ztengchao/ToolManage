@@ -62,7 +62,7 @@ namespace ToolManage.Helper
                 case AuthorityType.RepairManage:
                     return "报修管理";
                 case AuthorityType.ToolBorrow:
-                    return "夹具借用";
+                    return "夹具借用报修";
                 case AuthorityType.ToolInput:
                     return "夹具录入";
                 case AuthorityType.ToolList:
@@ -77,6 +77,10 @@ namespace ToolManage.Helper
                     return "报废初审";
                 case AuthorityType.ScrapFinalTrail:
                     return "报废终审";
+                case AuthorityType.RepairChart:
+                    return "维修图表";
+                case AuthorityType.ToolChart:
+                    return "工具图表";
                 default:
                     return "";
             }
@@ -110,6 +114,10 @@ namespace ToolManage.Helper
                     return new RedirectResult("Scrap/FirstTrail");
                 case AuthorityType.ScrapFinalTrail:
                     return new RedirectResult("Scrap/FinalTrail");
+                case AuthorityType.ToolChart:
+                    return new RedirectResult("Chart/ToolChart");
+                case AuthorityType.RepairChart:
+                    return new RedirectResult("Chart/RepairChart");
                 default:
                     return new EmptyResult();
             }
@@ -118,7 +126,7 @@ namespace ToolManage.Helper
         /// <summary>
         /// 所有权限类型
         /// </summary>
-        public static int AuthorityCount => 12;
+        public static int AuthorityCount => 14;
 
         public static List<AuthorityTypeString> AllAuthorityType()
         {
@@ -204,5 +212,13 @@ namespace ToolManage.Helper
         /// 报废终审
         /// </summary>
         ScrapFinalTrail,
+        /// <summary>
+        /// 维修图表
+        /// </summary>
+        RepairChart,
+        /// <summary>
+        /// 工具图表
+        /// </summary>
+        ToolChart,
     }
 }

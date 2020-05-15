@@ -1,0 +1,264 @@
+﻿<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background: #f0f2f5;
+    }
+
+    .navbar-header {
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        background: #f8f8f8;
+        margin-bottom: 20px;
+    }
+
+    .title2 {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .card {
+        position: relative;
+        flex: 1;
+        margin: 0 30px;
+        padding: 5px 20px;
+        height: 80px;
+        background: #ffffff;
+    }
+
+    .card-number {
+        margin-left: 5px;
+        font-size: 30px;
+    }
+
+    .card-unit {
+        position: absolute;
+        right: 10px;
+        top: 20px;
+        font-size: 24px;
+    }
+
+    .card-chart {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 80px;
+        width: 80px;
+    }
+
+    .card-desc {
+        margin-top: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #7f807d;
+    }
+
+    .card-progress {
+        position: relative;
+        margin-top: 3px;
+        height: 5px;
+        background: #e1e1e1;
+    }
+
+    .card-progress-bar {
+        position: absolute;
+        height: 5px;
+        background: #00b19d;
+    }
+
+    .chart-wrapper {
+        margin: 20px auto;
+        height: 300px;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .chart-item {
+        flex: 1;
+        margin: 0 30px;
+        background: #ffffff;
+    }
+</style>
+
+<div class="title2">
+    <div class="card">
+        <p class="card-desc">今日检修</p>
+        <p class="card-number">8</p>
+        <span class="card-unit">件</span>
+        <div class="card-progress">
+            <div class="card-progress-bar" style="width: 12%;"></div>
+        </div>
+    </div>
+    <div class="card">
+        <p class="card-desc">当月检修</p>
+        <p class="card-number">41</p>
+        <span class="card-unit">件</span>
+        <div class="card-progress">
+            <div class="card-progress-bar" style="width: 20%;"></div>
+        </div>
+    </div>
+    <div class="card">
+        <p class="card-desc">今日维修</p>
+        <p class="card-number">4</p>
+        <span class="card-unit">件</span>
+        <div class="card-progress">
+            <div class="card-progress-bar" style="width: 46%; background: #ffaa00;"></div>
+        </div>
+    </div>
+    <div class="card">
+        <p class="card-desc">当月维修</p>
+        <span class="card-unit">件</span>
+        <p class="card-number">21</p>
+        <div class="card-progress">
+            <div class="card-progress-bar" style="width: 80%; background: #ef5350;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="title2">
+    <div class="card">
+        <p class="card-desc">总检修件数</p>
+        <span class="card-unit">件</span>
+        <p class="card-number">57</p>
+        <div class="card-progress">
+            <div class="card-progress-bar"></div>
+        </div>
+    </div>
+    <div class="card">
+        <p class="card-desc">总维修件数</p>
+        <span class="card-unit">件</span>
+        <p class="card-number">19</p>
+        <div class="card-progress">
+            <div class="card-progress-bar"></div>
+        </div>
+    </div>
+    <div class="card percent">
+        <p class="card-desc">检修/维修占比</p>
+        <div id="percent-chart" class="card-chart"></div>
+        <p class="card-number">33%</p>
+        <div class="card-progress">
+            <div class="card-progress-bar"></div>
+        </div>
+    </div>
+</div>
+
+<div class="chart-wrapper">
+    <div id="check-chart-day" class="chart-item"></div>
+    <div id="check-chart-month" class="chart-item"></div>
+</div>
+<div class="chart-wrapper">
+    <div id="repairer-chart-day" class="chart-item"></div>
+    <div id="repairer-chart-month" class="chart-item"></div>
+</div>
+
+<script src="~/Scripts/echarts.min.js"></script>
+<script type="text/javascript">
+
+    $('#RepairChart').attr('class', 'active')
+    var date = new Date()
+    var todayWeek = date.getDay();
+    var monday = date.getDate() - todayWeek + 1;
+    var sunday = monday + 6;
+    console.log(todayWeek, monday, sunday)
+    function main() {
+        var checkChartDay = echarts.init(document.getElementById('check-chart-day'));
+        checkChartDayOption = {
+            title: { text: '检修数量/日', top: 10, left: 5 },
+            tooltip: { trigger: 'axis' },
+            xAxis: {
+                type: 'category',
+                data: new Array(7).fill('').map((_, index) => index + monday + '日')
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                data: [...new Array(todayWeek - 1).fill('').map((_, index) => Math.round(Math.random() * 3)), 8],
+                type: 'line'
+            }]
+        };
+        checkChartDay.setOption(checkChartDayOption);
+
+        var checkChartMonth = echarts.init(document.getElementById('check-chart-month'));
+        checkChartMonthOption = {
+            title: { text: '检修数量/月', top: 10, left: 5 },
+            tooltip: { trigger: 'axis' },
+            xAxis: {
+                type: 'category',
+                data: new Array(12).fill('').map((_, index) => index + 1 + '月')
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                data: [0, 0, 0, 20, 37],
+                type: 'line',
+                itemStyle: { color: '#2f4554' }
+            }]
+        };
+        checkChartMonth.setOption(checkChartMonthOption);
+
+        var repairerChartDay = echarts.init(document.getElementById('repairer-chart-day'));
+        repairerChartDayOption = {
+            title: { text: '维修数量/日', top: 10, left: 5 },
+            tooltip: { trigger: 'axis' },
+            xAxis: {
+                type: 'category',
+                data: new Array(7).fill('').map((_, index) => index + monday + '日')
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                data: [...new Array(todayWeek - 1).fill('').map((_, index) => Math.round(Math.random() * 3)), 4],
+                type: 'line',
+                itemStyle: { color: '#91c7ae' }
+            }]
+        };
+        repairerChartDay.setOption(repairerChartDayOption);
+
+        var repairerChartDay = echarts.init(document.getElementById('repairer-chart-month'));
+        repairerChartDayOption = {
+            title: { text: '维修数量/月', top: 10, left: 5 },
+            tooltip: { trigger: 'axis' },
+            xAxis: {
+                type: 'category',
+                data: new Array(12).fill('').map((_, index) => index + 1 + '月')
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                data: [0, 0, 0, 5, 14],
+                type: 'line',
+                itemStyle: { color: '#d48265' }
+            }]
+        };
+        repairerChartDay.setOption(repairerChartDayOption);
+
+        var percentChart = echarts.init(document.getElementById('percent-chart'));
+        percentChartOption = {
+            series: [{
+                type: 'pie',
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                data: [
+                    { value: 24, name: '总维修数' },
+                    { value: 82, name: '总检修数' },
+                ]
+            }]
+        };
+        percentChart.setOption(percentChartOption);
+
+    }
+
+    window.addEventListener('load', main);
+</script>

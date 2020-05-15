@@ -83,6 +83,14 @@
                 {
                     <li id="FinalTrail">@Html.ActionLink("报废终审", "FinalTrail", "Scrap")</li>
                 }
+                @if (authority.HasAuthority(AuthorityType.RepairChart))
+                {
+                    <li id="RepairChart">@Html.ActionLink("维修图表", "RepairChart", "Chart")</li>
+                }
+                @if (authority.HasAuthority(AuthorityType.ToolChart))
+                {
+                    <li id="ToolChart">@Html.ActionLink("工具图表", "ToolChart", "Chart")</li>
+                }
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false">@(Account.Name) <span class="caret"></span></a>
