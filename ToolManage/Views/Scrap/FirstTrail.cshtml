@@ -1,0 +1,65 @@
+﻿@using ToolManage.Controllers;
+<link href="~/Content/scrapFirstTrail.css" rel="stylesheet" />
+<div class="title">
+    <h4>报废初审</h4>
+</div>
+<div class="border table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>夹具代码</th>
+            <th>创建日期</th>
+            <th>申请人</th>
+            <th>备注</th>
+            <th>操作</th>
+        </tr>
+        @foreach (ScrapDetail item in ViewBag.Data)
+        {
+            <tr>
+                <td>@item.Entity.Code</td>
+                <td>@item.Application.Date</td>
+                <td>@item.Name</td>
+                <td>@item.Application.Reason</td>
+                <td>
+                    <a onclick="deal(@(item.Application.Id))" data-toggle="modal" data-target="#destroyModal">立即处理</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="modal fade" id="destroyModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">报废处理</h4>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("FirstTrail", "Scrap", FormMethod.Post, new { id = "firstTrailForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input style="display:none" id="Id" name="Id" />
+                    <input style="display:none" id="IsPass" name="IsPass" />
+                    <button onclick="submit2(true)" class="btn btn-primary" type="button">申请通过</button>
+                    <button onclick="submit2(false)" class="btn btn-danger" type="button">申请拒绝</button>
+                }
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(() => {
+        $('#FirstTrail').attr('class', 'active')
+        deal = id => {
+            $('#Id').val(id);
+        }
+
+        submit2 = ispass => {
+            $('#IsPass').val(ispass);
+            $('#firstTrailForm').submit();
+        }
+    })
+</script>

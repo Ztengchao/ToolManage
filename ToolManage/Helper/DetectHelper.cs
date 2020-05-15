@@ -30,10 +30,8 @@ namespace ToolManage.Helper
     public class DetectHelper
     {
         private readonly ToolManageDataContext db = new ToolManageDataContext();
-        private readonly double sendEmailChance = double.Parse(ConfigurationManager.AppSettings["SendEmailChance"]);
-        private readonly int sendEmailInterval = int.Parse(ConfigurationManager.AppSettings["SendEmailInterval"]);
         private readonly int col = 3;
-        private WorkCell workCell;
+        private readonly WorkCell workCell;
         private int row;
 
         private double[,] matrix, X, Y, XT, XTX, XTXInv, XTXInvXT, B;

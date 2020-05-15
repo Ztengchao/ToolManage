@@ -18,7 +18,7 @@ namespace ToolManage
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             var timer = new Timer(obj =>
                 new Detect().SendMail()
-                , null, 0, int.Parse(ConfigurationManager.AppSettings["SendEmailInterval"])* 86400000l);
+                , null, 0, int.Parse(ConfigurationManager.AppSettings["SendEmailInterval"])* 86400000L);
         }
     }
 }

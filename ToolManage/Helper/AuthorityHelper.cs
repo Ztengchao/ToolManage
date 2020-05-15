@@ -73,10 +73,10 @@ namespace ToolManage.Helper
                     return "维修列表";
                 case AuthorityType.MaintanceManage:
                     return "检修管理";
-                case AuthorityType.ScrapDocManage:
-                    return "报废单管理";
-                case AuthorityType.ScrapApproval:
-                    return "报废单审核";
+                case AuthorityType.ScrapFirstTrail:
+                    return "报废初审";
+                case AuthorityType.ScrapFinalTrail:
+                    return "报废终审";
                 default:
                     return "";
             }
@@ -106,10 +106,10 @@ namespace ToolManage.Helper
                     return new RedirectResult("Repair/Index");
                 case AuthorityType.MaintanceManage:
                     return new RedirectResult("Maintance/Type");
-                case AuthorityType.ScrapDocManage:
-                    return new RedirectResult("Scrap/Index");
-                case AuthorityType.ScrapApproval:
-                    return new RedirectResult("Scrap/Approval");
+                case AuthorityType.ScrapFirstTrail:
+                    return new RedirectResult("Scrap/FirstTrail");
+                case AuthorityType.ScrapFinalTrail:
+                    return new RedirectResult("Scrap/FinalTrail");
                 default:
                     return new EmptyResult();
             }
@@ -197,12 +197,12 @@ namespace ToolManage.Helper
         /// </summary>
         MaintanceManage,
         /// <summary>
-        /// 报废单管理
+        /// 报废初审
         /// </summary>
-        ScrapDocManage,
+        ScrapFirstTrail,
         /// <summary>
-        /// 报废单审核
+        /// 报废终审
         /// </summary>
-        ScrapApproval,
+        ScrapFinalTrail,
     }
 }
