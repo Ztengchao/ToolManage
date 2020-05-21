@@ -31,7 +31,7 @@
     <div class="root">
         <div class="side-bar">
             <div class="logo">
-                <span>TMS</span>
+                <img src="~/Content/logo.png" style="height:80%; " />
                 <span class="glyphicon glyphicon-th" id="openNav"></span>
             </div>
             <ul class="nav nav-pills nav-stacked" id="nav">
@@ -71,9 +71,9 @@
                 {
                     <li id="maintanceList">@Html.ActionLink(AuthorityType.MaintanceList.ToMyString(), "Index", "Maintance")</li>
                 }
-                @if (authority.HasAuthority(AuthorityType.RepairManage))
+                @if (authority.HasAuthority(AuthorityType.MaintanceManage))
                 {
-                    <li id="maintanceManage">@Html.ActionLink(AuthorityType.RepairManage.ToMyString(), "Type", "Maintance")</li>
+                    <li id="maintanceManage">@Html.ActionLink(AuthorityType.MaintanceManage.ToMyString(), "Type", "Maintance")</li>
                 }
                 @if (authority.HasAuthority(AuthorityType.ScrapFirstTrail))
                 {

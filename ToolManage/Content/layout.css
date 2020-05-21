@@ -1,45 +1,44 @@
 .root {
-	display: flex;
-	flex-direction: row;
-	/* width: 100vw; */
+ display: flex;
+  flex-direction: row;
+  /* width: 100vw; */
 }
 
 .side-bar {
-	/* flex: 0 0 260px; */
-	width: 17%;
-	padding-right: 10px;
-	border-right: 1px solid grey;
+ /* flex: 0 0 260px; */
+  width: 17%;
+  padding-right: 10px;
+  border-right: 1px solid grey;
 }
 
-	.side-bar .logo {
-		margin: 5px 0;
-		height: 40px;
-		text-align: center;
-		line-height: 40px;
-		font-size: 22px;
-	}
+.side-bar .logo {
+  margin: 5px 0;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 22px;
+}
 
-	.side-bar .dropdown {
-		display: none;
-	}
+.side-bar .dropdown {
+	display: none;
+}
 
 .content {
-	/* flex: 1; */
-	width: 83%;
-	min-height: 100vh;
-	padding: 0 10px;
-	background-color: #f0f2f5;
+  /* flex: 1; */
+  width: 83%;
+  min-height: 100vh;
+  padding: 0 10px;
+  background-color: #f0f2f5;
 }
 
 .header {
-	margin: 0 -10px 10px;
+  margin: 0 -10px 10px;
 }
-
-	.header .navbar-header {
-		display: flex;
-		justify-content: center;
-		width: 80%;
-	}
+.header .navbar-header {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+}
 
 .title {
 	background-color: #4777e9;
@@ -52,11 +51,11 @@
 	color: #f8fafc;
 }
 
-	.title h4 {
-		height: 100%;
-		line-height: 40px;
-		padding-left: 30px;
-	}
+.title h4 {
+	height: 100%;
+	line-height: 40px;
+	padding-left: 30px;
+}
 
 .border {
 	background-color: #fffeff;
@@ -68,9 +67,9 @@
 }
 
 a:hover {
-	text-decoration: none;
-	color: #0099FF;
-	cursor: pointer;
+    text-decoration: none;
+    color: #0099FF;
+    cursor: pointer;
 }
 
 .glyphicon {
@@ -83,51 +82,49 @@ a:hover {
 		display: flex;
 		flex-direction: column;
 	}
-
 	.side-bar, .content {
 		width: 100%;
 	}
-
 	.side-bar {
 		padding-right: 0;
 		background-color: #fffeff;
 	}
-
-		.side-bar .logo {
-			margin: 0;
-			height: 50px;
-			line-height: 50px;
-			background-color: #33373a;
-			color: #fffeff;
-			position: relative;
-		}
-
+	
+	.side-bar .logo {
+		margin: 0;
+		height: 50px;
+		line-height: 50px;
+		background-color: #33373a;
+		color: #fffeff;
+		position: relative;
+	}
+	
 	.glyphicon {
 		display: inline-block;
 		position: absolute;
 		right: 10px;
 		margin-top: 11px;
 	}
-
+	
 	.side-bar .nav {
 		display: flex;
 		flex-direction: column;
 		display: none;
 	}
-
+	
 	.side-bar .dropdown {
 		display: block;
 	}
-
+	
 	.header {
 		display: none;
 		width: 100%;
 	}
-
+	
 	.content {
 		width: 100%;
 	}
-
+	
 	.border, .title {
 		width: 100%;
 		margin: 10px 0;
